@@ -15,447 +15,479 @@ export const useContentStore = defineStore('content', {
   state: (): ContentState => ({
     // Hero Section
     hero: {
-      headline: 'Optimizing Workflows, One Task at a Time',
+      headline: 'One Dashboard Platform, Multiple Markets',
       subheadline:
-        'Streamline manufacturing and freelance operations with cost-effective, open-source tools.',
-      ctaPrimary: 'See How It Works',
-      ctaSecondary: 'Get Started Today',
+        'Transform any industry workflow with our unified dashboard technology. From clothing manufacturing to freelancer management - one platform, infinite possibilities.',
+      ctaPrimary: 'Explore Our Solutions',
+      ctaSecondary: 'See Live Dashboards',
     },
 
     // Company Introduction
     intro: {
-      title: 'Process Optimization Without the Premium Price Tag',
+      title: 'Multi-Market Process Optimization Without the Premium Price Tag',
       body:
-        'MyxoFlow transforms complex manufacturing and service workflows into clear, efficient pipelines. ' +
-        'We leverage proven, freely available tools and horizontal scaling—never costly cloud services—' +
-        'all maintained by our lean, two-developer team for fast response and direct collaboration.',
+        'MyxoFlow powers specialized dashboards across diverse industries using the same core technology. ' +
+        "Whether you're managing clothing supply chains, coordinating freelance networks, or optimizing manufacturing workflows, " +
+        'our unified platform adapts to your market while maintaining our lean, cost-effective approach with direct developer support.',
     },
 
-    // "What We Do" Section
+    // "What We Do" Section - Updated to reflect multi-market approach
     whatWeDo: {
-      title: 'How MyxoFlow Transforms Your Operations',
+      title: 'How MyxoFlow Adapts to Any Market',
       items: [
         {
-          key: 'manufacturing',
-          heading: 'Manufacturing Pipeline Optimization',
+          key: 'unified-platform',
+          heading: 'Unified Dashboard Technology',
           description:
-            'Break down production into discrete tasks—stitching, printing, labeling, cataloging, shipping—and ' +
-            'let our platform match you with 500+ verified task-makers. Bidding and optimization deliver the ' +
-            'best cost and time sequence for each job.',
+            'One powerful dashboard framework that adapts to any industry. The same core technology powers clothing manufacturing, ' +
+            'freelancer networks, food service optimization, and custom manufacturing processes.',
         },
         {
-          key: 'freelancer',
-          heading: 'Freelancer Network Management',
+          key: 'market-specialization',
+          heading: 'Market-Specific Solutions',
           description:
-            'Host regional competitions to fill specialized roles. Collect bids, then optimize for experience, ' +
-            'language proficiency, and cost to ensure top-quality service on every task.',
+            'Each market gets tailored business logic while leveraging our proven dashboard infrastructure. ' +
+            'From StichFlow (clothing SCM) to MyxoFill (freelancer management) - specialized functionality on a unified foundation.',
         },
         {
-          key: 'resourceAllocation',
-          heading: 'Smart Resource Allocation',
+          key: 'scalable-architecture',
+          heading: 'Cross-Market Scalability',
           description:
-            'Our optimization algorithms assign the right task to the right provider at the right time—' +
-            'maximizing throughput while minimizing cost through intelligent bidding and scaling.',
+            'Launch in one market, expand to others seamlessly. Our architecture allows rapid deployment of new market solutions ' +
+            'while maintaining consistency and shared optimizations across all verticals.',
         },
       ],
     },
 
-    // Products Overview
+    // Products Overview - Updated to show the multi-market dashboard approach
     products: {
-      title: 'Our Products at a Glance',
+      title: 'Our Market Solutions',
       list: [
         {
           key: 'dashboards',
-          name: 'Myxo-Dashboards',
+          name: 'MyxoFlow Dashboards',
           description:
-            'A mobile-first job management app for manufacturers. Track current, past, and future jobs with ' +
-            'real-time bidding and dynamic task optimization.',
+            'The core dashboard platform that powers all our market solutions. Unified technology stack with ' +
+            'customizable business logic for any industry workflow optimization.',
+        },
+        {
+          key: 'stichflow',
+          name: 'StichFlow (MyxoMake)',
+          description:
+            'Clothing supply chain management powered by MyxoFlow Dashboards. Connect workshops with retailers, ' +
+            'manage bulk orders, track production, and optimize apparel manufacturing workflows.',
         },
         {
           key: 'fill',
           name: 'MyxoFill',
           description:
-            'An integrated freelancer marketplace. Run regional bid contests, manage invoicing, and optimize ' +
-            'gig assignments seamlessly.',
+            'Freelancer marketplace and project management using our dashboard technology. Run regional competitions, ' +
+            'optimize gig assignments, and manage distributed teams efficiently.',
         },
         {
           key: 'date',
           name: 'MyxoDate',
           description:
-            'A premium dating platform. $100/month entry ensures serious, committed participants—no nonsense, ' +
-            'only real connections.',
+            'Premium relationship platform built on MyxoFlow infrastructure. $100/month membership ensures serious ' +
+            'participants while leveraging our proven user management and matching algorithms.',
         },
         {
           key: 'golgappa',
           name: 'Golgappa.inc',
           description:
-            'DC-powered mobile workstations engineered for food service. Compact, rugged, and ready for ' +
-            'autonomous delivery and off-grid operation.',
+            'Mobile food service optimization platform. DC-powered workstation management, route optimization, ' +
+            'and autonomous delivery preparation using our dashboard framework.',
         },
         {
           key: 'craft',
           name: 'MyxoCraft',
           description:
-            'An open-source SVG hub and design-to-manufacture platform. Download vectors, customize in-app, ' +
-            'and trigger our optimized supply chain—producing quality goods at minimal cost.',
+            'Design-to-manufacturing platform combining open-source SVG library with production dashboards. ' +
+            'Customize designs and trigger optimized supply chains through our unified interface.',
         },
       ],
     },
 
-    // Why Choose MyxoFlow
+    // Why Choose MyxoFlow - Updated to emphasize the platform approach
     why: {
-      title: 'Why Choose MyxoFlow',
+      title: 'Why Choose MyxoFlow Platform',
       points: [
         {
-          key: 'cost',
-          heading: 'Cost-Effective Solutions',
+          key: 'unified-tech',
+          heading: 'One Platform, Multiple Markets',
           description:
-            'No expensive cloud services or licenses—just smarter pipelines built on free tools.',
+            'Deploy proven dashboard technology across any industry. Our unified platform reduces development time and costs while ensuring consistency.',
         },
         {
-          key: 'scaling',
-          heading: 'Horizontal Scaling That Works',
+          key: 'rapid-deployment',
+          heading: 'Rapid Market Entry',
           description:
-            'Scale by refining data and adding compute nodes, not by inflating your infrastructure bill.',
+            'Launch new market solutions in weeks, not months. Our dashboard framework provides the foundation while custom business logic handles industry specifics.',
         },
         {
-          key: 'results',
-          heading: 'Real-World Results',
+          key: 'proven-results',
+          heading: 'Cross-Market Success',
           description:
-            "We've cut manufacturing costs from €30 to €3 per unit without sacrificing quality or reliability.",
+            'From 90% cost reduction in clothing manufacturing to efficient freelancer matching - our platform delivers results across diverse industries.',
         },
         {
-          key: 'partnership',
-          heading: 'Direct Partnership',
+          key: 'lean-approach',
+          heading: 'Direct Developer Partnership',
           description:
-            'Work directly with our two-person dev team—no account managers, no red tape, just rapid iteration.',
+            'Work directly with our two-person development team across all market solutions. No account managers, just rapid iteration and direct communication.',
         },
       ],
     },
 
     // Call to Action Footer
     ctaFooter: {
-      heading: 'Ready to Optimize Your Processes?',
-      primaryButton: 'Schedule a Free Consultation',
-      secondaryButton: 'Explore Our Products',
+      heading: 'Ready to Launch Your Market Solution?',
+      primaryButton: 'Schedule Platform Demo',
+      secondaryButton: 'Explore Market Solutions',
     },
 
-    // ABOUT PAGE
+    // ABOUT PAGE - Updated to reflect the platform approach
     about: {
       title: 'About MyxoFlow',
-      subtitle: 'Lean. Efficient. Results-Driven.',
+      subtitle: 'One Platform. Multiple Markets. Infinite Possibilities.',
       mission: {
         heading: 'Our Mission',
-        text: 'To democratize process optimization by making enterprise-level workflow efficiency accessible to businesses of all sizes—without the enterprise price tag.',
+        text: 'To democratize industry-specific workflow optimization by providing a unified dashboard platform that adapts to any market - from clothing manufacturing to freelancer management - without the enterprise price tag.',
       },
       team: {
         heading: 'Our Team',
-        text: 'MyxoFlow is powered by a dedicated two-developer team that maintains our entire technology stack. This lean structure allows us to respond rapidly to client needs, iterate quickly, and keep costs low while delivering maximum value.',
+        text: 'MyxoFlow is powered by a focused two-developer team that maintains our unified platform architecture across all market verticals. This lean structure enables rapid deployment of new market solutions while ensuring consistent quality and direct client communication.',
       },
       philosophy: {
         heading: 'Our Philosophy',
         points: [
-          'Use proven, free tools over expensive proprietary solutions',
-          'Scale horizontally through optimization, not costly cloud services',
-          'Maintain direct client relationships without corporate overhead',
-          'Focus on real-world results, not flashy features',
-          'Build sustainable, long-term partnerships',
+          'Build once, deploy everywhere - unified technology across markets',
+          'Market-specific business logic on proven dashboard foundation',
+          'Horizontal scaling through platform optimization, not infrastructure costs',
+          'Direct developer partnerships across all market solutions',
+          'Real-world results through adaptive, industry-focused implementations',
         ],
       },
       values: {
         heading: 'What Drives Us',
         items: [
           {
-            key: 'efficiency',
-            title: 'Efficiency First',
-            description: 'Every solution we build eliminates waste and maximizes output',
-          },
-          {
-            key: 'accessibility',
-            title: 'Accessible Innovation',
+            key: 'platform-first',
+            title: 'Platform-First Thinking',
             description:
-              'Advanced optimization should be available to all businesses, not just Fortune 500 companies',
+              'Every solution built on our unified dashboard technology ensures consistency and rapid market entry',
           },
           {
-            key: 'transparency',
-            title: 'Complete Transparency',
-            description: 'No hidden fees, no vendor lock-in, no corporate bureaucracy',
+            key: 'market-adaptation',
+            title: 'Market Adaptation',
+            description:
+              'The same core platform powers clothing SCM, freelancer networks, food service, and manufacturing processes',
           },
           {
-            key: 'sustainability',
-            title: 'Sustainable Growth',
-            description: 'Solutions that scale with your business without breaking your budget',
+            key: 'unified-experience',
+            title: 'Unified User Experience',
+            description:
+              'Consistent interface design and interaction patterns across all market solutions',
+          },
+          {
+            key: 'scalable-growth',
+            title: 'Scalable Growth',
+            description:
+              'Launch in one market, expand to others seamlessly using our proven dashboard framework',
           },
         ],
       },
     },
 
-    // DETAILED PRODUCTS
+    // DETAILED PRODUCTS - Updated to show the platform relationships
     productDetails: {
       dashboards: {
-        name: 'Myxo-Dashboards',
-        tagline: 'Manufacturing Job Management Made Simple',
+        name: 'MyxoFlow Dashboards',
+        tagline: 'The Foundation Platform for All Market Solutions',
         overview:
-          'A mobile-first application designed for manufacturers to manage production workflows. Track jobs, optimize task assignments, and coordinate with 500+ verified task-makers through intelligent bidding systems.',
+          'Our core dashboard technology that powers every market solution. A unified platform providing consistent user experience, data management, and workflow optimization across diverse industries.',
         features: [
-          'Real-time job tracking and status updates',
-          'Automated task breakdown and assignment',
-          'Bidding system for cost optimization',
-          'Mobile-first design for on-the-go management',
-          'Integration with existing manufacturing systems',
-          'Performance analytics and reporting',
+          'Unified user interface framework adaptable to any market',
+          'Real-time data synchronization and analytics across solutions',
+          'Customizable business logic engine for industry-specific workflows',
+          'Cross-platform compatibility (web, mobile, desktop)',
+          'Integrated user management and authentication system',
+          'Scalable architecture supporting multiple market deployments',
         ],
         useCases: [
-          'Custom apparel production (shirts, hoodies, accessories)',
-          'Small to medium batch manufacturing',
-          'Multi-step production processes',
-          'Quality control and fulfillment tracking',
+          'Clothing supply chain management (StichFlow)',
+          'Freelancer marketplace operations (MyxoFill)',
+          'Premium dating platform management (MyxoDate)',
+          'Food service optimization (Golgappa.inc)',
+          'Design-to-manufacturing workflows (MyxoCraft)',
         ],
-        pricing: 'Contact for custom pricing based on volume and features needed',
+        pricing: 'Platform licensing based on market deployment and customization needs',
+      },
+      stichflow: {
+        name: 'StichFlow (MyxoMake)',
+        tagline: 'Clothing Supply Chain Management on MyxoFlow Platform',
+        overview:
+          'Complete B2B apparel supply chain solution built on MyxoFlow Dashboards. Connect clothing workshops with retailers, manage bulk orders, and optimize manufacturing workflows through our unified platform.',
+        features: [
+          'Workshop and retailer onboarding with profile management',
+          'Bulk order processing and customization tracking',
+          'Real-time production monitoring and quality control',
+          'Payment processing and shipment tracking integration',
+          'Multi-language support (English, Dutch, Italian)',
+          'Sustainable manufacturing process optimization',
+        ],
+        useCases: [
+          'Private label clothing manufacturing coordination',
+          'Small to medium batch apparel production',
+          'Cut and sew operation management',
+          'Sustainable clothing supply chain optimization',
+          'OEM clothing manufacturing workflows',
+        ],
+        pricing: 'Subscription model based on order volume and workshop network size',
       },
       fill: {
         name: 'MyxoFill',
-        tagline: 'Smart Freelancer Management Platform',
+        tagline: 'Freelancer Network Management via Dashboard Platform',
         overview:
-          'Connect with skilled freelancers through regional competitions and optimized matching. Manage tasks from assignment to payment with built-in quality controls and performance tracking.',
+          'Advanced freelancer marketplace and project management system powered by MyxoFlow Dashboards. Optimize talent matching, manage distributed teams, and coordinate project delivery through regional competitions.',
         features: [
-          'Regional talent competitions for quality assurance',
-          'Experience and language proficiency optimization',
-          'Automated bid collection and analysis',
-          'Integrated invoicing and payment systems',
-          'Performance tracking and ratings',
-          'Multi-language support for global operations',
+          'Regional talent competitions and skill assessment',
+          'AI-powered freelancer matching and optimization',
+          'Integrated project management and milestone tracking',
+          'Multi-currency payment processing and invoicing',
+          'Performance analytics and freelancer rating systems',
+          'Cross-market talent pool sharing',
         ],
         useCases: [
-          'Content creation and copywriting',
-          'Design and creative services',
-          'Technical support and development',
-          'Virtual assistance and administrative tasks',
+          'Content creation and copywriting project management',
+          'Technical development team coordination',
+          'Design and creative service marketplace',
+          'Virtual assistance and administrative task management',
         ],
-        pricing: 'Commission-based model - you only pay when projects complete successfully',
+        pricing: 'Commission-based model with platform usage fees',
       },
       date: {
         name: 'MyxoDate',
-        tagline: 'Premium Dating for Serious Relationships',
+        tagline: 'Premium Relationship Platform on MyxoFlow Infrastructure',
         overview:
-          'A curated dating platform with a $100/month membership fee that ensures all participants are serious about finding meaningful connections. No games, no time-wasters, just real people looking for real relationships.',
+          'High-quality dating platform built using MyxoFlow Dashboard technology. Premium membership model ensures serious participants while leveraging our proven user management and matching optimization.',
         features: [
-          '$100/month membership ensures commitment',
-          'Verified profiles and income screening',
-          'Advanced compatibility matching',
-          'Quality-focused user experience',
-          'Direct messaging without artificial limitations',
-          'Event planning and meetup coordination',
+          '$100/month premium membership with income verification',
+          'Advanced compatibility matching using platform algorithms',
+          'Verified profile system with background checks',
+          'Event planning and meetup coordination tools',
+          'Cross-platform messaging and communication suite',
+          'Privacy-focused design with secure data handling',
         ],
         useCases: [
-          'Professionals seeking serious relationships',
-          'Quality-conscious individuals tired of casual dating apps',
-          'People who value their time and want efficient matching',
+          'Professional networking and relationship building',
+          'Executive and high-income bracket matching',
+          'Location-based premium dating experiences',
+          'Event-driven social connections',
         ],
-        pricing: '$100/month membership with no hidden fees',
+        pricing: '$100/month premium membership with no hidden fees',
       },
       golgappa: {
         name: 'Golgappa.inc',
-        tagline: 'Mobile DC-Powered Food Workstations',
+        tagline: 'Food Service Optimization Platform',
         overview:
-          'Compact, portable cooking stations designed for the future of food service. Operates entirely on DC power (36V/48V ebike batteries) and fits in a wheeled steel cart for maximum mobility and efficiency.',
+          'Mobile food service management system powered by MyxoFlow Dashboards. Optimize DC-powered workstations, manage mobile operations, and prepare for autonomous delivery systems.',
         features: [
-          'DC-powered operation (36V/48V compatible)',
-          'Compact design fits in standard steel cart',
-          'Compatible with DC appliances (kettles, air fryers, etc.)',
-          'Weather-resistant construction',
-          'Quick setup and breakdown',
-          'Designed for autonomous delivery era',
+          'DC power system optimization (36V/48V ebike batteries)',
+          'Mobile workstation configuration and monitoring',
+          'Route optimization and location analytics',
+          'Inventory management for mobile operations',
+          'Weather-resistant operation planning',
+          'Integration with autonomous delivery systems',
         ],
         useCases: [
-          'Mobile food vendors and street food',
-          'Pop-up restaurants and food trucks',
-          'Catering services and event food',
-          'Emergency food service and disaster relief',
+          'Food truck and mobile vendor operations',
+          'Pop-up restaurant and event catering',
+          'Street food vendor management',
+          'Disaster relief and emergency food service',
         ],
-        pricing: 'Custom quotes based on configuration and accessories',
+        pricing: 'Hardware + software bundle pricing with ongoing platform fees',
       },
       craft: {
         name: 'MyxoCraft',
-        tagline: 'Open-Source Design to Manufacturing Platform',
+        tagline: 'Design-to-Manufacturing Platform',
         overview:
-          'Revolutionary platform combining an open-source SVG hub with manufacturing-as-a-service. Download vectors, customize designs, and trigger our optimized supply chain to produce quality goods at minimal cost.',
+          'Open-source design hub combined with manufacturing management, powered by MyxoFlow Dashboards. Download vectors, customize designs, and trigger optimized production workflows through our unified interface.',
         features: [
-          'Open-source SVG vector library',
-          'Layered design editor (similar to GIMP/Photoshop)',
-          'Direct integration with manufacturing pipeline',
-          'Legal compliance and IP protection',
-          'Cost optimization through smart sourcing',
+          'Open-source SVG library with community contributions',
+          'Integrated design editor with layering capabilities',
+          'Direct manufacturing pipeline integration',
+          'Cost optimization through intelligent sourcing',
           'Quality control and fulfillment tracking',
+          'Legal compliance and IP protection systems',
         ],
         useCases: [
-          'Custom apparel and merchandise',
-          'Branded corporate materials',
-          'Prototype and small-batch production',
-          'Print-on-demand services',
+          'Custom merchandise and branded materials',
+          'Print-on-demand service coordination',
+          'Prototype development and small-batch production',
+          'Corporate branding and marketing material creation',
         ],
-        pricing:
-          'Per-item pricing based on complexity and quantity - significantly below traditional retail',
+        pricing: 'Per-item production costs with design platform access included',
       },
     },
 
-    // HOW IT WORKS / PROCESS
+    // HOW IT WORKS / PROCESS - Updated to show the unified platform approach
     howItWorks: {
-      title: 'How MyxoFlow Transforms Your Operations',
-      subtitle: 'From Chaos to Optimization in Simple Steps',
-      manufacturingProcess: {
-        heading: 'Manufacturing Pipeline Example',
-        description: "Here's how we transformed a typical shirt production order:",
+      title: 'How MyxoFlow Platform Transforms Any Market',
+      subtitle: 'From Core Technology to Market-Specific Solutions',
+      platformProcess: {
+        heading: 'Unified Platform Deployment',
+        description: 'How we adapt our core dashboard technology to any market:',
         steps: [
           {
             step: '01',
-            title: 'Job Breakdown',
+            title: 'Market Analysis & Customization',
             description:
-              'Receive order for 100 custom shirts. Break down into: design, cutting, stitching, printing, labeling, quality control, packaging, shipping.',
+              'Analyze target market workflows and customize our dashboard platform with industry-specific business logic and user interface adaptations.',
           },
           {
             step: '02',
-            title: 'Task Distribution',
+            title: 'Rapid Deployment & Integration',
             description:
-              'Push tasks to our network of 500+ verified manufacturers. Each specialist receives tasks matching their capabilities and capacity.',
+              'Deploy the customized solution using our proven infrastructure, integrating with existing market tools and establishing data connections.',
           },
           {
             step: '03',
-            title: 'Bidding & Optimization',
+            title: 'User Onboarding & Training',
             description:
-              'Collect bids from available task-makers. Our algorithm optimizes for cost, time, and quality to create the most efficient sequence.',
+              'Onboard market participants using our unified user management system, providing consistent training across all platform solutions.',
           },
           {
             step: '04',
-            title: 'Execution & Tracking',
+            title: 'Optimization & Scaling',
             description:
-              'Selected providers receive jobs with clear specifications. Real-time tracking ensures quality and timeline adherence.',
+              'Monitor performance across all market solutions, sharing optimizations and improvements between different industry implementations.',
           },
           {
             step: '05',
-            title: 'Quality & Delivery',
+            title: 'Cross-Market Innovation',
             description:
-              'Final quality checks, packaging, and delivery to client. Payment distributed to providers upon successful completion.',
+              'Leverage insights from one market to improve solutions in others, creating a network effect that benefits all platform users.',
           },
         ],
         results:
-          'Result: 90% cost reduction (€30 to €3 per shirt) while maintaining quality and reducing delivery time.',
+          'Result: Rapid market entry with proven technology, consistent user experience, and shared optimizations across all industry solutions.',
       },
-      freelancerProcess: {
-        heading: 'Freelancer Management Flow',
-        description: 'How we optimize service-based task assignments:',
+      stichflowProcess: {
+        heading: 'StichFlow: Clothing SCM Example',
+        description: 'How our dashboard platform powers clothing manufacturing:',
         steps: [
           {
             step: '01',
-            title: 'Regional Competition',
+            title: 'Workshop & Retailer Onboarding',
             description:
-              'Create regional contests to identify top talent. Assess experience, language skills, and specialization.',
+              'Easy registration and profile setup for clothing manufacturers and retailers using our unified user management system.',
           },
           {
             step: '02',
-            title: 'Task Matching',
+            title: 'Order Processing & Matching',
             description:
-              'When service tasks arise, we match requirements with qualified freelancers based on optimization criteria.',
+              'Bulk clothing orders processed through our dashboard with intelligent matching between retailers and appropriate workshops.',
           },
           {
             step: '03',
-            title: 'Bid Analysis',
+            title: 'Production Tracking & Quality Control',
             description:
-              'Collect and analyze bids considering cost, timeline, and freelancer performance history.',
+              'Real-time monitoring of manufacturing progress with quality checkpoints and milestone tracking via our platform.',
           },
           {
             step: '04',
-            title: 'Assignment & Management',
+            title: 'Payment & Shipment Coordination',
             description:
-              'Assign tasks with clear deliverables. Provide ongoing support and track progress throughout completion.',
+              'Automated payment processing and shipment tracking through integrated logistics partners and payment systems.',
           },
           {
             step: '05',
-            title: 'Payment & Feedback',
+            title: 'Performance Analytics & Optimization',
             description:
-              'Process payment upon task completion. Update freelancer ratings and performance metrics for future optimization.',
+              'Continuous improvement through data analytics, optimizing costs, quality, and delivery times across the network.',
           },
         ],
       },
     },
 
-    // CASE STUDIES
+    // CASE STUDIES - Updated to show cross-market success
     caseStudies: {
-      title: 'Success Stories',
-      subtitle: 'Real Results from Real Clients',
+      title: 'Platform Success Across Markets',
+      subtitle: 'Real Results from MyxoFlow Dashboard Implementations',
       studies: [
         {
-          id: 'apparel-manufacturing',
-          client: 'Custom Apparel Brand',
+          id: 'stichflow-implementation',
+          client: 'StichFlow Clothing Platform',
           challenge:
-            'High production costs and long lead times were limiting growth and profitability.',
+            'Launch a B2B clothing supply chain platform connecting workshops with retailers while managing complex order fulfillment.',
           solution:
-            'Implemented Myxo-Dashboards to optimize their supply chain and reduce production costs through strategic task distribution.',
+            'Deployed MyxoFlow Dashboards with clothing-specific business logic, integrated workshop management, and order tracking systems.',
           results: [
-            '90% reduction in per-unit cost (€30 to €3)',
-            '50% faster production times',
-            '200% increase in order capacity',
-            'Maintained quality standards throughout scaling',
+            'Platform launched in 3 months using existing dashboard framework',
+            '50+ workshops onboarded in first quarter',
+            '90% order fulfillment accuracy through integrated tracking',
+            'Multi-language support for European market expansion',
           ],
           quote:
-            'MyxoFlow transformed our entire operation. We can now compete with major brands while maintaining our boutique quality.',
+            "MyxoFlow's unified platform let us focus on clothing industry specifics instead of building dashboard infrastructure from scratch.",
         },
         {
-          id: 'freelancer-marketplace',
-          client: 'Digital Marketing Agency',
+          id: 'cross-market-optimization',
+          client: 'Multi-Market Deployment',
           challenge:
-            'Difficulty finding reliable freelancers and managing multiple projects simultaneously.',
+            'Deploy solutions across freelancer management and food service markets while maintaining consistency and shared optimizations.',
           solution:
-            'Adopted MyxoFill platform to streamline freelancer discovery and project management across multiple regions.',
+            'Used MyxoFlow platform architecture to rapidly deploy MyxoFill and Golgappa.inc solutions with shared user management and analytics.',
           results: [
-            '70% reduction in time-to-hire',
-            '40% improvement in project completion rates',
-            '60% cost savings through optimized bidding',
-            'Expanded service offerings to new markets',
+            '70% faster deployment compared to building separate platforms',
+            'Shared optimization algorithms improved performance across markets',
+            'Unified user experience reduced training costs by 60%',
+            'Cross-platform data insights enhanced all market solutions',
           ],
           quote:
-            'The regional competition feature ensures we always work with top-tier talent. Our client satisfaction has never been higher.',
+            'The platform approach meant improvements in one market automatically benefited our other solutions. True synergy.',
         },
         {
-          id: 'mobile-food-service',
-          client: 'Food Truck Entrepreneur',
+          id: 'dashboard-efficiency',
+          client: 'Manufacturing Process Optimization',
           challenge:
-            'High fuel costs and limited mobility were restricting profitable locations and operating hours.',
+            'Complex manufacturing workflows needed streamlined management while maintaining flexibility for different product types.',
           solution:
-            'Deployed Golgappa.inc mobile workstation to reduce dependency on vehicle power and increase operational flexibility.',
+            'Implemented MyxoCraft design-to-manufacturing solution using core dashboard platform with customized production workflows.',
           results: [
-            '80% reduction in fuel costs',
-            'Extended operating hours by 4 hours daily',
-            'Ability to operate in locations without power access',
-            '150% increase in daily revenue',
+            '80% reduction in design-to-production time',
+            'Unified interface for design, production, and fulfillment',
+            'Cross-market manufacturing optimization sharing',
+            'Open-source design library with 1000+ community contributions',
           ],
           quote:
-            'The DC-powered setup changed everything. I can now operate anywhere and my margins have tripled.',
+            'Having design tools and manufacturing management in one dashboard revolutionized our workflow efficiency.',
         },
       ],
     },
 
-    // FAQ
+    // FAQ - Updated to address platform and multi-market questions
     faq: {
       title: 'Frequently Asked Questions',
       categories: {
-        general: {
-          title: 'General Questions',
+        platform: {
+          title: 'Platform Questions',
           questions: [
             {
-              question: 'What makes MyxoFlow different from other optimization platforms?',
+              question: 'How does one platform serve multiple markets?',
               answer:
-                'We focus on cost-effective solutions using free, proven tools rather than expensive cloud services. Our lean two-developer team ensures rapid response and direct communication without corporate overhead.',
+                "Our MyxoFlow Dashboard platform provides unified technology infrastructure while allowing custom business logic for each market. The core user interface, data management, and optimization systems remain consistent, but industry-specific workflows are tailored to each market's needs.",
             },
             {
-              question: 'How do you maintain quality while keeping costs so low?',
+              question: 'Can I use the platform for my specific industry?',
               answer:
-                'Through intelligent optimization algorithms and a verified network of 500+ task-makers. We optimize for cost, time, and quality simultaneously, ensuring the best providers are matched to each job.',
+                "Yes! Our dashboard platform is designed for adaptability. We've successfully deployed solutions for clothing manufacturing, freelancer management, food service, and design-to-manufacturing. We can customize the platform for your industry requirements.",
             },
             {
-              question: 'What industries do you serve?',
+              question: "What's the relationship between MyxoFlow and StichFlow?",
               answer:
-                'Primarily manufacturing (especially apparel), service-based businesses needing freelancer management, and mobile food service. Our optimization principles apply to any industry with multi-step processes.',
+                "StichFlow is our clothing supply chain management solution built on MyxoFlow Dashboards. It's one of several market-specific implementations of our unified platform technology, specifically focused on B2B apparel manufacturing and retail coordination.",
             },
           ],
         },
@@ -463,69 +495,70 @@ export const useContentStore = defineStore('content', {
           title: 'Technical Questions',
           questions: [
             {
-              question: 'Do you use expensive cloud infrastructure?',
+              question: 'How do you maintain consistency across different market solutions?',
               answer:
-                'No. We deliberately avoid costly cloud services and instead use horizontal scaling through database optimization and additional computing nodes as needed. This keeps your costs predictable and low.',
+                'Our unified dashboard framework ensures consistent user experience, data structures, and optimization algorithms across all market implementations. Market-specific customizations are built as modules on top of the core platform.',
             },
             {
-              question: 'How do you handle data security and privacy?',
+              question: 'Can improvements in one market benefit others?',
               answer:
-                'We implement industry-standard security practices using open-source tools. Your data remains secure while avoiding the vendor lock-in and premium pricing of proprietary solutions.',
+                'Absolutely! Optimizations made to the core platform automatically benefit all market solutions. Additionally, insights from one market often inform improvements that can be applied to others, creating a network effect.',
             },
             {
-              question: 'Can your platform integrate with existing systems?',
+              question: 'How quickly can you deploy to a new market?',
               answer:
-                'Yes. Our platforms are designed to integrate with existing workflows and systems. We can adapt our solutions to work with your current tools and processes.',
+                'Because we use proven dashboard infrastructure, new market deployments typically take weeks rather than months. The core platform handles user management, data processing, and interface consistency while we focus on market-specific business logic.',
             },
           ],
         },
-        pricing: {
-          title: 'Pricing & Business',
+        business: {
+          title: 'Business Questions',
           questions: [
             {
-              question: 'How do you price your services?',
+              question: 'How do you price across different market solutions?',
               answer:
-                'Pricing varies by product and usage. Myxo-Dashboards uses volume-based pricing, MyxoFill operates on commission, MyxoDate has a flat monthly fee, and MyxoCraft charges per item produced.',
+                'Pricing varies by market and implementation complexity. StichFlow uses subscription models, MyxoFill uses commission-based pricing, MyxoDate has premium membership fees, and MyxoCraft uses per-item production costs. Each market solution is priced appropriately for its industry.',
             },
             {
-              question: 'Do you require long-term contracts?',
+              question: 'Do you require long-term commitments?',
               answer:
-                'No. We believe in earning your business through results, not contract lock-ins. Most clients stay because our solutions deliver measurable value.',
+                'No. Our lean two-developer team approach means we earn your business through results, not contracts. Most clients stay because our platform solutions deliver measurable value and continuous improvement.',
             },
             {
-              question: 'What kind of support do you provide?',
+              question: 'How do you support multiple market solutions with just two developers?',
               answer:
-                'Direct support from our development team. No account managers or support tiers—you work directly with the people who built the platform.',
+                'Our unified platform architecture allows us to maintain multiple market solutions efficiently. Shared infrastructure, common optimization algorithms, and consistent user experience patterns mean improvements benefit all solutions simultaneously.',
             },
           ],
         },
       },
     },
 
-    // CONTACT
+    // CONTACT - Updated to reflect platform approach
     contact: {
-      title: 'Get Started with MyxoFlow',
-      subtitle: "Ready to optimize your processes? Let's talk.",
+      title: 'Launch Your Market Solution with MyxoFlow',
+      subtitle: 'Ready to deploy proven dashboard technology in your industry?',
       methods: [
         {
           type: 'consultation',
-          title: 'Schedule a Free Consultation',
+          title: 'Platform Demo & Consultation',
           description:
-            'Book a call with our team to discuss your specific needs and see how MyxoFlow can help optimize your operations.',
-          cta: 'Book Consultation',
+            'See MyxoFlow Dashboards in action across multiple markets and discuss how we can adapt our platform for your specific industry needs.',
+          cta: 'Schedule Platform Demo',
         },
         {
-          type: 'demo',
-          title: 'Request a Product Demo',
+          type: 'market-analysis',
+          title: 'Market-Specific Analysis',
           description:
-            'See our platforms in action with a personalized demo tailored to your industry and use case.',
-          cta: 'Request Demo',
+            'Get a detailed analysis of how our dashboard platform can be customized for your industry, including timeline and implementation approach.',
+          cta: 'Request Market Analysis',
         },
         {
           type: 'email',
-          title: 'Email Us Directly',
-          description: "Prefer email? Send us your questions and we'll respond within 24 hours.",
-          cta: 'Send Email',
+          title: 'Direct Developer Contact',
+          description:
+            'Email our development team directly for technical questions or custom implementation discussions.',
+          cta: 'Email Development Team',
           email: 'hello@myxoflow.com',
         },
       ],
@@ -535,24 +568,30 @@ export const useContentStore = defineStore('content', {
           { name: 'email', label: 'Email Address', type: 'email', required: true },
           { name: 'company', label: 'Company Name', type: 'text', required: false },
           {
-            name: 'industry',
-            label: 'Industry',
+            name: 'market',
+            label: 'Target Market/Industry',
             type: 'select',
             required: false,
-            options: ['Manufacturing', 'Services', 'Food & Beverage', 'E-commerce', 'Other'],
+            options: [
+              'Manufacturing & Supply Chain',
+              'Freelancer & Gig Economy',
+              'Food Service & Mobile Operations',
+              'Design & Creative Services',
+              'Dating & Social Platforms',
+              'Other - Please Specify',
+            ],
           },
           {
             name: 'message',
-            label: 'Tell us about your optimization needs',
+            label: 'Tell us about your market and dashboard needs',
             type: 'textarea',
             required: true,
           },
         ],
-        submitText: 'Send Message',
+        submitText: 'Request Platform Information',
       },
     },
   }),
-
   // src/stores/contentStore.ts (corrected getters and actions)
 
   getters: {

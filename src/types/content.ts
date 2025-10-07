@@ -88,6 +88,7 @@ export interface ProductDetail {
 
 export interface ProductDetailsContent {
   dashboards: ProductDetail
+  stichflow: ProductDetail
   fill: ProductDetail
   date: ProductDetail
   golgappa: ProductDetail
@@ -109,9 +110,26 @@ export interface ProcessFlow {
 
 export interface HowItWorksContent {
   title: string
-  subtitle: string
-  manufacturingProcess: ProcessFlow
-  freelancerProcess: ProcessFlow
+  subtitle?: string
+  platformProcess: {
+    heading: string
+    description: string
+    steps: {
+      step: string
+      title: string
+      description: string
+    }[]
+    results: string
+  }
+  stichflowProcess?: {
+    heading: string
+    description: string
+    steps: {
+      step: string
+      title: string
+      description: string
+    }[]
+  }
 }
 
 export interface CaseStudy {
@@ -142,9 +160,9 @@ export interface FAQCategory {
 export interface FAQContent {
   title: string
   categories: {
-    general: FAQCategory
+    platform: FAQCategory
+    business: FAQCategory
     technical: FAQCategory
-    pricing: FAQCategory
   }
 }
 
