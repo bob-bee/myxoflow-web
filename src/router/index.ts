@@ -3,14 +3,13 @@ import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 
 // Views
-import Home from '@/views/Home.vue'
-import About from '@/views/About.vue'
-import Products from '@/views/Products.vue'
-import ProductDetail from '@/views/Products.vue'
+import Home from '@/views/HomeView.vue'
+import About from '@/views/AboutView.vue'
+import Products from '@/views/ProductsView.vue'
 import HowItWorks from '@/views/HowItWorks.vue'
 import CaseStudies from '@/views/CaseStudies.vue'
 import FAQ from '@/views/FAQ.vue'
-import Contact from '@/views/Contact.vue'
+import Contact from '@/views/ContactView.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -37,14 +36,7 @@ const routes: Array<RouteRecordRaw> = [
       title: 'Our Products - MyxoFlow Solutions',
     },
   },
-  {
-    path: '/products/:productKey',
-    name: 'product-detail',
-    component: ProductDetail,
-    meta: {
-      title: 'Product Details - MyxoFlow',
-    },
-  },
+
   {
     path: '/how-it-works',
     name: 'how-it-works',
