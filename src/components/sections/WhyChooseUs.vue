@@ -16,11 +16,10 @@ const content = useContentStore()
     </div>
   </section>
 </template>
-
 <style scoped>
 .why-choose-us {
   padding: 5rem 0;
-  background: #f8fafc;
+  background: var(--md-sys-color-surface); /* was #f8fafc */
 }
 
 .container {
@@ -34,7 +33,7 @@ h2 {
   font-weight: bold;
   text-align: center;
   margin-bottom: 3rem;
-  color: #1f2937;
+  color: var(--md-sys-color-on-surface); /* was #1f2937 */
 }
 
 .features-grid {

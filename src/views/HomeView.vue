@@ -32,11 +32,10 @@ const content = useContentStore()
     <CTASection />
   </div>
 </template>
-
 <style scoped>
 .what-we-do {
   padding: 5rem 0;
-  background: white;
+  background: var(--md-sys-color-surface); /* was white */
 }
 
 .container {
@@ -50,7 +49,7 @@ const content = useContentStore()
   font-weight: bold;
   text-align: center;
   margin-bottom: 3rem;
-  color: #1f2937;
+  color: var(--md-sys-color-on-surface); /* was #1f2937 */
 }
 
 .what-we-do-grid {
@@ -60,21 +59,21 @@ const content = useContentStore()
 }
 
 .what-we-do-item {
-  background: #f8fafc;
+  background: var(--md-sys-color-surface-variant); /* was #f8fafc */
   padding: 2rem;
   border-radius: 0.5rem;
-  border-left: 4px solid #3b82f6;
+  border-left: 4px solid var(--md-sys-color-primary); /* was #3b82f6 */
 }
 
 .what-we-do-item h3 {
   font-size: 1.25rem;
   font-weight: bold;
   margin-bottom: 1rem;
-  color: #1f2937;
+  color: var(--md-sys-color-on-surface); /* was #1f2937 */
 }
 
 .what-we-do-item p {
-  color: #6b7280;
+  color: var(--md-sys-color-on-surface-variant); /* was #6b7280 */
   line-height: 1.6;
 }
 

@@ -52,11 +52,14 @@ const content = useContentStore()
     </section>
   </div>
 </template>
-
 <style scoped>
 .hero {
-  background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
-  color: white;
+  background: linear-gradient(
+    135deg,
+    var(--background-hero-start) 0%,
+    var(--background-hero-end) 100%
+  );
+  color: var(--text-on-primary);
   text-align: center;
   padding: 4rem 1rem;
 }
@@ -73,7 +76,7 @@ const content = useContentStore()
 
 .hero h1 {
   font-size: 3rem;
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   margin-bottom: 0.5rem;
 }
 
@@ -87,14 +90,14 @@ const content = useContentStore()
 }
 
 .section:nth-child(even) {
-  background: #f8fafc;
+  background: var(--background-color-alt);
 }
 
 .section h2 {
   font-size: 2.25rem;
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   margin-bottom: 2rem;
-  color: #1f2937;
+  color: var(--text-color);
   text-align: center;
 }
 
@@ -102,7 +105,7 @@ const content = useContentStore()
 .team-text {
   font-size: 1.125rem;
   line-height: 1.7;
-  color: #4b5563;
+  color: var(--text-secondary);
   max-width: 800px;
   margin: 0 auto;
   text-align: center;
@@ -116,11 +119,11 @@ const content = useContentStore()
 
 .philosophy-list li {
   padding: 1rem 0;
-  border-left: 3px solid #3b82f6;
+  border-left: 3px solid var(--primary-color);
   padding-left: 1.5rem;
   margin-bottom: 1rem;
   font-size: 1.1rem;
-  color: #4b5563;
+  color: var(--text-secondary);
 }
 
 .values-grid {
@@ -130,22 +133,22 @@ const content = useContentStore()
 }
 
 .value-card {
-  background: white;
+  background: var(--surface-color);
   padding: 2rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
   text-align: center;
 }
 
 .value-card h3 {
   font-size: 1.25rem;
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   margin-bottom: 1rem;
-  color: #1f2937;
+  color: var(--text-color);
 }
 
 .value-card p {
-  color: #6b7280;
+  color: var(--text-secondary);
   line-height: 1.6;
 }
 

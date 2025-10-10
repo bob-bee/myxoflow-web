@@ -24,8 +24,8 @@ const content = useContentStore()
 <style scoped>
 .cta-section {
   padding: 4rem 0;
-  background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--surface-dark) 0%, var(--surface-secondary) 100%);
+  color: var(--text-inverse);
   text-align: center;
 }
 
@@ -37,8 +37,9 @@ const content = useContentStore()
 
 h2 {
   font-size: 2.5rem;
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   margin-bottom: 2rem;
+  color: var(--text-inverse);
 }
 
 .cta-buttons {
@@ -51,31 +52,31 @@ h2 {
 .btn {
   display: inline-block;
   padding: 0.875rem 2rem;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-md);
   text-decoration: none;
-  font-weight: 600;
-  transition: all 0.2s;
+  font-weight: var(--font-weight-semibold);
+  transition: all var(--transition-duration-200);
 }
 
 .btn-primary {
-  background: #3b82f6;
-  color: white;
+  background: var(--primary-color);
+  color: var(--text-inverse);
 }
 
 .btn-primary:hover {
-  background: #2563eb;
+  background: var(--primary-hover);
   transform: translateY(-1px);
 }
 
 .btn-secondary {
   background: transparent;
-  color: white;
-  border: 2px solid white;
+  color: var(--text-inverse);
+  border: 2px solid var(--text-inverse);
 }
 
 .btn-secondary:hover {
-  background: white;
-  color: #1f2937;
+  background: var(--text-inverse);
+  color: var(--surface-dark);
 }
 
 @media (max-width: 768px) {

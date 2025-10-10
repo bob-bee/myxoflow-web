@@ -149,23 +149,23 @@ onUnmounted(() => {
   top: 0;
   left: 0;
   width: 100%;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(var(--surface-color-rgb), 0.95);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid transparent;
-  transition: all var(--transition-normal);
+  transition: all var(--transition-duration-200);
   z-index: 1000;
 }
 
 .app-header.scrolled {
-  background: rgba(255, 255, 255, 0.98);
-  border-bottom-color: var(--border-color);
+  background: rgba(var(--surface-color-rgb), 0.98);
+  border-bottom-color: var(--border-strong);
   box-shadow: var(--shadow-sm);
 }
 
 .header-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 var(--spacing-lg);
+  padding: 0 var(--space-6);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -180,7 +180,7 @@ onUnmounted(() => {
 .logo {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: var(--space-2);
 }
 
 .logo-image {
@@ -190,7 +190,7 @@ onUnmounted(() => {
 
 .logo-text {
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--primary-color);
 }
 
@@ -202,16 +202,16 @@ onUnmounted(() => {
 .nav-list {
   display: flex;
   list-style: none;
-  gap: var(--spacing-xl);
+  gap: var(--space-10);
 }
 
 .nav-link {
   text-decoration: none;
-  color: var(--text-color);
-  font-weight: 500;
-  transition: color var(--transition-fast);
+  color: var(--text-primary);
+  font-weight: var(--font-weight-medium);
+  transition: color var(--transition-duration-150);
   position: relative;
-  padding: var(--spacing-sm) 0;
+  padding: var(--space-2) 0;
 }
 
 .nav-link:hover,
@@ -234,24 +234,24 @@ onUnmounted(() => {
 .header-actions {
   display: flex;
   align-items: center;
-  gap: var(--spacing-md);
+  gap: var(--space-4);
 }
 
 .cta-button {
   display: none;
   align-items: center;
-  gap: var(--spacing-xs);
-  padding: var(--spacing-sm) var(--spacing-md);
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-4);
   background: var(--primary-color);
-  color: white;
+  color: var(--text-inverse);
   text-decoration: none;
-  border-radius: var(--border-radius);
-  font-weight: 600;
-  transition: all var(--transition-fast);
+  border-radius: var(--radius-base);
+  font-weight: var(--font-weight-semibold);
+  transition: all var(--transition-duration-150);
 }
 
 .cta-button:hover {
-  background: var(--primary-dark);
+  background: var(--primary-hover);
   transform: translateY(-1px);
 }
 
@@ -267,14 +267,14 @@ onUnmounted(() => {
   border: none;
   cursor: pointer;
   gap: 4px;
-  transition: all var(--transition-fast);
+  transition: all var(--transition-duration-150);
 }
 
 .hamburger-line {
   width: 20px;
   height: 2px;
-  background: var(--text-color);
-  transition: all var(--transition-fast);
+  background: var(--text-primary);
+  transition: all var(--transition-duration-150);
   border-radius: 1px;
 }
 
@@ -296,46 +296,46 @@ onUnmounted(() => {
   top: 100%;
   left: 0;
   width: 100%;
-  background: white;
-  border-bottom: 1px solid var(--border-color);
+  background: var(--surface-color);
+  border-bottom: 1px solid var(--border-strong);
   box-shadow: var(--shadow-md);
 }
 
 .mobile-nav-list {
   list-style: none;
-  padding: var(--spacing-lg) 0;
+  padding: var(--space-6) 0;
 }
 
 .mobile-nav-link {
   display: block;
-  padding: var(--spacing-md) var(--spacing-lg);
+  padding: var(--space-4) var(--space-6);
   text-decoration: none;
-  color: var(--text-color);
-  font-weight: 500;
-  transition: all var(--transition-fast);
+  color: var(--text-primary);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-duration-150);
 }
 
 .mobile-nav-link:hover,
 .mobile-nav-link.active {
   color: var(--primary-color);
-  background: var(--surface-color);
+  background: var(--surface-secondary);
 }
 
 .mobile-cta-button {
   display: block;
-  margin: var(--spacing-md) var(--spacing-lg);
-  padding: var(--spacing-sm) var(--spacing-md);
+  margin: var(--space-4) var(--space-6);
+  padding: var(--space-2) var(--space-4);
   background: var(--primary-color);
-  color: white;
+  color: var(--text-inverse);
   text-decoration: none;
-  border-radius: var(--border-radius);
-  font-weight: 600;
+  border-radius: var(--radius-base);
+  font-weight: var(--font-weight-semibold);
   text-align: center;
-  transition: background var(--transition-fast);
+  transition: background var(--transition-duration-150);
 }
 
 .mobile-cta-button:hover {
-  background: var(--primary-dark);
+  background: var(--primary-hover);
 }
 
 .mobile-overlay {
@@ -351,7 +351,7 @@ onUnmounted(() => {
 /* Mobile Menu Animation */
 .mobile-menu-enter-active,
 .mobile-menu-leave-active {
-  transition: all var(--transition-normal);
+  transition: all var(--transition-duration-200);
 }
 
 .mobile-menu-enter-from {
@@ -379,7 +379,7 @@ onUnmounted(() => {
   }
 
   .header-container {
-    padding: 0 var(--spacing-xl);
+    padding: 0 var(--space-8);
   }
 }
 

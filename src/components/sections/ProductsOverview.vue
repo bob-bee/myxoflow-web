@@ -23,11 +23,10 @@ const content = useContentStore()
     </div>
   </section>
 </template>
-
 <style scoped>
 .products-overview {
   padding: 5rem 0;
-  background: white;
+  background: var(--background-color);
 }
 
 .container {
@@ -38,10 +37,10 @@ const content = useContentStore()
 
 h2 {
   font-size: 2.5rem;
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   text-align: center;
   margin-bottom: 3rem;
-  color: #1f2937;
+  color: var(--text-color);
 }
 
 .products-grid {
@@ -58,16 +57,16 @@ h2 {
 .btn {
   display: inline-block;
   padding: 0.875rem 2rem;
-  background: #3b82f6;
-  color: white;
+  background: var(--primary-color);
+  color: var(--button-text-color);
   text-decoration: none;
   border-radius: 0.5rem;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   transition: all 0.2s;
 }
 
 .btn:hover {
-  background: #2563eb;
+  background: var(--primary-hover-color);
   transform: translateY(-1px);
 }
 

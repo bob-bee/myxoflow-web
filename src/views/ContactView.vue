@@ -130,11 +130,14 @@ const handleSubmit = async () => {
     </section>
   </div>
 </template>
-
 <style scoped>
 .hero {
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-  color: white;
+  background: linear-gradient(
+    135deg,
+    var(--background-hero-start) 0%,
+    var(--background-hero-end) 100%
+  );
+  color: var(--text-on-primary);
   text-align: center;
   padding: 4rem 0;
 }
@@ -167,10 +170,10 @@ const handleSubmit = async () => {
 }
 
 .method-card {
-  background: white;
+  background: var(--surface-color);
   padding: 2rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
   text-align: center;
 }
 
@@ -178,26 +181,26 @@ const handleSubmit = async () => {
   font-size: 1.25rem;
   font-weight: bold;
   margin-bottom: 1rem;
-  color: #1f2937;
+  color: var(--text-color);
 }
 
 .method-card p {
-  color: #6b7280;
+  color: var(--text-secondary);
   margin-bottom: 1.5rem;
   line-height: 1.6;
 }
 
 .contact-form {
-  background: #f8fafc;
+  background: var(--background-color-alt);
 }
 
 .form-wrapper {
   max-width: 600px;
   margin: 0 auto;
-  background: white;
+  background: var(--surface-color);
   padding: 3rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
 }
 
 .form-wrapper h2 {
@@ -205,7 +208,7 @@ const handleSubmit = async () => {
   font-weight: bold;
   text-align: center;
   margin-bottom: 2rem;
-  color: #1f2937;
+  color: var(--text-color);
 }
 
 .form-grid {
@@ -227,16 +230,18 @@ const handleSubmit = async () => {
 .form-group label {
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: #374151;
+  color: var(--text-color);
 }
 
 .form-input,
 .form-select,
 .form-textarea {
   padding: 0.75rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border-color);
   border-radius: 0.375rem;
   font-size: 1rem;
+  background: var(--input-bg);
+  color: var(--text-color);
   transition:
     border-color 0.2s,
     box-shadow 0.2s;
@@ -246,8 +251,8 @@ const handleSubmit = async () => {
 .form-select:focus,
 .form-textarea:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
 .form-textarea {
@@ -258,8 +263,8 @@ const handleSubmit = async () => {
 .btn {
   display: inline-block;
   padding: 0.75rem 1.5rem;
-  background: #3b82f6;
-  color: white;
+  background: var(--primary-color);
+  color: var(--text-on-primary);
   text-decoration: none;
   border-radius: 0.375rem;
   font-weight: 600;
@@ -269,7 +274,7 @@ const handleSubmit = async () => {
 }
 
 .btn:hover:not(:disabled) {
-  background: #2563eb;
+  background: var(--primary-hover);
   transform: translateY(-1px);
 }
 

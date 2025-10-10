@@ -13,11 +13,10 @@ const content = useContentStore()
     </div>
   </section>
 </template>
-
 <style scoped>
 .intro {
   padding: 5rem 0;
-  background: #f8fafc;
+  background: var(--background-color);
 }
 
 .container {
@@ -29,15 +28,15 @@ const content = useContentStore()
 
 h2 {
   font-size: 2.5rem;
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   margin-bottom: 2rem;
-  color: #1f2937;
+  color: var(--text-color);
 }
 
 .intro-text {
   font-size: 1.125rem;
   line-height: 1.8;
-  color: #4b5563;
+  color: var(--text-secondary);
   max-width: 800px;
   margin: 0 auto;
 }

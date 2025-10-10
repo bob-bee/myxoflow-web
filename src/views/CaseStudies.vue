@@ -50,11 +50,14 @@ const content = useContentStore()
     </section>
   </div>
 </template>
-
 <style scoped>
 .hero {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(
+    135deg,
+    var(--background-hero-start) 0%,
+    var(--background-hero-end) 100%
+  );
+  color: var(--text-on-primary);
   text-align: center;
   padding: 4rem 0;
 }
@@ -80,23 +83,23 @@ const content = useContentStore()
 }
 
 .case-study-card {
-  background: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: var(--surface-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
   margin-bottom: 3rem;
   overflow: hidden;
 }
 
 .study-header {
-  background: #f8fafc;
+  background: var(--background-color-alt);
   padding: 2rem;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .study-header h2 {
   font-size: 1.5rem;
-  font-weight: bold;
-  color: #1f2937;
+  font-weight: var(--font-weight-bold);
+  color: var(--text-color);
   margin: 0;
 }
 
@@ -114,23 +117,23 @@ const content = useContentStore()
 .solution h3,
 .results h3 {
   font-size: 1.125rem;
-  font-weight: bold;
-  color: #1f2937;
+  font-weight: var(--font-weight-bold);
   margin-bottom: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  color: var(--text-color);
 }
 
 .challenge h3 {
-  color: #dc2626;
+  color: var(--danger-color);
 }
 
 .solution h3 {
-  color: #3b82f6;
+  color: var(--primary-color);
 }
 
 .results h3 {
-  color: #10b981;
+  color: var(--success-color);
 }
 
 .results ul {
@@ -140,23 +143,23 @@ const content = useContentStore()
 
 .results li {
   padding: 0.5rem 0;
-  border-left: 3px solid #10b981;
+  border-left: 3px solid var(--success-color);
   padding-left: 1rem;
   margin-bottom: 0.5rem;
-  background: #f0fdf4;
+  background: var(--success-bg);
 }
 
 .quote {
-  background: #f8fafc;
+  background: var(--background-color-alt);
   padding: 2rem;
-  border-radius: 0.5rem;
-  border-left: 4px solid #3b82f6;
+  border-radius: var(--border-radius);
+  border-left: 4px solid var(--primary-color);
 }
 
 .quote blockquote {
   font-style: italic;
   font-size: 1.125rem;
-  color: #4b5563;
+  color: var(--text-secondary);
   margin: 0;
 }
 

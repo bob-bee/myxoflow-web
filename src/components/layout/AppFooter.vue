@@ -165,25 +165,25 @@ const submitNewsletter = async () => {
 
 <style scoped>
 .app-footer {
-  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
-  color: #f9fafb;
+  background: linear-gradient(135deg, var(--surface-tertiary) 0%, var(--surface-secondary) 100%);
+  color: var(--text-primary);
   margin-top: auto;
 }
 
 .footer-main {
-  padding: 4rem 0 2rem;
+  padding: var(--space-16) 0 var(--space-8);
 }
 
 .footer-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 var(--spacing-lg);
+  padding: 0 var(--space-6);
 }
 
 .footer-main .footer-container {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
+  gap: var(--space-8);
 }
 
 /* Company Section */
@@ -194,8 +194,8 @@ const submitNewsletter = async () => {
 .footer-logo {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
-  margin-bottom: 1rem;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
 }
 
 .logo-image {
@@ -205,20 +205,20 @@ const submitNewsletter = async () => {
 }
 
 .logo-text {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #60a5fa;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--primary-color);
 }
 
 .company-description {
-  color: #d1d5db;
+  color: var(--text-secondary);
   line-height: 1.6;
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-6);
 }
 
 .social-links {
   display: flex;
-  gap: var(--spacing-md);
+  gap: var(--space-4);
 }
 
 .social-link {
@@ -228,15 +228,15 @@ const submitNewsletter = async () => {
   width: 40px;
   height: 40px;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: var(--border-radius);
-  color: #d1d5db;
+  border-radius: var(--radius-base);
+  color: var(--text-secondary);
   text-decoration: none;
-  transition: all var(--transition-normal);
+  transition: all var(--transition-duration-150);
 }
 
 .social-link:hover {
-  background: rgba(96, 165, 250, 0.2);
-  color: #60a5fa;
+  background: rgba(var(--primary-color-rgb), 0.2);
+  color: var(--primary-color);
   transform: translateY(-2px);
 }
 
@@ -246,28 +246,27 @@ const submitNewsletter = async () => {
 }
 
 .section-title {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: white;
-  margin-bottom: 1rem;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-4);
 }
 
 .footer-links {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--space-2);
 }
 
 .footer-links a {
-  color: #d1d5db;
+  color: var(--text-secondary);
   text-decoration: none;
-  transition: color var(--transition-fast);
-  display: inline-block;
+  transition: color var(--transition-duration-150);
 }
 
 .footer-links a:hover {
-  color: #60a5fa;
+  color: var(--primary-color);
 }
 
 /* Newsletter Section */
@@ -276,41 +275,41 @@ const submitNewsletter = async () => {
 }
 
 .newsletter-description {
-  color: #d1d5db;
-  margin-bottom: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-4);
   line-height: 1.5;
 }
 
 .newsletter-form {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: var(--space-2);
 }
 
 .input-group {
   display: flex;
-  border-radius: var(--border-radius);
+  border-radius: var(--radius-base);
   overflow: hidden;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: border-color var(--transition-fast);
+  transition: border-color var(--transition-duration-150);
 }
 
 .input-group:focus-within {
-  border-color: #60a5fa;
+  border-color: var(--primary-color);
 }
 
 .newsletter-input {
   flex: 1;
-  padding: 0.75rem;
+  padding: var(--space-3);
   background: transparent;
   border: none;
-  color: white;
+  color: var(--text-primary);
   font-size: 0.875rem;
 }
 
 .newsletter-input::placeholder {
-  color: #9ca3af;
+  color: var(--text-tertiary);
 }
 
 .newsletter-input:focus {
@@ -318,18 +317,18 @@ const submitNewsletter = async () => {
 }
 
 .newsletter-button {
-  padding: 0.75rem 1rem;
-  background: #60a5fa;
-  color: white;
+  padding: var(--space-3) var(--space-4);
+  background: var(--primary-color);
+  color: var(--text-inverse);
   border: none;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   font-size: 0.875rem;
   cursor: pointer;
-  transition: background var(--transition-fast);
+  transition: background var(--transition-duration-150);
 }
 
 .newsletter-button:hover:not(:disabled) {
-  background: #3b82f6;
+  background: var(--primary-hover);
 }
 
 .newsletter-button:disabled {
@@ -339,11 +338,11 @@ const submitNewsletter = async () => {
 
 .newsletter-privacy {
   font-size: 0.75rem;
-  color: #9ca3af;
+  color: var(--text-tertiary);
 }
 
 .newsletter-privacy a {
-  color: #60a5fa;
+  color: var(--primary-color);
   text-decoration: none;
 }
 
@@ -354,53 +353,53 @@ const submitNewsletter = async () => {
 /* Footer Bottom */
 .footer-bottom {
   background: rgba(0, 0, 0, 0.3);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 1.5rem 0;
+  border-top: 1px solid var(--border-light);
+  padding: var(--space-6) 0;
 }
 
 .footer-bottom-content {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--space-4);
   align-items: center;
   text-align: center;
 }
 
 .copyright {
-  color: #9ca3af;
+  color: var(--text-tertiary);
   font-size: 0.875rem;
 }
 
 .footer-bottom-links {
   display: flex;
-  gap: 1.5rem;
+  gap: var(--space-6);
   flex-wrap: wrap;
   justify-content: center;
 }
 
 .footer-bottom-links a {
-  color: #d1d5db;
+  color: var(--text-secondary);
   text-decoration: none;
   font-size: 0.875rem;
-  transition: color var(--transition-fast);
+  transition: color var(--transition-duration-150);
 }
 
 .footer-bottom-links a:hover {
-  color: #60a5fa;
+  color: var(--primary-color);
 }
 
 .footer-meta {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
-  color: #9ca3af;
+  gap: var(--space-2);
+  color: var(--text-tertiary);
   font-size: 0.75rem;
   flex-wrap: wrap;
   justify-content: center;
 }
 
 .meta-divider {
-  color: #6b7280;
+  color: var(--text-secondary);
 }
 
 /* Responsive Design */
@@ -436,7 +435,7 @@ const submitNewsletter = async () => {
   }
 
   .footer-container {
-    padding: 0 var(--spacing-xl);
+    padding: 0 var(--space-8);
   }
 }
 </style>

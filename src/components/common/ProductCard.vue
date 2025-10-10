@@ -16,46 +16,45 @@ defineProps<Props>()
     <router-link :to="`/products/${product.key}`" class="card-link"> Learn More → </router-link>
   </div>
 </template>
-
 <style scoped>
 .product-card {
-  background: white;
-  padding: 2rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e5e7eb;
-  transition: all 0.2s;
+  background: var(--surface-secondary);
+  padding: var(--space-8);
+  border-radius: var(--radius-base);
+  box-shadow: var(--shadow-base);
+  border: 1px solid var(--border-strong);
+  transition: all var(--transition-duration-200) var(--transition-timing-ease-in-out);
   display: flex;
   flex-direction: column;
 }
 
 .product-card:hover {
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-lg);
   transform: translateY(-2px);
 }
 
 h3 {
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  color: #1f2937;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-4);
+  color: var(--text-primary);
 }
 
 p {
   flex: 1;
-  color: #6b7280;
+  color: var(--text-secondary);
   line-height: 1.6;
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-6);
 }
 
 .card-link {
-  color: #3b82f6;
+  color: var(--primary-color);
   text-decoration: none;
-  font-weight: 600;
-  transition: color 0.2s;
+  font-weight: var(--font-weight-semibold);
+  transition: color var(--transition-duration-150) var(--transition-timing-ease-in-out);
 }
 
 .card-link:hover {
-  color: #2563eb;
+  color: var(--primary-hover);
 }
 </style>

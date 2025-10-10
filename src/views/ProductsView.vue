@@ -316,14 +316,14 @@ const handleQuickAction = (key: string) => {
 .page-title {
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 700;
-  color: var(--text-primary, #1f2937);
+  color: var(--md-sys-color-on-surface);
   margin-bottom: 16px;
   line-height: 1.2;
 }
 
 .page-description {
   font-size: 1.125rem;
-  color: var(--text-secondary, #6b7280);
+  color: var(--md-sys-color-on-surface-variant);
   line-height: 1.6;
   max-width: 700px;
   margin: 0 auto;
@@ -338,11 +338,11 @@ const handleQuickAction = (key: string) => {
 }
 
 .product-card {
-  background: white;
+  background: var(--md-sys-color-surface);
   border-radius: 16px;
   padding: 32px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border: 1px solid var(--border-light, #e5e7eb);
+  box-shadow: var(--md-elevation-level-1);
+  border: 1px solid var(--md-sys-color-outline-variant);
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -350,30 +350,16 @@ const handleQuickAction = (key: string) => {
 
 .product-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--md-elevation-level-2);
 }
 
 .product-card.card-featured {
-  border-color: var(--primary-color, #3b82f6);
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.02), rgba(59, 130, 246, 0.05));
-}
-
-.product-card.card-featured::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(
-    90deg,
-    var(--primary-color, #3b82f6),
-    var(--secondary-color, #10b981)
-  );
+  border-color: var(--md-sys-color-primary);
+  background: linear-gradient(135deg, rgba(25, 118, 210, 0.05), rgba(25, 118, 210, 0.1));
 }
 
 .product-card.card-popular {
-  border-color: var(--secondary-color, #10b981);
+  border-color: var(--md-sys-color-secondary);
 }
 
 /* Product Header */
@@ -384,11 +370,7 @@ const handleQuickAction = (key: string) => {
   margin-bottom: 24px;
 }
 
-.product-icon {
-  position: relative;
-}
-
-.icon-container {
+.product-icon .icon-container {
   width: 64px;
   height: 64px;
   border-radius: 16px;
@@ -396,18 +378,12 @@ const handleQuickAction = (key: string) => {
   align-items: center;
   justify-content: center;
   font-size: 24px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--md-elevation-level-1);
 }
 
-.product-badge {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-.badge-text {
-  background: var(--primary-color, #3b82f6);
-  color: white;
+.product-badge .badge-text {
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
   padding: 4px 12px;
   border-radius: 12px;
   font-size: 0.75rem;
@@ -424,13 +400,13 @@ const handleQuickAction = (key: string) => {
 .product-name {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--text-primary, #1f2937);
+  color: var(--md-sys-color-on-surface);
   margin-bottom: 12px;
   line-height: 1.3;
 }
 
 .product-description {
-  color: var(--text-secondary, #6b7280);
+  color: var(--md-sys-color-on-surface-variant);
   line-height: 1.6;
   margin-bottom: 24px;
 }
@@ -450,8 +426,8 @@ const handleQuickAction = (key: string) => {
 .feature-icon {
   width: 16px;
   height: 16px;
-  background: var(--secondary-color, #10b981);
-  color: white;
+  background: var(--md-sys-color-secondary);
+  color: var(--md-sys-color-on-secondary);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -462,7 +438,7 @@ const handleQuickAction = (key: string) => {
 }
 
 .feature-text {
-  color: var(--text-secondary, #6b7280);
+  color: var(--md-sys-color-on-surface-variant);
   font-size: 0.875rem;
   line-height: 1.4;
 }
@@ -472,7 +448,7 @@ const handleQuickAction = (key: string) => {
   display: flex;
   gap: 24px;
   padding: 16px;
-  background: var(--surface-secondary, #f8fafc);
+  background: var(--md-sys-color-surface-variant);
   border-radius: 12px;
   margin-bottom: 24px;
 }
@@ -486,14 +462,14 @@ const handleQuickAction = (key: string) => {
   display: block;
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--primary-color, #3b82f6);
+  color: var(--md-sys-color-primary);
   line-height: 1;
   margin-bottom: 4px;
 }
 
 .stat-label {
   font-size: 0.75rem;
-  color: var(--text-secondary, #6b7280);
+  color: var(--md-sys-color-on-surface-variant);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   font-weight: 500;
@@ -523,15 +499,11 @@ const handleQuickAction = (key: string) => {
 
 /* Platform Connection */
 .platform-connection {
-  background: linear-gradient(
-    135deg,
-    var(--surface-secondary, #f8fafc),
-    var(--surface-tertiary, #f1f5f9)
-  );
+  background: var(--md-sys-color-surface-variant);
   border-radius: 24px;
   padding: 48px;
   margin-bottom: 80px;
-  border: 1px solid var(--border-light, #e5e7eb);
+  border: 1px solid var(--md-sys-color-outline-variant);
 }
 
 .connection-header {
@@ -542,70 +514,25 @@ const handleQuickAction = (key: string) => {
 .connection-title {
   font-size: 2rem;
   font-weight: 700;
-  color: var(--text-primary, #1f2937);
+  color: var(--md-sys-color-on-surface);
   margin-bottom: 16px;
 }
 
 .connection-description {
   font-size: 1.125rem;
-  color: var(--text-secondary, #6b7280);
+  color: var(--md-sys-color-on-surface-variant);
   line-height: 1.6;
   max-width: 600px;
   margin: 0 auto;
 }
 
-.connection-benefits {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 32px;
-  margin-bottom: 48px;
-}
-
-.benefit-card {
-  text-align: center;
-  padding: 24px;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  border: 1px solid var(--border-light, #e5e7eb);
-}
-
-.benefit-icon {
-  width: 48px;
-  height: 48px;
-  background: var(--primary-light, #dbeafe);
-  color: var(--primary-color, #3b82f6);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 16px;
-}
-
-.benefit-title {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: var(--text-primary, #1f2937);
-  margin-bottom: 8px;
-}
-
-.benefit-text {
-  color: var(--text-secondary, #6b7280);
-  font-size: 0.875rem;
-  line-height: 1.5;
-}
-
-.connection-action {
-  text-align: center;
-}
-
 /* Bottom CTA */
 .bottom-cta {
-  background: linear-gradient(135deg, var(--primary-color, #3b82f6), var(--primary-hover, #2563eb));
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
   border-radius: 24px;
   padding: 48px;
   text-align: center;
-  color: white;
 }
 
 .cta-title {
@@ -629,26 +556,26 @@ const handleQuickAction = (key: string) => {
 }
 
 .cta-actions .btn-primary {
-  background: white;
-  color: var(--primary-color, #3b82f6);
+  background: var(--md-sys-color-surface);
+  color: var(--md-sys-color-primary);
 }
 
 .cta-actions .btn-primary:hover {
-  background: var(--surface-secondary, #f8fafc);
+  background: var(--md-sys-color-surface-variant);
   transform: translateY(-2px);
 }
 
 .cta-actions .btn-secondary {
   background: transparent;
-  color: white;
-  border-color: white;
+  color: var(--md-sys-color-on-primary);
+  border-color: var(--md-sys-color-on-primary);
 }
 
 .cta-actions .btn-secondary:hover {
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* Button Styles */
+/* Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -669,36 +596,36 @@ const handleQuickAction = (key: string) => {
 }
 
 .btn-primary {
-  background: var(--primary-color, #3b82f6);
-  color: white;
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
 }
 
 .btn-primary:hover {
-  background: var(--primary-hover, #2563eb);
+  background: var(--md-sys-color-primary-container);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  box-shadow: var(--md-elevation-level-2);
 }
 
 .btn-secondary {
   background: transparent;
-  color: var(--primary-color, #3b82f6);
-  border: 1px solid var(--primary-color, #3b82f6);
+  color: var(--md-sys-color-primary);
+  border: 1px solid var(--md-sys-color-primary);
 }
 
 .btn-secondary:hover {
-  background: var(--primary-light, #dbeafe);
+  background: var(--md-sys-color-primary-container);
 }
 
 .btn-outline {
   background: transparent;
-  color: var(--text-primary, #1f2937);
-  border: 1px solid var(--border-strong, #d1d5db);
+  color: var(--md-sys-color-on-surface);
+  border: 1px solid var(--md-sys-color-outline-variant);
 }
 
 .btn-outline:hover {
-  background: var(--surface-secondary, #f8fafc);
-  border-color: var(--primary-color, #3b82f6);
-  color: var(--primary-color, #3b82f6);
+  background: var(--md-sys-color-surface-variant);
+  border-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-primary);
 }
 
 /* Responsive Design */
@@ -706,11 +633,9 @@ const handleQuickAction = (key: string) => {
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
   .product-actions {
     flex-direction: row;
   }
-
   .cta-actions {
     flex-direction: row;
   }
@@ -727,18 +652,11 @@ const handleQuickAction = (key: string) => {
     grid-template-columns: 1fr;
     gap: 24px;
   }
-
   .platform-connection {
     padding: 32px 24px;
   }
-
   .bottom-cta {
     padding: 32px 24px;
-  }
-
-  .connection-benefits {
-    grid-template-columns: 1fr;
-    gap: 24px;
   }
 }
 </style>

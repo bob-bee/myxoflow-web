@@ -209,6 +209,6 @@ export interface ContentState {
   contact: ContactContent
 }
 export interface Theme {
-  name: string
+  name: 'light' | 'dark' | 'energy' | 'sunrise' | 'midnight' | 'forest'
   icon: string
 }

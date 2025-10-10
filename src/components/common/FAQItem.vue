@@ -45,18 +45,18 @@ const toggle = () => {
   align-items: center;
   font-size: 1.125rem;
   font-weight: 600;
-  color: #1f2937;
+  color: var(--text-primary);
   transition: color 0.2s;
 }
 
 .faq-question:hover {
-  color: #3b82f6;
+  color: var(--primary-color);
 }
 
 .faq-icon {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #3b82f6;
+  color: var(--primary-color);
 }
 
 .faq-answer {
@@ -65,7 +65,7 @@ const toggle = () => {
 }
 
 .faq-answer p {
-  color: #6b7280;
+  color: var(--text-secondary);
   line-height: 1.7;
 }
 

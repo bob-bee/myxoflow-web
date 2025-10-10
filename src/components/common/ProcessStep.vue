@@ -22,33 +22,33 @@ defineProps<Props>()
 <style scoped>
 .process-step {
   display: flex;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
 }
 
 .step-number {
   flex-shrink: 0;
   width: 50px;
   height: 50px;
-  background: #3b82f6;
-  color: white;
+  background: var(--primary-color);
+  color: var(--text-inverse);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
-  font-size: 1.125rem;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-lg);
 }
 
 .step-content h3 {
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  color: #1f2937;
+  font-size: 1.25rem; /* could also use var(--font-size-xl) */
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-2);
+  color: var(--text-primary);
 }
 
 .step-content p {
-  color: #6b7280;
+  color: var(--text-secondary);
   line-height: 1.6;
 }
 

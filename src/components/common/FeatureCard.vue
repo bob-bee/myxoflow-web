@@ -18,19 +18,18 @@ defineProps<Props>()
     <p>{{ feature.description }}</p>
   </div>
 </template>
-
 <style scoped>
 .feature-card {
-  background: white;
+  background: var(--surface-secondary);
   padding: 2rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
   text-align: center;
-  transition: all 0.2s;
+  transition: all var(--transition-duration-200) var(--transition-timing-ease-in-out);
 }
 
 .feature-card:hover {
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-lg);
   transform: translateY(-2px);
 }
 
@@ -41,20 +40,20 @@ defineProps<Props>()
 .icon-placeholder {
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
   border-radius: 50%;
   margin: 0 auto;
 }
 
 h3 {
   font-size: 1.25rem;
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   margin-bottom: 1rem;
-  color: #1f2937;
+  color: var(--text-primary);
 }
 
 p {
-  color: #6b7280;
+  color: var(--text-secondary);
   line-height: 1.6;
 }
 </style>

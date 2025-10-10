@@ -31,11 +31,14 @@ const content = useContentStore()
     </section>
   </div>
 </template>
-
 <style scoped>
 .hero {
-  background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
-  color: white;
+  background: linear-gradient(
+    135deg,
+    var(--background-hero-start) 0%,
+    var(--background-hero-end) 100%
+  );
+  color: var(--text-on-primary);
   text-align: center;
   padding: 4rem 0;
 }
@@ -67,16 +70,16 @@ const content = useContentStore()
 .faq-category h2 {
   font-size: 1.875rem;
   font-weight: bold;
-  color: #1f2937;
+  color: var(--text-color);
   margin-bottom: 2rem;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid #3b82f6;
+  border-bottom: 2px solid var(--primary-color);
 }
 
 .faq-list {
-  background: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: var(--surface-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
   overflow: hidden;
 }
 
