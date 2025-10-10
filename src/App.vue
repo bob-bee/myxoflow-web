@@ -2,7 +2,7 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import AppHeader from '@/components/layout/AppHeader.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
-
+import TubeLight from '@/components/common/extras/TubeLight.vue'
 // State
 const isLoading = ref(true)
 const showScrollTop = ref(false)
@@ -56,6 +56,8 @@ onUnmounted(() => {
             <component :is="Component" :key="route.path" />
           </Transition>
         </router-view>
+        <!-- TubeLight Component -->
+        <TubeLight />
       </main>
 
       <!-- Footer -->

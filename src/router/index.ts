@@ -6,6 +6,7 @@ import type { RouteRecordRaw } from 'vue-router'
 import Home from '@/views/HomeView.vue'
 import About from '@/views/AboutView.vue'
 import Products from '@/views/ProductsView.vue'
+import ProductDetail from '@/views/ProductDetailView.vue'
 import HowItWorks from '@/views/HowItWorks.vue'
 import CaseStudies from '@/views/CaseStudies.vue'
 import FAQ from '@/views/FAQ.vue'
@@ -17,7 +18,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'home',
     component: Home,
     meta: {
-      title: 'MyxoFlow - Process Optimization Without the Premium Price Tag',
+      title: 'MyxoFlow - One Platform, Multiple Markets',
     },
   },
   {
@@ -25,7 +26,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'about',
     component: About,
     meta: {
-      title: 'About MyxoFlow - Lean, Efficient, Results-Driven',
+      title: 'About MyxoFlow - Unified Dashboard Platform',
     },
   },
   {
@@ -33,10 +34,28 @@ const routes: Array<RouteRecordRaw> = [
     name: 'products',
     component: Products,
     meta: {
-      title: 'Our Products - MyxoFlow Solutions',
+      title: 'Market Solutions - MyxoFlow Platform',
     },
   },
-
+  // Product detail routes
+  {
+    path: '/products/:productKey',
+    name: 'product-detail',
+    component: ProductDetail,
+    meta: {
+      title: 'Product Details - MyxoFlow',
+    },
+    props: true,
+    beforeEnter: (to, from, next) => {
+      // Validate productKey exists in our content store
+      const validProducts = ['dashboards', 'stichflow', 'fill', 'date', 'golgappa', 'craft']
+      if (validProducts.includes(to.params.productKey as string)) {
+        next()
+      } else {
+        next('/products') // Redirect to products page if invalid product
+      }
+    },
+  },
   {
     path: '/how-it-works',
     name: 'how-it-works',
@@ -94,9 +113,23 @@ const router = createRouter({
   },
 })
 
-// Global navigation guard for page titles
+// Global navigation guard for dynamic page titles
 router.beforeEach((to, from, next) => {
-  document.title = (to.meta?.title as string) || 'MyxoFlow'
+  if (to.name === 'product-detail') {
+    // Dynamic title for product pages
+    const productKey = to.params.productKey as string
+    const productNames: Record<string, string> = {
+      dashboards: 'MyxoFlow Dashboards - Core Platform',
+      stichflow: 'StichFlow - Clothing Supply Chain Management',
+      fill: 'MyxoFill - Freelancer Marketplace Management',
+      date: 'MyxoDate - Premium Dating Platform',
+      golgappa: 'Golgappa.inc - Mobile Food Service Platform',
+      craft: 'MyxoCraft - Design-to-Manufacturing Platform',
+    }
+    document.title = productNames[productKey] || 'MyxoFlow Product Details'
+  } else {
+    document.title = (to.meta?.title as string) || 'MyxoFlow'
+  }
   next()
 })
 

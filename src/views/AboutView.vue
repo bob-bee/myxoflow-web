@@ -57,20 +57,24 @@ const content = useContentStore()
 .hero {
   background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
   color: white;
-  padding: 4rem 0;
   text-align: center;
+  padding: 4rem 1rem;
 }
 
 .container {
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
+  margin: 0;
+  padding: 2rem 2rem;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .hero h1 {
   font-size: 3rem;
   font-weight: bold;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .subtitle {

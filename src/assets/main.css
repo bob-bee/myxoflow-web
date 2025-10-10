@@ -188,6 +188,102 @@
   --z-popover: 1060;
   --z-tooltip: 1070;
   --z-toast: 1080;
+
+  /* Themeable surface/text/border tokens (for theme levels) */
+  --surface-color: #ffffff;
+  --surface-secondary: #f8fafc;
+  --surface-tertiary: #f1f5f9;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --text-tertiary: #9ca3af;
+  --border-light: rgba(0, 0, 0, 0.1);
+  --border-strong: #d1d5db;
+  --primary-color: #3b82f6;
+  --primary-hover: #2563eb;
+}
+
+/* ==========================================
+  THEME LEVELS
+  ========================================== */
+/* ==========================================
+   THEME CLASSES (based on Sun Logo)
+   ========================================== */
+.theme-light {
+  --surface-color: #ffffff;
+  --surface-secondary: #f8fafc;
+  --surface-tertiary: #f1f5f9;
+  --text-primary: #35495e; /* ray color */
+  --text-secondary: #6b7280;
+  --text-tertiary: #9ca3af;
+  --border-light: rgba(53, 73, 94, 0.1);
+  --border-strong: #d1d5db;
+  --primary-color: #42b883; /* center color / accent */
+  --primary-hover: #38a274;
+}
+
+.theme-dark {
+  --surface-color: #1f2937;
+  --surface-secondary: #374151;
+  --surface-tertiary: #4b5563;
+  --text-primary: #ffffff; /* ray color */
+  --text-secondary: #d1d5db;
+  --text-tertiary: #9ca3af;
+  --border-light: rgba(255, 255, 255, 0.15);
+  --border-strong: #6b7280;
+  --primary-color: #2c3e50; /* center color / accent */
+  --primary-hover: #1d2a3c;
+}
+
+.theme-outdoor {
+  --surface-color: #e6f7ff;
+  --surface-secondary: #ccf2ff;
+  --surface-tertiary: #99e6ff;
+  --text-primary: #000000; /* ray color */
+  --text-secondary: #374151;
+  --text-tertiary: #6b7280;
+  --border-light: rgba(0, 0, 0, 0.08);
+  --border-strong: #d1d5db;
+  --primary-color: #00ffff; /* center color / accent */
+  --primary-hover: #00cccc;
+}
+
+.theme-reading {
+  --surface-color: #fff8f0;
+  --surface-secondary: #fff0e0;
+  --surface-tertiary: #ffe6cc;
+  --text-primary: #5c4033; /* ray color */
+  --text-secondary: #6b5033;
+  --text-tertiary: #9c6b50;
+  --border-light: rgba(92, 64, 51, 0.1);
+  --border-strong: #d1bfa0;
+  --primary-color: #ffb347; /* center color / accent */
+  --primary-hover: #e69b36;
+}
+
+.theme-tech {
+  --surface-color: #f5f5f5;
+  --surface-secondary: #eaeaea;
+  --surface-tertiary: #dcdcdc;
+  --text-primary: #e0e0e0; /* ray color */
+  --text-secondary: #9e9e9e;
+  --text-tertiary: #6b7280;
+  --border-light: rgba(224, 224, 224, 0.2);
+  --border-strong: #cfcfcf;
+  --primary-color: #00ced1; /* center color / accent */
+  --primary-hover: #00a7b0;
+}
+
+.theme-neutral {
+  --surface-color: #f9fafb;
+  --surface-secondary: #f3f4f6;
+  --surface-tertiary: #e5e7eb;
+  --text-primary: #888888; /* ray color */
+  --text-secondary: #6b7280;
+  --text-tertiary: #9ca3af;
+  --border-light: rgba(136, 136, 136, 0.1);
+  --border-strong: #d1d5db;
+  --primary-color: #888888; /* center color / accent */
+  --primary-hover: #666666;
 }
 
 /* ==========================================
@@ -199,6 +295,11 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 html {
   scroll-behavior: smooth;
@@ -210,11 +311,14 @@ body {
   font-family: var(--font-family-primary);
   font-size: var(--font-size-base);
   line-height: var(--line-height-normal);
-  color: var(--color-text-primary);
-  background: var(--color-background);
+  color: var(--text-primary);
+  background: var(--surface-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeSpeed;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 /* ==========================================
@@ -228,8 +332,9 @@ h5,
 h6 {
   font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-tight);
-  color: var(--color-text-primary);
+  color: var(--text-primary);
   margin-bottom: var(--space-3);
+  text-align: center;
 }
 h1 {
   font-size: var(--font-size-4xl);
@@ -282,7 +387,6 @@ code {
 /* ==========================================
   UTILITY CLASSES
   ========================================== */
-/* Screen Reader Only */
 .sr-only {
   position: absolute !important;
   width: 1px !important;
@@ -294,12 +398,13 @@ code {
   white-space: nowrap !important;
   border: 0 !important;
 }
-/* Container */
 .container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--space-4);
+  align-items: center;
+  vertical-align: middle;
 }
 @media (min-width: 640px) {
   .container {
@@ -416,10 +521,10 @@ code {
 
 /* Color Utilities */
 .text-primary {
-  color: var(--color-text-primary);
+  color: var(--text-primary);
 }
 .text-secondary {
-  color: var(--color-text-secondary);
+  color: var(--text-secondary);
 }
 .text-blue {
   color: var(--color-primary);
@@ -471,7 +576,6 @@ code {
 /* ==========================================
   COMPONENT CLASSES
   ========================================== */
-/* Button Base */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -492,7 +596,6 @@ code {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
-/* Button Variants */
 .btn-primary {
   background: var(--color-primary);
   color: var(--color-text-inverse);
@@ -515,12 +618,25 @@ code {
   color: var(--color-primary);
   text-decoration: none;
 }
-/* Card Component */
-.card {
-  background: var(--color-surface);
+
+/* Material Button using theme variables */
+.material-button {
+  background: var(--primary-color);
+  color: #fff;
+  border: 1px solid var(--border-light);
+}
+.material-button:hover {
+  background: var(--primary-hover);
+}
+
+/* Card/Section using theme variables */
+.card,
+.section {
+  background: var(--surface-secondary);
+  border: 1px solid var(--border-light);
+  color: var(--text-primary);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-sm);
-  border: 1px solid var(--color-border-light);
   overflow: hidden;
   transition: all var(--transition-duration-200) var(--transition-timing-ease-in-out);
 }
@@ -528,17 +644,17 @@ code {
   box-shadow: var(--shadow-lg);
   transform: translateY(-2px);
 }
-.card-header {
-  padding: var(--space-6);
-  border-bottom: 1px solid var(--color-border-light);
-}
-.card-body {
-  padding: var(--space-6);
-}
+.card-header,
+.card-body,
 .card-footer {
   padding: var(--space-6);
-  border-top: 1px solid var(--color-border-light);
-  background: var(--color-surface-secondary);
+}
+.card-header {
+  border-bottom: 1px solid var(--border-light);
+}
+.card-footer {
+  border-top: 1px solid var(--border-light);
+  background: var(--surface-tertiary);
 }
 
 /* ==========================================
@@ -586,20 +702,19 @@ code {
     scroll-behavior: auto !important;
   }
 }
-/* Focus indicators */
 *:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
-/* High contrast mode support */
 @media (prefers-contrast: high) {
   :root {
     --color-border: #000;
     --color-text-primary: #000;
     --color-background: #fff;
+    --border-light: currentColor;
+    --border-strong: currentColor;
   }
 }
-/* Dark mode support */
 @media (prefers-color-scheme: dark) {
   :root {
     --color-background: var(--gray-900);
@@ -612,4 +727,12 @@ code {
     --color-border-light: var(--gray-800);
     --color-border-strong: var(--gray-600);
   }
+}
+
+/* Theme helpers */
+.theme-dark {
+  color-scheme: dark;
+}
+.theme-light {
+  color-scheme: light;
 }

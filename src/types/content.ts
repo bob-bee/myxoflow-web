@@ -208,3 +208,7 @@ export interface ContentState {
   faq: FAQContent
   contact: ContactContent
 }
+export interface Theme {
+  name: string
+  icon: string
+}
