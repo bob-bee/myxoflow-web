@@ -1,298 +1,143 @@
 <template>
-  <div class="products-page">
-    <div class="container">
-      <!-- Page Header -->
-      <div class="page-header">
-        <h1 class="page-title">{{ content.products.title }}</h1>
-        <p class="page-description">
-          Discover our suite of market solutions powered by unified dashboard technology. Each
-          solution is tailored for specific industries while sharing the same powerful foundation.
-        </p>
-      </div>
+  <section class="products">
+    <div v-for="product in products" :key="product.key" class="product-card">
+      <!-- Header -->
+      <header>
+        <h2>{{ product.name }}</h2>
+        <p>{{ product.tagline }}</p>
+        <span v-if="product.badge" class="badge" :class="`badge--${product.badge.type}`">
+          {{ product.badge.text }}
+        </span>
+      </header>
 
-      <!-- Products Grid -->
-      <div class="products-grid">
-        <div
-          class="product-card"
-          v-for="product in content.products.list"
-          :key="product.key"
-          :class="getProductCardClass(product.key)"
-        >
-          <!-- Product Header -->
-          <div class="product-header">
-            <div class="product-icon">
-              <div class="icon-container" :style="getIconStyle(product.key)">
-                <span class="icon-symbol">{{ getProductIcon(product.key) }}</span>
-              </div>
-            </div>
+      <!-- Overview -->
+      <p class="overview">{{ product.overview }}</p>
 
-            <div class="product-badge" v-if="getProductBadge(product.key)">
-              <span class="badge-text">{{ getProductBadge(product.key) }}</span>
-            </div>
-          </div>
+      <!-- Stats -->
+      <ul class="stats">
+        <li v-for="stat in product.stats" :key="stat.label">
+          <strong>{{ stat.value }}</strong> — {{ stat.label }}
+          <span v-if="stat.change"> ({{ stat.change }})</span>
+        </li>
+      </ul>
 
-          <!-- Product Content -->
-          <div class="product-content">
-            <h3 class="product-name">{{ product.name }}</h3>
+      <!-- Features -->
+      <h3>Key Features</h3>
+      <ul class="features">
+        <li v-for="feature in product.features" :key="feature">
+          {{ feature }}
+        </li>
+      </ul>
 
-            <p class="product-description">{{ product.description }}</p>
+      <!-- Use Cases -->
+      <h3>Use Cases</h3>
+      <ul class="use-cases">
+        <li v-for="useCase in product.useCases" :key="useCase">
+          {{ useCase }}
+        </li>
+      </ul>
 
-            <!-- Key Features -->
-            <div class="product-features">
-              <div
-                class="feature-item"
-                v-for="feature in getKeyFeatures(product.key)"
-                :key="feature"
-              >
-                <div class="feature-icon">✓</div>
-                <span class="feature-text">{{ feature }}</span>
-              </div>
-            </div>
-
-            <!-- Product Stats -->
-            <div class="product-stats" v-if="getProductStats(product.key)">
-              <div class="stat-item" v-for="stat in getProductStats(product.key)" :key="stat.label">
-                <span class="stat-value">{{ stat.value }}</span>
-                <span class="stat-label">{{ stat.label }}</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Product Actions -->
-          <div class="product-actions">
-            <router-link :to="'/products/' + product.key" class="btn btn-primary product-cta">
-              Learn More
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="btn-icon">
-                <path
-                  d="M6 3L11 8L6 13"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </router-link>
-
-            <button class="btn btn-secondary" @click="handleQuickAction(product.key)">
-              {{ getQuickActionText(product.key) }}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Platform Connection -->
-      <div class="platform-connection">
-        <div class="connection-content">
-          <div class="connection-header">
-            <h2 class="connection-title">All Products Built on MyxoFlow Platform</h2>
-            <p class="connection-description">
-              Every solution leverages our unified dashboard technology, ensuring consistent user
-              experience and shared optimizations across all market verticals.
-            </p>
-          </div>
-
-          <div class="connection-benefits">
-            <div class="benefit-card">
-              <div class="benefit-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path
-                    d="M13 2L3 14H12L11 22L21 10H12L13 2Z"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </div>
-              <h4 class="benefit-title">Rapid Deployment</h4>
-              <p class="benefit-text">New market solutions in weeks, not months</p>
-            </div>
-
-            <div class="benefit-card">
-              <div class="benefit-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" />
-                  <path
-                    d="M12 1V3M12 21V23M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M1 12H3M21 12H23M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  />
-                </svg>
-              </div>
-              <h4 class="benefit-title">Cross-Market Optimization</h4>
-              <p class="benefit-text">Improvements in one market benefit all solutions</p>
-            </div>
-
-            <div class="benefit-card">
-              <div class="benefit-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <rect
-                    x="3"
-                    y="3"
-                    width="18"
-                    height="18"
-                    rx="2"
-                    ry="2"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  />
-                  <rect x="9" y="9" width="6" height="6" stroke="currentColor" stroke-width="2" />
-                </svg>
-              </div>
-              <h4 class="benefit-title">Unified Experience</h4>
-              <p class="benefit-text">Consistent interface design across all products</p>
-            </div>
-          </div>
-
-          <div class="connection-action">
-            <router-link to="/products/dashboards" class="btn btn-outline">
-              Explore the Platform
-            </router-link>
-          </div>
-        </div>
-      </div>
-
-      <!-- Bottom CTA -->
-      <div class="bottom-cta">
-        <div class="cta-content">
-          <h2 class="cta-title">Ready to Transform Your Market Operations?</h2>
-          <p class="cta-description">
-            Schedule a consultation to see how MyxoFlow's unified platform can be adapted for your
-            industry.
-          </p>
-          <div class="cta-actions">
-            <router-link to="/contact" class="btn btn-primary btn-large">
-              Schedule Consultation
-            </router-link>
-            <router-link to="/how-it-works" class="btn btn-secondary btn-large">
-              See How It Works
-            </router-link>
-          </div>
-        </div>
+      <!-- Pricing -->
+      <div class="pricing">
+        <p><strong>Pricing:</strong> {{ product.pricing }}</p>
+        <h4>{{ product.pricingModel.title }}</h4>
+        <ul>
+          <li v-for="benefit in product.pricingModel.benefits" :key="benefit">
+            {{ benefit }}
+          </li>
+        </ul>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">
-import { useContentStore } from '@/stores/useContentStore'
+import { ref } from 'vue'
 
-const contentStore = useContentStore()
-const content = contentStore.$state
-
-// Product customization functions
-const getProductIcon = (key: string): string => {
-  const icons: Record<string, string> = {
-    dashboards: '⚡',
-    stichflow: '👔',
-    fill: '👥',
-    date: '💕',
-    golgappa: '🍛',
-    craft: '🎨',
-  }
-  return icons[key] || '📊'
+interface Stat {
+  value: string
+  label: string
+  trend?: string
+  change?: string
 }
 
-const getIconStyle = (key: string): Record<string, string> => {
-  const styles: Record<string, Record<string, string>> = {
-    dashboards: { background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)', color: 'white' },
-    stichflow: { background: 'linear-gradient(135deg, #10B981, #047857)', color: 'white' },
-    fill: { background: 'linear-gradient(135deg, #8B5CF6, #7C3AED)', color: 'white' },
-    date: { background: 'linear-gradient(135deg, #EC4899, #BE185D)', color: 'white' },
-    golgappa: { background: 'linear-gradient(135deg, #F59E0B, #D97706)', color: 'white' },
-    craft: { background: 'linear-gradient(135deg, #EF4444, #DC2626)', color: 'white' },
-  }
-  return styles[key] || { background: '#E5E7EB', color: '#374151' }
+interface Badge {
+  text: string
+  type: 'primary' | 'success' | 'warning'
 }
 
-const getProductBadge = (key: string): string | null => {
-  const badges: Record<string, string> = {
-    dashboards: 'Core Platform',
-    stichflow: 'Most Popular',
-    fill: 'Growing Fast',
-    date: 'Premium',
-  }
-  return badges[key] || null
+interface PricingModel {
+  title: string
+  benefits: string[]
 }
 
-const getProductCardClass = (key: string): string => {
-  const classes: Record<string, string> = {
-    dashboards: 'card-featured',
-    stichflow: 'card-popular',
-  }
-  return classes[key] || ''
+interface Product {
+  key: string
+  name: string
+  tagline: string
+  description: string
+  overview: string
+  features: string[]
+  useCases: string[]
+  pricing: string
+  badge?: Badge
+  stats: Stat[]
+  targetAudience?: string
+  differentiators?: string[]
+  processSteps?: { title: string; description: string; duration?: string }[]
+  pricingModel: PricingModel
+  screenshots?: string[]
+  testimonials?: { name: string; role: string; company: string; content: string; rating: number }[]
 }
 
-const getKeyFeatures = (key: string): string[] => {
-  const features: Record<string, string[]> = {
-    dashboards: ['Unified technology stack', 'Cross-market deployment', 'Rapid customization'],
-    stichflow: ['500+ verified workshops', 'Multi-language support', 'Integrated payments'],
-    fill: ['Regional competitions', 'AI-powered matching', 'Performance analytics'],
-    date: ['Income verification', 'Premium membership', 'Advanced matching'],
-    golgappa: ['DC power optimization', 'Weather-resistant', 'Route analytics'],
-    craft: ['Open-source library', 'Design editor', 'Direct manufacturing'],
-  }
-  return features[key] || ['Platform-based solution', 'Direct developer support', 'Proven results']
-}
-
-const getProductStats = (key: string) => {
-  const stats: Record<string, Array<{ value: string; label: string }>> = {
-    dashboards: [
-      { value: '5+', label: 'Markets' },
-      { value: '90%', label: 'Code Reuse' },
+const products = ref<Product[]>([
+  {
+    key: 'stichflow',
+    name: 'StichFlow',
+    tagline: 'Textile Manufacturing Optimization',
+    description:
+      'Streamline your textile manufacturing process with real-time production tracking, quality control, and supply chain optimization.',
+    overview:
+      'StichFlow revolutionizes textile manufacturing by providing end-to-end visibility and control over your production pipeline.',
+    badge: { text: 'Most Popular', type: 'primary' },
+    stats: [
+      { value: '40%', label: 'Production Increase', trend: 'up', change: '+5%' },
+      { value: '25%', label: 'Waste Reduction', trend: 'up', change: '+3%' },
     ],
-    stichflow: [
-      { value: '500+', label: 'Workshops' },
-      { value: '3', label: 'Languages' },
+    features: [
+      'Real-time production monitoring',
+      'Automated quality control',
+      'Supply chain optimization',
     ],
-    fill: [
-      { value: '1000+', label: 'Freelancers' },
-      { value: '95%', label: 'Match Rate' },
+    useCases: ['Large-scale textile manufacturing', 'Custom garment production'],
+    pricing: 'Starting at $299/month per facility',
+    pricingModel: {
+      title: 'Enterprise Manufacturing Solution',
+      benefits: ['Unlimited production tracking', 'Advanced analytics', '24/7 support'],
+    },
+  },
+  {
+    key: 'fill',
+    name: 'MyxoFill',
+    tagline: 'Manufacturing Optimization Platform',
+    description:
+      'Optimize your manufacturing operations with intelligent resource allocation and predictive maintenance.',
+    overview:
+      'MyxoFill provides comprehensive manufacturing optimization through intelligent automation and insights.',
+    badge: { text: 'Growing Fast', type: 'success' },
+    stats: [
+      { value: '35%', label: 'Efficiency Gain', trend: 'up', change: '+2%' },
+      { value: '50%', label: 'Downtime Reduction', trend: 'up', change: '+5%' },
     ],
-    date: [
-      { value: '$100', label: '/month' },
-      { value: '98%', label: 'Verified' },
-    ],
-    golgappa: [
-      { value: '48V', label: 'Power System' },
-      { value: '80%', label: 'Efficiency' },
-    ],
-    craft: [
-      { value: '1000+', label: 'Designs' },
-      { value: '24hr', label: 'Turnaround' },
-    ],
-  }
-  return stats[key] || null
-}
-
-const getQuickActionText = (key: string): string => {
-  const actions: Record<string, string> = {
-    dashboards: 'Request Demo',
-    stichflow: 'View Network',
-    fill: 'See Talent',
-    date: 'Membership Info',
-    golgappa: 'Calculate ROI',
-    craft: 'Browse Designs',
-  }
-  return actions[key] || 'Quick Demo'
-}
-
-const handleQuickAction = (key: string) => {
-  // This would typically open a modal or navigate to a specific section
-  // For now, we'll navigate to the product detail page with a specific anchor
-  const actions: Record<string, string> = {
-    dashboards: '/products/dashboards#demo',
-    stichflow: '/products/stichflow#network',
-    fill: '/products/fill#talent',
-    date: '/products/date#membership',
-    golgappa: '/products/golgappa#calculator',
-    craft: '/products/craft#library',
-  }
-
-  if (actions[key]) {
-    window.location.href = actions[key]
-  }
-}
+    features: ['Resource allocation', 'Predictive maintenance', 'Efficiency tracking'],
+    useCases: ['Manufacturing plant optimization', 'Cost reduction initiatives'],
+    pricing: 'Starting at $199/month per facility',
+    pricingModel: {
+      title: 'Complete Manufacturing Suite',
+      benefits: ['Unlimited monitoring', 'Predictive recommendations', 'Priority support'],
+    },
+  },
+])
 </script>
 
 <style scoped>

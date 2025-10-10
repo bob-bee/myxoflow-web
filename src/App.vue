@@ -2,7 +2,6 @@
 import { ref, onMounted, onUnmounted, onBeforeMount } from 'vue'
 import AppHeader from '@/components/layout/AppHeader.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
-import ThemeDebug from '@/components/common/extras/ThemeDebug.vue'
 import FallBack from '@/components/common/extras/FallBack.vue'
 import { initTheme } from '@/composables/useThemes'
 // State
@@ -65,8 +64,6 @@ onUnmounted(() => {
         </router-view>
         <!-- TubeLight Component        -->
         <FallBack />
-
-        <ThemeDebug />
       </main>
 
       <!-- Footer -->
