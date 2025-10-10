@@ -1,239 +1,142 @@
 <template>
-  <section class="hero-section" ref="heroRef">
-    <!-- Background Elements -->
+  <section class="hero-section" :class="{ loaded: uiStore.animations.heroLoaded }">
     <div class="hero-background">
       <div class="hero-gradient"></div>
-      <div class="hero-pattern"></div>
-      <div class="floating-elements">
+      <div class="hero-shapes">
         <div
-          class="floating-element"
-          v-for="i in 6"
-          :key="i"
-          :style="getFloatingElementStyle(i)"
+          v-for="(shape, index) in 3"
+          :key="'shape-' + shape"
+          class="shape"
+          :class="`shape-${index + 1}`"
+          :style="{ animationDelay: `${index * 2}s` }"
         ></div>
       </div>
     </div>
 
-    <div class="hero-container">
+    <div class="container">
       <div class="hero-content">
-        <!-- Announcement Badge -->
-        <div class="announcement-badge" v-if="showAnnouncement">
-          <span class="badge-icon">✨</span>
-          <span class="badge-text">New: MyxoCraft Platform Now Live!</span>
-          <router-link to="/products" class="badge-link">Learn More →</router-link>
-        </div>
-
-        <!-- Main Headline -->
-        <h1 class="hero-headline">
-          <span class="headline-main">{{ content.hero.headline }}</span>
-          <span class="headline-highlight">One Task at a Time</span>
-        </h1>
-
-        <!-- Subheadline -->
-        <p class="hero-subheadline">
-          {{ content.hero.subheadline }}
-        </p>
-
-        <!-- Key Features -->
-        <div class="hero-features">
-          <div class="feature-item" v-for="(feature, index) in keyFeatures" :key="index">
-            <div class="feature-icon" v-html="feature.icon"></div>
-            <span>{{ feature.text }}</span>
+        <div class="hero-text">
+          <div class="hero-badge">
+            <span class="badge-icon">{{ contentStore.hero.badge.icon }}</span>
+            {{ contentStore.hero.badge.text }}
           </div>
-        </div>
 
-        <!-- Call-to-Action Buttons -->
-        <div class="hero-actions">
-          <router-link to="/how-it-works" class="cta-primary">
-            <span>{{ content.hero.ctaPrimary }}</span>
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path
-                d="M4.16675 10H15.8334"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M10 4.16669L15.8334 10L10 15.8334"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </router-link>
+          <h1 class="hero-title">
+            {{ contentStore.hero.title }}
+            <span class="highlight">{{ contentStore.hero.highlight }}</span>
+          </h1>
 
-          <router-link to="/contact" class="cta-secondary">
-            <span>{{ content.hero.ctaSecondary }}</span>
-          </router-link>
-        </div>
+          <p class="hero-description">
+            {{ contentStore.hero.description }}
+          </p>
 
-        <!-- Social Proof -->
-        <div class="social-proof">
-          <p class="social-proof-text">Trusted by 500+ manufacturers worldwide</p>
-          <div class="social-proof-stats">
-            <div class="stat-item">
-              <span class="stat-number">90%</span>
-              <span class="stat-label">Cost Reduction</span>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-              <span class="stat-number">500+</span>
-              <span class="stat-label">Task Makers</span>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-              <span class="stat-number">2 sec</span>
-              <span class="stat-label">Response Time</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Hero Visual -->
-      <div class="hero-visual">
-        <div class="visual-container">
-          <!-- Dashboard Preview -->
-          <div class="dashboard-preview" :style="{ transform: dashboardTransform }">
-            <div class="dashboard-header">
-              <div class="dashboard-logo">MyxoFlow</div>
-              <div class="dashboard-nav">
-                <span class="nav-dot"></span>
-                <span class="nav-dot"></span>
-                <span class="nav-dot"></span>
+          <div class="hero-stats">
+            <div v-for="stat in statsStore.heroStats" :key="stat.label" class="stat-item">
+              <div class="stat-value">{{ stat.value }}</div>
+              <div class="stat-label">{{ stat.label }}</div>
+              <div v-if="stat.change" class="stat-change" :class="`trend-${stat.trend}`">
+                {{ stat.change }}
               </div>
             </div>
+          </div>
+
+          <div class="hero-actions">
+            <router-link :to="contentStore.hero.primaryAction.link" class="btn btn-primary">
+              {{ contentStore.hero.primaryAction.text }}
+              <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M5 12H19M12 5L19 12L12 19"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </router-link>
+
+            <router-link :to="contentStore.hero.secondaryAction.link" class="btn btn-secondary">
+              {{ contentStore.hero.secondaryAction.text }}
+            </router-link>
+          </div>
+
+          <div class="hero-chips">
+            <div v-for="chip in contentStore.hero.chips" :key="chip.label" class="chip">
+              {{ chip.label }}
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="dashboard-preview">
+            <div class="dashboard-header">
+              <div class="dashboard-logo">{{ contentStore.company.name }}</div>
+              <div class="dashboard-tabs">
+                <div class="tab active">Overview</div>
+                <div class="tab">Markets</div>
+                <div class="tab">Analytics</div>
+              </div>
+            </div>
+
             <div class="dashboard-content">
-              <div class="dashboard-card" v-for="i in 3" :key="i">
-                <div class="card-header"></div>
-                <div class="card-content">
-                  <div class="progress-bar">
-                    <div class="progress-fill" :style="{ width: 40 + i * 20 + '%' }"></div>
+              <div class="dashboard-grid">
+                <div
+                  v-for="market in productStore.marketData"
+                  :key="market.name"
+                  class="dashboard-card"
+                >
+                  <div class="market-header">
+                    <div
+                      class="market-icon"
+                      :style="{
+                        backgroundColor: market.color + '20',
+                        color: market.color,
+                      }"
+                    >
+                      {{ market.icon }}
+                    </div>
+                    <div class="market-info">
+                      <div class="market-name">{{ market.name }}</div>
+                      <div class="market-status">{{ market.status }}</div>
+                    </div>
+                  </div>
+
+                  <div class="market-stats">
+                    <div class="market-stat">
+                      <div class="stat-value">{{ market.users }}</div>
+                      <div class="stat-label">Active Users</div>
+                    </div>
+                    <div class="market-stat">
+                      <div class="stat-value text-green">{{ market.growth }}</div>
+                      <div class="stat-label">Growth</div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-          <!-- Floating Cards -->
-          <div class="floating-card card-1" :style="{ transform: card1Transform }">
-            <div class="card-icon">📈</div>
-            <div class="card-text">
-              <div class="card-title">Cost Optimized</div>
-              <div class="card-value">-90%</div>
-            </div>
-          </div>
-
-          <div class="floating-card card-2" :style="{ transform: card2Transform }">
-            <div class="card-icon">⚡</div>
-            <div class="card-text">
-              <div class="card-title">Tasks Completed</div>
-              <div class="card-value">1,234</div>
-            </div>
-          </div>
         </div>
       </div>
-    </div>
-
-    <!-- Scroll Indicator -->
-    <div class="scroll-indicator">
-      <div class="scroll-arrow">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path
-            d="M7 13L12 18L17 13"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </div>
-      <span class="scroll-text">Scroll to explore</span>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { onMounted } from 'vue'
 import { useContentStore } from '@/stores/useContentStore'
+import { useProductStore } from '@/stores/useProductStore'
+import { useStatsStore } from '@/stores/useStatsStore'
+import { useUIStore } from '@/stores/useUIStore'
 
 const contentStore = useContentStore()
-const content = contentStore.$state
+const productStore = useProductStore()
+const statsStore = useStatsStore()
+const uiStore = useUIStore()
 
-// Refs
-const heroRef = ref<HTMLElement>()
-const mouseX = ref(0)
-const mouseY = ref(0)
-const scrollY = ref(0)
-
-// State
-const showAnnouncement = ref(true)
-
-// Key features for the hero section
-const keyFeatures = [
-  {
-    icon: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1L10.09 5.26L15 6L12 8.96L12.71 13.98L8 11.82L3.29 13.98L4 8.96L1 6L5.91 5.26L8 1Z" fill="currentColor"/></svg>',
-    text: 'No Premium Price Tag',
-  },
-  {
-    icon: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1V15M1 8H15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
-    text: 'Horizontal Scaling',
-  },
-  {
-    icon: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M14 6L8 12L2 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-    text: 'Direct Partnership',
-  },
-]
-
-// Computed transforms for parallax effects
-const dashboardTransform = computed(() => {
-  const parallaxX = (mouseX.value - window.innerWidth / 2) * 0.02
-  const parallaxY = (mouseY.value - window.innerHeight / 2) * 0.02 + scrollY.value * 0.5
-  return `translate3d(${parallaxX}px, ${parallaxY}px, 0) rotateY(${parallaxX * 0.5}deg)`
-})
-
-const card1Transform = computed(() => {
-  const parallaxX = (mouseX.value - window.innerWidth / 2) * 0.05
-  const parallaxY = (mouseY.value - window.innerHeight / 2) * 0.05 + scrollY.value * 0.3
-  return `translate3d(${parallaxX}px, ${parallaxY}px, 0)`
-})
-
-const card2Transform = computed(() => {
-  const parallaxX = (mouseX.value - window.innerWidth / 2) * -0.03
-  const parallaxY = (mouseY.value - window.innerHeight / 2) * -0.03 + scrollY.value * 0.4
-  return `translate3d(${parallaxX}px, ${parallaxY}px, 0)`
-})
-
-// Methods
-const handleMouseMove = (event: MouseEvent) => {
-  mouseX.value = event.clientX
-  mouseY.value = event.clientY
-}
-
-const handleScroll = () => {
-  scrollY.value = window.scrollY * 0.5
-}
-
-const getFloatingElementStyle = (index: number) => {
-  const delay = index * 0.5
-  return {
-    '--delay': `${delay}s`,
-    '--duration': `${3 + index}s`,
-    left: `${10 + index * 15}%`,
-    top: `${20 + index * 10}%`,
-  }
-}
-
-// Lifecycle
 onMounted(() => {
-  window.addEventListener('mousemove', handleMouseMove)
-  window.addEventListener('scroll', handleScroll)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('mousemove', handleMouseMove)
-  window.removeEventListener('scroll', handleScroll)
+  // Trigger hero loaded animation
+  setTimeout(() => {
+    uiStore.animations.heroLoaded = true
+  }, 500)
 })
 </script>
 
@@ -243,61 +146,66 @@ onUnmounted(() => {
   min-height: 100vh;
   display: flex;
   align-items: center;
+  background: var(--surface-color);
   overflow: hidden;
-  padding: 120px 0 60px;
+  opacity: 0;
+  transition: opacity 1s ease;
 }
 
-/* Background */
+.hero-section.loaded {
+  opacity: 1;
+}
+
 .hero-background {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
+  inset: 0;
+  z-index: 0;
 }
 
 .hero-gradient {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(var(--primary-rgb), 0.05) 0%,
-    rgba(var(--secondary-rgb), 0.05) 50%,
-    rgba(var(--accent-rgb), 0.05) 100%
+    var(--surface-color) 0%,
+    var(--surface-secondary) 50%,
+    var(--surface-tertiary) 100%
   );
+  opacity: 0.8;
 }
 
-.hero-pattern {
+.hero-shapes {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image:
-    radial-gradient(circle at 25% 25%, rgba(var(--primary-rgb), 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 75% 75%, rgba(var(--secondary-rgb), 0.1) 0%, transparent 50%);
-  animation: patternFloat 20s ease-in-out infinite;
+  inset: 0;
 }
 
-.floating-elements {
+.shape {
   position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-.floating-element {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background: var(--primary-color);
   border-radius: 50%;
-  opacity: 0.3;
-  animation: float var(--duration, 4s) ease-in-out infinite;
-  animation-delay: var(--delay, 0s);
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+  opacity: 0.1;
+  animation: float 6s ease-in-out infinite;
+}
+
+.shape-1 {
+  width: 300px;
+  height: 300px;
+  top: 10%;
+  right: 10%;
+}
+
+.shape-2 {
+  width: 200px;
+  height: 200px;
+  bottom: 20%;
+  left: 5%;
+}
+
+.shape-3 {
+  width: 150px;
+  height: 150px;
+  top: 60%;
+  right: 30%;
 }
 
 @keyframes float {
@@ -310,239 +218,331 @@ onUnmounted(() => {
   }
 }
 
-@keyframes patternFloat {
-  0%,
-  100% {
-    transform: scale(1) rotate(0deg);
-  }
-  50% {
-    transform: scale(1.1) rotate(2deg);
-  }
-}
-
-/* Container */
-.hero-container {
+.container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 var(--spacing-lg);
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 3rem;
-  align-items: center;
+  padding: 0 1rem;
+  position: relative;
+  z-index: 1;
 }
 
-/* Content */
 .hero-content {
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  padding: 4rem 0;
 }
 
-.announcement-badge {
+.hero-badge {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-xs);
-  padding: var(--spacing-xs) var(--spacing-md);
-  background: rgba(var(--primary-rgb), 0.1);
-  border: 1px solid rgba(var(--primary-rgb), 0.2);
+  gap: 0.5rem;
+  background: var(--surface-secondary);
+  border: 1px solid var(--border-light);
+  padding: 0.75rem 1rem;
   border-radius: 50px;
   font-size: 0.875rem;
-  font-weight: var(--font-weight-medium);
-  color: var(--primary-color);
+  font-weight: 500;
+  color: var(--text-secondary);
   margin-bottom: 2rem;
-  animation: slideInUp 0.6s ease 0.2s both;
 }
 
-.badge-link {
-  color: inherit;
-  text-decoration: none;
-  font-weight: 600;
-  transition: opacity var(--transition-fast);
-}
-.badge-link:hover {
-  opacity: 0.8;
-}
-
-.hero-headline {
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  font-weight: var(--font-weight-black);
+.hero-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
   line-height: 1.1;
-  margin-bottom: 1.5rem;
-  color: var(--text-color);
-  animation: slideInUp 0.6s ease 0.4s both;
+  color: var(--text-primary);
+  margin: 0 0 1.5rem 0;
 }
 
-.headline-highlight {
+.highlight {
   display: block;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.hero-subheadline {
+.hero-description {
   font-size: 1.25rem;
-  color: var(--text-secondary);
   line-height: 1.6;
-  margin-bottom: 2rem;
-  animation: slideInUp 0.6s ease 0.6s both;
-}
-
-.hero-features {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--spacing-lg);
-  margin-bottom: 2.5rem;
-  animation: slideInUp 0.6s ease 0.8s both;
-}
-
-.feature-item {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
   color: var(--text-secondary);
-  font-weight: var(--font-weight-medium);
+  margin: 0 0 2rem 0;
+  max-width: 90%;
 }
-.feature-icon {
-  color: var(--primary-color);
+
+.hero-stats {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.stat-item {
+  text-align: center;
+  position: relative;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: block;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+  margin-top: 0.25rem;
+}
+
+.stat-change {
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 0.25rem;
+}
+
+.trend-up {
+  color: #10b981;
+}
+.trend-down {
+  color: #ef4444;
+}
+.trend-stable {
+  color: var(--text-tertiary);
 }
 
 .hero-actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-md);
-  justify-content: center;
-  margin-bottom: 3rem;
-  animation: slideInUp 0.6s ease 1s both;
+  gap: 1rem;
+  margin-bottom: 2rem;
 }
 
-.cta-primary {
+.btn {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-xs);
+  gap: 0.5rem;
   padding: 1rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
   background: var(--primary-color);
-  color: var(--text-inverse);
-  text-decoration: none;
-  border-radius: var(--border-radius-lg);
-  font-weight: 600;
-  font-size: 1.125rem;
-  transition: all var(--transition-normal);
-  box-shadow: 0 4px 14px 0 rgba(var(--primary-rgb), 0.4);
-}
-.cta-primary:hover {
-  background: var(--primary-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px 0 rgba(var(--primary-rgb), 0.4);
+  color: white;
+  box-shadow: 0 4px 14px rgba(var(--primary-color-rgb), 0.3);
 }
 
-.cta-secondary {
-  display: inline-flex;
-  align-items: center;
-  padding: 1rem 2rem;
-  background: transparent;
-  color: var(--text-color);
-  text-decoration: none;
-  border: 2px solid var(--border-color);
-  border-radius: var(--border-radius-lg);
-  font-weight: 600;
-  font-size: 1.125rem;
-  transition: all var(--transition-normal);
+.btn-primary:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(var(--primary-color-rgb), 0.4);
 }
-.cta-secondary:hover {
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 2px solid var(--border-strong);
+}
+
+.btn-secondary:hover {
+  background: var(--surface-secondary);
   border-color: var(--primary-color);
   color: var(--primary-color);
-  transform: translateY(-1px);
 }
 
-/* Social Proof */
-.social-proof {
-  animation: slideInUp 0.6s ease 1.2s both;
+.arrow-icon {
+  transition: transform 0.3s ease;
 }
-.social-proof-text {
+
+.btn:hover .arrow-icon {
+  transform: translateX(4px);
+}
+
+.hero-chips {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.chip {
+  background: var(--surface-tertiary);
+  color: var(--text-secondary);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid var(--border-light);
+}
+
+/* Dashboard Preview */
+.dashboard-preview {
+  background: var(--surface-color);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
+  transition: transform 0.3s ease;
+}
+
+.dashboard-preview:hover {
+  transform: perspective(1000px) rotateY(-2deg) rotateX(2deg);
+}
+
+.dashboard-header {
+  background: var(--surface-secondary);
+  border-bottom: 1px solid var(--border-light);
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard-logo {
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.dashboard-tabs {
+  display: flex;
+  gap: 1rem;
+}
+
+.tab {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
   font-size: 0.875rem;
   color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab.active {
+  background: var(--primary-color);
+  color: white;
+}
+
+.dashboard-content {
+  padding: 1.5rem;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.dashboard-card {
+  background: var(--surface-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.market-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   margin-bottom: 1rem;
 }
 
-/* Hero Visual */
-.hero-visual {
-  display: none;
-  justify-content: center;
-  animation: slideInUp 0.8s ease 0.6s both;
-}
-
-/* Scroll Indicator */
-.scroll-indicator {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
+.market-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: var(--spacing-xs);
-  color: var(--text-secondary);
-  animation: bounce 2s ease-in-out infinite;
+  justify-content: center;
+  font-size: 0.875rem;
 }
 
-/* Animations */
-@keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.market-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.875rem;
 }
-@keyframes bounce {
-  0%,
-  20%,
-  53%,
-  80%,
-  100% {
-    transform: translateX(-50%) translateY(0);
+
+.market-status {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+}
+
+.market-stats {
+  display: flex;
+  gap: 1rem;
+}
+
+.market-stat {
+  text-align: center;
+  flex: 1;
+}
+
+.market-stat .stat-value {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.market-stat .stat-label {
+  font-size: 0.625rem;
+  color: var(--text-tertiary);
+  margin-top: 0.25rem;
+}
+
+.text-green {
+  color: #10b981 !important;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    text-align: center;
   }
-  40%,
-  43% {
-    transform: translateX(-50%) translateY(-10px);
+
+  .hero-text {
+    order: 1;
   }
-  70% {
-    transform: translateX(-50%) translateY(-5px);
+
+  .hero-visual {
+    order: 0;
   }
 }
 
 @media (max-width: 768px) {
-  .hero-container {
-    padding: 0 var(--spacing-md);
+  .hero-section {
+    min-height: auto;
+    padding: 2rem 0;
   }
-  .hero-features,
+
+  .hero-stats {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
   .hero-actions {
     flex-direction: column;
-    align-items: center;
   }
-  .cta-primary,
-  .cta-secondary {
-    width: 100%;
+
+  .btn {
     justify-content: center;
   }
-}
-@media (min-width: 1024px) {
-  .hero-container {
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
   }
-  .hero-content {
-    text-align: left;
-    margin: 0;
-  }
-  .hero-actions {
-    justify-content: flex-start;
-  }
-  .hero-visual {
-    display: flex;
+
+  .dashboard-preview {
+    transform: none;
   }
 }
 </style>

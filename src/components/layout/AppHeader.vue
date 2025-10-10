@@ -1,395 +1,292 @@
 <template>
-  <header class="app-header" :class="{ scrolled: isScrolled, 'menu-open': isMobileMenuOpen }">
-    <div class="header-container">
-      <!-- Logo -->
-      <router-link to="/" class="logo-link" @click="closeMobileMenu">
+  <header class="app-header" :class="{ scrolled: uiStore.scroll.isScrolled }">
+    <div class="container">
+      <div class="header-content">
+        <!-- Logo -->
         <div class="logo">
-          <img src="@/assets/myxoflow.svg" alt="MyxoFlow" class="logo-image" />
-          <span class="logo-text">MyxoFlow</span>
+          <router-link to="/" class="logo-link" @click="uiStore.closeMenu">
+            <h1>{{ contentStore.company.name }}</h1>
+          </router-link>
         </div>
-      </router-link>
 
-      <!-- Desktop Navigation -->
-      <nav class="desktop-nav" aria-label="Main navigation">
-        <ul class="nav-list">
-          <li v-for="item in navigationItems" :key="item.name" class="nav-item">
-            <router-link
-              :to="item.path"
-              class="nav-link"
-              :class="{ active: $route.path === item.path }"
-              @click="closeMobileMenu"
-            >
-              {{ item.name }}
-            </router-link>
-          </li>
-        </ul>
-      </nav>
+        <!-- Desktop Navigation -->
+        <nav class="nav-menu desktop-nav" :class="{ active: uiStore.navigation.isMenuOpen }">
+          <router-link
+            v-for="item in contentStore.navigation"
+            :key="item.path"
+            :to="item.path"
+            @click="uiStore.closeMenu"
+            class="nav-link"
+            :class="{ 'router-link-active': $route.path === item.path }"
+          >
+            {{ item.label }}
+          </router-link>
+        </nav>
 
-      <!-- CTA Button -->
-      <div class="header-actions">
-        <router-link to="/contact" class="cta-button" @click="closeMobileMenu">
-          Get Started
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path
-              d="M6 12L10 8L6 4"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </router-link>
-
-        <!-- Mobile Menu Button -->
+        <!-- Mobile Menu Toggle -->
         <button
-          class="mobile-menu-btn"
-          @click="toggleMobileMenu"
-          :aria-expanded="isMobileMenuOpen"
-          aria-label="Toggle menu"
+          class="nav-toggle"
+          @click="uiStore.toggleMenu"
+          :class="{ active: uiStore.navigation.isMenuOpen }"
+          :aria-label="uiStore.navigation.isMenuOpen ? 'Close navigation' : 'Open navigation'"
+          :aria-expanded="uiStore.navigation.isMenuOpen"
         >
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
       </div>
     </div>
 
-    <!-- Mobile Navigation -->
-    <transition name="mobile-menu">
-      <nav v-if="isMobileMenuOpen" class="mobile-nav" aria-label="Mobile navigation">
-        <ul class="mobile-nav-list">
-          <li v-for="item in navigationItems" :key="item.name" class="mobile-nav-item">
-            <router-link
-              :to="item.path"
-              class="mobile-nav-link"
-              :class="{ active: $route.path === item.path }"
-              @click="closeMobileMenu"
-            >
-              {{ item.name }}
-            </router-link>
-          </li>
-          <li class="mobile-nav-item">
-            <router-link to="/contact" class="mobile-cta-button" @click="closeMobileMenu">
-              Get Started
-            </router-link>
-          </li>
-        </ul>
-      </nav>
-    </transition>
-
-    <!-- Mobile menu overlay -->
+    <!-- Mobile Navigation Overlay -->
     <div
-      v-if="isMobileMenuOpen"
-      class="mobile-overlay"
-      @click="closeMobileMenu"
-      aria-hidden="true"
-    ></div>
+      class="mobile-nav-overlay"
+      :class="{ active: uiStore.navigation.isMenuOpen }"
+      @click="uiStore.closeMenu"
+    >
+      <nav class="mobile-nav" @click.stop>
+        <router-link
+          v-for="item in contentStore.navigation"
+          :key="'mobile-' + item.path"
+          :to="item.path"
+          @click="uiStore.closeMenu"
+          class="mobile-nav-link"
+          :class="{ 'router-link-active': $route.path === item.path }"
+        >
+          {{ item.label }}
+        </router-link>
+      </nav>
+    </div>
   </header>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
+import { useContentStore } from '@/stores/useContentStore'
+import { useUIStore } from '@/stores/useUIStore'
 
-// State
-const isScrolled = ref(false)
-const isMobileMenuOpen = ref(false)
+const contentStore = useContentStore()
+const uiStore = useUIStore()
 
-// Navigation items
-const navigationItems = [
-  { name: 'Home', path: '/' },
-  { name: 'About', path: '/about' },
-  { name: 'Products', path: '/products' },
-  { name: 'How It Works', path: '/how-it-works' },
-  { name: 'Case Studies', path: '/case-studies' },
-  { name: 'FAQ', path: '/faq' },
-]
-
-// Methods
-const toggleMobileMenu = () => {
-  isMobileMenuOpen.value = !isMobileMenuOpen.value
-  // Prevent body scroll when menu is open
-  document.body.style.overflow = isMobileMenuOpen.value ? 'hidden' : ''
-}
-
-const closeMobileMenu = () => {
-  isMobileMenuOpen.value = false
-  document.body.style.overflow = ''
-}
-
+// Handle scroll tracking
 const handleScroll = () => {
-  isScrolled.value = window.scrollY > 50
+  uiStore.updateScroll(window.scrollY)
 }
 
-// Lifecycle
+// Handle escape key
+const handleEscape = (e: KeyboardEvent) => {
+  if (e.key === 'Escape') {
+    uiStore.closeMenu()
+  }
+}
+
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll)
-
-  // Close mobile menu on escape key
-  const handleEscape = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      closeMobileMenu()
-    }
-  }
+  window.addEventListener('scroll', handleScroll, { passive: true })
   document.addEventListener('keydown', handleEscape)
-
-  return () => {
-    document.removeEventListener('keydown', handleEscape)
-  }
 })
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
-  document.body.style.overflow = ''
+  document.removeEventListener('keydown', handleEscape)
 })
 </script>
 
 <style scoped>
 .app-header {
-  position: fixed;
+  background: rgba(var(--surface-color-rgb, 255, 255, 255), 0.95);
+  border-bottom: 1px solid var(--border-light);
+  position: sticky;
   top: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(var(--surface-color-rgb), 0.95);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid transparent;
-  transition: all var(--transition-duration-200);
   z-index: 1000;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
 }
 
 .app-header.scrolled {
-  background: rgba(var(--surface-color-rgb), 0.98);
-  border-bottom-color: var(--border-strong);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
 }
 
-.header-container {
+.container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 var(--space-6);
+  padding: 0 1rem;
+}
+
+.header-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
+  min-height: 4rem;
+}
+
+.logo h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin: 0;
+  transition: color 0.3s ease;
 }
 
 .logo-link {
   text-decoration: none;
-  color: inherit;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-}
-
-.logo-image {
-  width: 40px;
-  height: 40px;
-}
-
-.logo-text {
-  font-size: 1.5rem;
-  font-weight: var(--font-weight-bold);
-  color: var(--primary-color);
+.logo-link:hover h1 {
+  color: var(--primary-hover);
 }
 
 /* Desktop Navigation */
 .desktop-nav {
-  display: none;
-}
-
-.nav-list {
   display: flex;
-  list-style: none;
-  gap: var(--space-10);
+  align-items: center;
+  gap: 2rem;
 }
 
 .nav-link {
+  color: var(--text-secondary);
   text-decoration: none;
-  color: var(--text-primary);
-  font-weight: var(--font-weight-medium);
-  transition: color var(--transition-duration-150);
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.5rem 0;
   position: relative;
-  padding: var(--space-2) 0;
+  transition: all 0.3s ease;
 }
 
-.nav-link:hover,
-.nav-link.active {
+.nav-link:hover {
+  color: var(--text-primary);
+}
+
+.nav-link.router-link-active {
   color: var(--primary-color);
 }
 
-.nav-link.active::after {
+.nav-link::after {
   content: '';
   position: absolute;
-  bottom: -2px;
+  bottom: 0;
   left: 0;
-  width: 100%;
+  width: 0;
   height: 2px;
   background: var(--primary-color);
-  border-radius: 1px;
+  transition: width 0.3s ease;
 }
 
-/* Header Actions */
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: var(--space-4);
+.nav-link:hover::after,
+.nav-link.router-link-active::after {
+  width: 100%;
 }
 
-.cta-button {
+/* Mobile Menu Toggle */
+.nav-toggle {
   display: none;
-  align-items: center;
-  gap: var(--space-1);
-  padding: var(--space-2) var(--space-4);
-  background: var(--primary-color);
-  color: var(--text-inverse);
-  text-decoration: none;
-  border-radius: var(--radius-base);
-  font-weight: var(--font-weight-semibold);
-  transition: all var(--transition-duration-150);
-}
-
-.cta-button:hover {
-  background: var(--primary-hover);
-  transform: translateY(-1px);
-}
-
-/* Mobile Menu Button */
-.mobile-menu-btn {
-  display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  height: 30px;
   background: none;
   border: none;
   cursor: pointer;
-  gap: 4px;
-  transition: all var(--transition-duration-150);
+  padding: 0.5rem;
+  position: relative;
+  z-index: 1001;
 }
 
-.hamburger-line {
-  width: 20px;
+.nav-toggle span {
+  display: block;
+  width: 1.5rem;
   height: 2px;
   background: var(--text-primary);
-  transition: all var(--transition-duration-150);
-  border-radius: 1px;
+  margin: 0.25rem 0;
+  transition: all 0.3s ease;
+  transform-origin: center;
 }
 
-.menu-open .hamburger-line:first-child {
-  transform: rotate(45deg) translate(5px, 5px);
+.nav-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(0.375rem, 0.375rem);
 }
 
-.menu-open .hamburger-line:nth-child(2) {
+.nav-toggle.active span:nth-child(2) {
   opacity: 0;
 }
 
-.menu-open .hamburger-line:last-child {
-  transform: rotate(-45deg) translate(7px, -6px);
+.nav-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(0.375rem, -0.375rem);
 }
 
 /* Mobile Navigation */
-.mobile-nav {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  background: var(--surface-color);
-  border-bottom: 1px solid var(--border-strong);
-  box-shadow: var(--shadow-md);
-}
-
-.mobile-nav-list {
-  list-style: none;
-  padding: var(--space-6) 0;
-}
-
-.mobile-nav-link {
-  display: block;
-  padding: var(--space-4) var(--space-6);
-  text-decoration: none;
-  color: var(--text-primary);
-  font-weight: var(--font-weight-medium);
-  transition: all var(--transition-duration-150);
-}
-
-.mobile-nav-link:hover,
-.mobile-nav-link.active {
-  color: var(--primary-color);
-  background: var(--surface-secondary);
-}
-
-.mobile-cta-button {
-  display: block;
-  margin: var(--space-4) var(--space-6);
-  padding: var(--space-2) var(--space-4);
-  background: var(--primary-color);
-  color: var(--text-inverse);
-  text-decoration: none;
-  border-radius: var(--radius-base);
-  font-weight: var(--font-weight-semibold);
-  text-align: center;
-  transition: background var(--transition-duration-150);
-}
-
-.mobile-cta-button:hover {
-  background: var(--primary-hover);
-}
-
-.mobile-overlay {
+.mobile-nav-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  z-index: -1;
-}
-
-/* Mobile Menu Animation */
-.mobile-menu-enter-active,
-.mobile-menu-leave-active {
-  transition: all var(--transition-duration-200);
-}
-
-.mobile-menu-enter-from {
+  z-index: 999;
   opacity: 0;
-  transform: translateY(-10px);
+  visibility: hidden;
+  transition: all 0.3s ease;
 }
 
-.mobile-menu-leave-to {
-  opacity: 0;
-  transform: translateY(-10px);
+.mobile-nav-overlay.active {
+  opacity: 1;
+  visibility: visible;
 }
 
-/* Desktop Styles */
-@media (min-width: 768px) {
+.mobile-nav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 280px;
+  height: 100%;
+  background: var(--surface-color);
+  padding: 6rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-nav-overlay.active .mobile-nav {
+  transform: translateX(0);
+}
+
+.mobile-nav-link {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border-light);
+  transition: all 0.3s ease;
+}
+
+.mobile-nav-link:hover {
+  color: var(--primary-color);
+  padding-left: 1rem;
+}
+
+.mobile-nav-link.router-link-active {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .desktop-nav {
-    display: block;
-  }
-
-  .cta-button {
-    display: flex;
-  }
-
-  .mobile-menu-btn {
     display: none;
   }
 
-  .header-container {
-    padding: 0 var(--space-8);
+  .nav-toggle {
+    display: flex;
   }
 }
 
-@media (min-width: 1024px) {
-  .nav-list {
-    gap: 2.5rem;
+@media (max-width: 480px) {
+  .mobile-nav {
+    width: 100%;
   }
 
-  .logo-text {
-    font-size: 1.75rem;
+  .logo h1 {
+    font-size: 1.5rem;
   }
 }
 </style>
