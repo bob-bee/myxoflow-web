@@ -1,75 +1,34 @@
-<script setup lang="ts">
-import { ref, onMounted, onUnmounted, onBeforeMount } from 'vue'
-import AppHeader from '@/components/layout/AppHeader.vue'
-import AppFooter from '@/components/layout/AppFooter.vue'
-import FallBack from '@/components/common/extras/FallBack.vue'
-import { initTheme } from '@/composables/useThemes'
-// State
-const isLoading = ref(true)
-const showScrollTop = ref(false)
-
-// Scroll to top functionality
-const scrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth',
-  })
-}
-
-// Handle scroll events
-const handleScroll = () => {
-  showScrollTop.value = window.scrollY > 500
-}
-
-// Initialize theme on app load
-onBeforeMount(() => {
-  initTheme()
-})
-
-// Lifecycle
-onMounted(() => {
-  // Simulate initial loading
-  setTimeout(() => {
-    isLoading.value = false
-  }, 1000)
-
-  window.addEventListener('scroll', handleScroll)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
-})
-</script>
-
+<!-- src/App.vue -->
 <template>
   <div id="app" class="app-container">
-    <!-- Global Loading State -->
+    <!-- Loading overlay -->
     <Transition name="fade">
       <div v-if="isLoading" class="global-loading">
         <div class="loading-spinner"></div>
       </div>
     </Transition>
 
-    <!-- Main App Layout -->
+    <!-- Main layout -->
     <div class="app-layout" :class="{ loading: isLoading }">
       <!-- Header -->
       <AppHeader />
 
-      <!-- Main Content with Router -->
+      <!-- Main content + theme toggle -->
       <main class="main-content">
         <router-view v-slot="{ Component, route }">
-          <Transition :name="'slide-fade'" mode="out-in">
+          <Transition name="slide-fade" mode="out-in">
             <component :is="Component" :key="route.path" />
           </Transition>
         </router-view>
-        <!-- TubeLight Component        -->
-        <FallBack />
+
+        <!-- Simple theme toggle button -->
+        <TubeLight />
       </main>
 
       <!-- Footer -->
       <AppFooter />
 
-      <!-- Scroll to Top Button -->
+      <!-- Scroll-to-top button -->
       <Transition name="slide-up">
         <button
           v-if="showScrollTop"
@@ -91,6 +50,35 @@ onUnmounted(() => {
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue'
+import AppHeader from '@/components/layout/AppHeader.vue'
+import AppFooter from '@/components/layout/AppFooter.vue'
+import TubeLight from '@/components/common/TubeLight.vue'
+
+// Loading & scroll state
+const isLoading = ref(true)
+const showScrollTop = ref(false)
+
+// Scroll handler
+const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
+
+const handleScroll = () => (showScrollTop.value = window.scrollY > 500)
+
+// Simulate loading and attach scroll listener
+onMounted(() => {
+  setTimeout(() => {
+    isLoading.value = false
+  }, 1000)
+  window.addEventListener('scroll', handleScroll)
+})
+
+// Clean up
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
+</script>
 <style scoped>
 /* =========================== Material Design 3 Tokens =========================== */
 :root {

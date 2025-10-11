@@ -43,7 +43,7 @@ const content = useContentStore()
       <div class="container">
         <h2>{{ content.about.values.heading }}</h2>
         <div class="values-grid">
-          <div v-for="value in content.about.values.items" :key="value.key" class="value-card">
+          <div v-for="(value, index) in content.about.values.items" :key="index" class="value-card">
             <h3>{{ value.title }}</h3>
             <p>{{ value.description }}</p>
           </div>

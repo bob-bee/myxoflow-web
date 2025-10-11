@@ -1,6 +1,6 @@
 <!-- src/components/common/ProductCard.vue -->
 <script setup lang="ts">
-import type { Product } from '@/types/content'
+import type { Product } from '@/stores/useProductStore'
 
 interface Props {
   product: Product

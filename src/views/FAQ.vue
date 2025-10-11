@@ -10,14 +10,14 @@ const content = useContentStore()
   <div class="faq">
     <section class="hero">
       <div class="container">
-        <h1>{{ content.faq.title }}</h1>
+        <h1>Frequently Asked Questions</h1>
         <p>Find answers to common questions about MyxoFlow and our optimization solutions.</p>
       </div>
     </section>
 
     <section class="faq-content section">
       <div class="container">
-        <div v-for="(category, key) in content.faq.categories" :key="key" class="faq-category">
+        <div v-for="category in content.faq" :key="category.title" class="faq-category">
           <h2>{{ category.title }}</h2>
           <div class="faq-list">
             <FAQItem
@@ -31,6 +31,7 @@ const content = useContentStore()
     </section>
   </div>
 </template>
+
 <style scoped>
 .hero {
   background: linear-gradient(

@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type {
-  NavigationItem,
   SocialLink,
   ContactMethod,
   HeroContent,
@@ -10,6 +9,13 @@ import type {
   FAQCategory,
   ErrorMessages,
 } from '@/types/interfaces'
+
+export interface NavigationItem {
+  label: string
+  path: string
+  children?: NavigationItem[]
+  external?: boolean // optional
+}
 
 interface PageInfo {
   title: string
@@ -33,6 +39,25 @@ interface PageMeta {
   products: PageInfo
   contact: PageInfo
   faq: PageInfo
+}
+interface WhyPoint {
+  key: string
+  title: string
+  description: string
+  icon: string // Emoji or icon name
+}
+interface WhySection {
+  title: string
+  points: WhyPoint[]
+}
+interface WhatWeDoItem {
+  key: string
+  heading: string
+  description: string
+}
+interface WhatWeDo {
+  title: string
+  items: WhatWeDoItem[]
 }
 
 export const useContentStore = defineStore('content', () => {
@@ -279,6 +304,29 @@ export const useContentStore = defineStore('content', () => {
     },
   ])
 
+  // What We Do Section
+  const whatWeDo = ref<WhatWeDo>({
+    title: 'What We Do',
+    items: [
+      {
+        key: 'optimization',
+        heading: 'Optimization',
+        description: 'We streamline your operations with data-driven insights.',
+      },
+      {
+        key: 'automation',
+        heading: 'Automation',
+        description: 'Automate repetitive tasks to save time and reduce errors.',
+      },
+      {
+        key: 'analytics',
+        heading: 'Analytics',
+        description: 'Real-time dashboards and predictive models for smarter decisions.',
+      },
+      // …add as many items as you need
+    ],
+  })
+
   // FAQ Content
   const faq = ref<FAQCategory[]>([
     {
@@ -404,6 +452,40 @@ export const useContentStore = defineStore('content', () => {
     },
   })
 
+  const why = ref<WhySection>({
+    title: 'Why Choose MyxoFlow',
+    points: [
+      {
+        key: 'feature1',
+        title: 'Unified Platform',
+        description:
+          'Combine dashboards, analytics, and workflow tools in a single seamless platform designed for multiple markets.',
+        icon: '📊',
+      },
+      {
+        key: 'feature2',
+        title: 'Real-Time Insights',
+        description:
+          'Get up-to-date production and sales data to make smarter decisions faster and adapt to changing markets.',
+        icon: '⏱️',
+      },
+      {
+        key: 'feature3',
+        title: 'Customizable Workflows',
+        description:
+          'Tailor our platform to fit your specific operational needs with flexible automation and integrations.',
+        icon: '⚙️',
+      },
+      {
+        key: 'feature4',
+        title: 'Reliable Support',
+        description:
+          'Dedicated customer success and technical teams ready to help you set up, scale, and optimize your usage.',
+        icon: '🤝',
+      },
+    ],
+  })
+
   // Error Messages
 
   const errorMessages = ref<ErrorMessages>({
@@ -515,6 +597,8 @@ export const useContentStore = defineStore('content', () => {
     // Content
     hero,
     cta,
+    why,
+    whatWeDo,
     about,
     contactMethods,
     faq,

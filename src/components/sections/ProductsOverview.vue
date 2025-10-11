@@ -1,21 +1,17 @@
 <!-- src/components/sections/ProductsOverview.vue -->
 <script setup lang="ts">
-import { useContentStore } from '@/stores/useContentStore'
+import { useProductStore } from '@/stores/useProductStore'
 import ProductCard from '@/components/common/ProductCard.vue'
 
-const content = useContentStore()
+const product = useProductStore()
 </script>
 
 <template>
   <section class="products-overview">
     <div class="container">
-      <h2>{{ content.products.title }}</h2>
+      <h2>{{ product.products.keys }}</h2>
       <div class="products-grid">
-        <ProductCard
-          v-for="product in content.products.list"
-          :key="product.key"
-          :product="product"
-        />
+        <ProductCard v-for="item in product.products" :key="item.key" :product="item" />
       </div>
       <div class="products-cta">
         <router-link to="/products" class="btn btn-primary"> View All Products </router-link>
