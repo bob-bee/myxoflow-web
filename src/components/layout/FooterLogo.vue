@@ -11,17 +11,17 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useContentStore } from '@/stores/useContentStore'
-import { useUIStore } from '@/stores/useUIStore'
+import { useThemeStore } from '@/stores/useThemeStore'
 
 const contentStore = useContentStore()
-const uiStore = useUIStore()
+const themeStore = useThemeStore()
 
 const company = contentStore.company
 
 const logoSrc = computed(() =>
-  ['midnight', 'dark'].includes(uiStore.theme.currentTheme)
-    ? '/assets/sunLogo/vue_light.svg'
-    : '/assets/sunLogo/vue_dark.svg',
+  ['midnight', 'dark'].includes(themeStore.currentTheme.name)
+    ? '/assets/icons/sunLogo/light.svg'
+    : '/assets/icons/sunLogo/dark.svg',
 )
 </script>
 

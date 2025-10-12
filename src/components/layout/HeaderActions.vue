@@ -7,7 +7,6 @@
     >
       <!-- icon SVG -->
     </button>
-    <ThemeToggle />
     <router-link to="/contact" class="btn btn-primary header-cta">{{ ctaText }}</router-link>
     <button class="nav-toggle" @click="ui.toggleMenu" :class="{ active: ui.navigation.isMenuOpen }">
       <span /><span /><span />

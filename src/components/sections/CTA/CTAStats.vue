@@ -14,7 +14,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue'
 import TrendUpIcon from '@/assets/icons/other/TrendUpIcon.vue'
 import TrendDownIcon from '@/assets/icons/other/TrendDownIcon.vue'
 

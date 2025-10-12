@@ -1,0 +1,154 @@
+{
+  "products": [
+    {
+      "key": "stichflow",
+      "name": "StichFlow",
+      "tagline": "Textile Manufacturing Optimization",
+      "description": "Streamline your textile manufacturing process with real-time production tracking, quality control, and supply chain optimization.",
+      "overview": "StichFlow revolutionizes textile manufacturing by providing end-to-end visibility and control over your production pipeline. From raw material tracking to finished goods delivery, our platform optimizes every step of the process.",
+      "features": [
+        "Real-time production monitoring",
+        "Quality control automation",
+        "Supply chain optimization",
+        "Inventory management",
+        "Performance analytics",
+        "Compliance tracking"
+      ],
+      "useCases": [
+        "Large-scale textile manufacturing",
+        "Custom garment production",
+        "Supply chain coordination",
+        "Quality assurance processes",
+        "Production planning and scheduling"
+      ],
+      "pricing": "Starting at $299/month per facility",
+      "badge": {
+        "text": "Most Popular",
+        "type": "primary"
+      },
+      "stats": [
+        { "value": "40%", "label": "Production Increase", "trend": "up", "change": "+5%" },
+        { "value": "25%", "label": "Waste Reduction", "trend": "up", "change": "+3%" },
+        { "value": "60%", "label": "Quality Improvement", "trend": "up", "change": "+10%" }
+      ],
+      "targetAudience": "Textile manufacturers, garment producers, and supply chain managers looking to optimize production efficiency and quality control.",
+      "differentiators": [
+        "Industry-specific workflow optimization",
+        "Integration with existing manufacturing systems",
+        "Real-time quality control automation",
+        "Comprehensive supply chain visibility"
+      ],
+      "processSteps": [
+        {
+          "title": "Production Setup",
+          "description": "Configure your manufacturing processes and quality parameters within the StichFlow dashboard."
+        },
+        {
+          "title": "Real-time Monitoring",
+          "description": "Track production metrics, quality indicators, and supply chain status in real-time."
+        },
+        {
+          "title": "Optimization Analytics",
+          "description": "Receive AI-powered recommendations for improving efficiency and reducing waste."
+        },
+        {
+          "title": "Continuous Improvement",
+          "description": "Implement optimizations and track performance improvements over time."
+        }
+      ],
+      "pricingModel": {
+        "title": "Enterprise Manufacturing Solution",
+        "benefits": [
+          "Unlimited production tracking",
+          "Advanced analytics and reporting",
+          "Quality control automation",
+          "24/7 technical support",
+          "Custom integrations",
+          "Training and onboarding"
+        ]
+      }
+    },
+    {
+      "key": "fill",
+      "name": "MyxoFill",
+      "tagline": "Manufacturing Optimization Platform",
+      "description": "Optimize your manufacturing operations with intelligent resource allocation, predictive maintenance, and efficiency tracking.",
+      "overview": "MyxoFill provides comprehensive manufacturing optimization through intelligent automation and data-driven insights. Perfect for businesses looking to maximize output while minimizing costs.",
+      "features": [
+        "Resource allocation optimization",
+        "Predictive maintenance alerts",
+        "Efficiency tracking and reporting",
+        "Equipment performance monitoring",
+        "Cost analysis and optimization",
+        "Production scheduling"
+      ],
+      "useCases": [
+        "Manufacturing plant optimization",
+        "Equipment maintenance planning",
+        "Resource utilization tracking",
+        "Cost reduction initiatives",
+        "Production efficiency improvement"
+      ],
+      "pricing": "Starting at $199/month per facility",
+      "stats": [
+        { "value": "35%", "label": "Efficiency Gain", "trend": "up", "change": "+2%" },
+        { "value": "50%", "label": "Downtime Reduction", "trend": "up", "change": "+5%" },
+        { "value": "30%", "label": "Cost Savings", "trend": "up", "change": "+4%" }
+      ],
+      "targetAudience": "Manufacturing companies and plant managers focused on operational efficiency and cost optimization.",
+      "differentiators": [
+        "Predictive maintenance capabilities",
+        "Real-time resource optimization",
+        "Comprehensive cost analysis",
+        "Easy integration with existing systems"
+      ],
+      "processSteps": [
+        {
+          "title": "System Integration",
+          "description": "Connect MyxoFill with your existing manufacturing systems and equipment."
+        },
+        {
+          "title": "Data Collection",
+          "description": "Begin collecting real-time data from your manufacturing processes."
+        },
+        {
+          "title": "Analysis and Insights",
+          "description": "Review AI-generated insights and optimization recommendations."
+        },
+        {
+          "title": "Implementation",
+          "description": "Apply optimizations and track performance improvements."
+        }
+      ],
+      "pricingModel": {
+        "title": "Complete Manufacturing Suite",
+        "benefits": [
+          "Unlimited equipment monitoring",
+          "Predictive maintenance alerts",
+          "Advanced analytics dashboard",
+          "Priority technical support",
+          "Custom reporting tools",
+          "Implementation assistance"
+        ]
+      }
+    }
+  ],
+  "marketData": [
+    {
+      "name": "StichFlow",
+      "status": "Active",
+      "users": "2.4k",
+      "growth": "+12%",
+      "color": "#3b82f6",
+      "icon": "🧵"
+    },
+    {
+      "name": "MyxoFill",
+      "status": "Growing",
+      "users": "1.8k",
+      "growth": "+24%",
+      "color": "#10b981",
+      "icon": "💧"
+    }
+  ]
+}

@@ -12,7 +12,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue'
 import CheckIcon from '@/assets/icons/other/CheckIcon.vue'
 // Destructure props directly
 const { CTA } = defineProps<{

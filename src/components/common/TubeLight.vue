@@ -6,10 +6,11 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { currentTheme, cycleTheme } from '@/stores/useThemeStore'
+import { useThemeStore } from '@/stores/useThemeStore'
 // Compute icon and name directly
-const themeIcon = computed(() => currentTheme.value.icon)
-const themeName = computed(() => currentTheme.value.name)
+const themeIcon = computed(() => useThemeStore().currentTheme.icon)
+const themeName = computed(() => useThemeStore().currentTheme.name)
+const cycleTheme = () => useThemeStore().cycleTheme()
 </script>
 
 <style scoped>

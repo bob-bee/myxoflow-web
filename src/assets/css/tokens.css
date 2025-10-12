@@ -717,224 +717,374 @@ select.form-control {
   src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2') format('woff2');
 }
 
-/* END PERPLEXITY DESIGN SYSTEM */
-/**
- * Main CSS Entry Point - Consolidated Foundation Styles
- * Combines base styles and global application styles
- */
+.btn {
+  /* Base button styles */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
 
-/* ========================================
- * CSS RESET & COLOR PALETTE
- * ======================================== */
-
-/* Semantic color variables for this project - using design system tokens */
-:root {
-  --color-background: var(--color-background);
-  --color-background-soft: var(--color-surface);
-  --color-background-mute: var(--color-secondary);
-  --color-border: var(--color-border);
-  --color-border-hover: var(--color-primary);
-  --color-heading: var(--color-text);
-  --color-text: var(--color-text);
-  --section-gap: var(--space-32);
-}
-
-/* Global CSS Reset */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  font-weight: normal;
-}
-
-/* Base typography and body styles */
-body {
-  min-height: 100vh;
-  color: var(--color-text);
-  background: var(--color-background);
-  transition:
-    color var(--duration-normal),
-    background-color var(--duration-normal);
-  line-height: var(--line-height-normal);
+  /* Typography */
   font-family: var(--font-family-base);
   font-size: var(--font-size-base);
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-tight);
+  text-decoration: none;
+
+  /* Layout */
+  min-height: 2.5rem;
+  padding: var(--space-8) var(--space-24);
+  border-radius: var(--radius-lg);
+  border: none;
+  cursor: pointer;
+
+  /* Interaction */
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  white-space: nowrap;
+
+  /* Transitions */
+  transition:
+    background-color var(--duration-normal) var(--ease-standard),
+    color var(--duration-normal) var(--ease-standard),
+    box-shadow var(--duration-normal) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard);
 }
 
-/* ========================================
- * COMPONENT STYLES IMPORT
- * ======================================== */
-
-/* Import Material Design 3 components and utilities */
-@import 'tokens.css';
-
-/* ========================================
- * GLOBAL APPLICATION STYLES
- * ======================================== */
-
-#app {
-  min-height: 100vh;
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
+.btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
-/* ========================================
- * SECTION SPACING
- * ======================================== */
-
-.section {
-  padding: var(--space-32) 0;
+.btn:active {
+  transform: scale(0.98);
 }
 
-.section-sm {
-  padding: var(--space-20) 0;
-}
-
-.section-lg {
-  padding: var(--space-24) var(--space-16);
-}
-
-/* Mobile responsive adjustments */
-@media (max-width: 480px) {
-  .section {
-    padding: var(--space-24) 0;
-  }
-
-  .section-sm {
-    padding: var(--space-16) 0;
-  }
-
-  .section-lg {
-    padding: var(--space-32) var(--space-12);
-  }
-
-  #app {
-    min-height: 100vh;
-  }
-}
-
-/* ========================================
- * LOADING STATES
- * ======================================== */
-
-.loading {
+.btn:disabled {
+  cursor: not-allowed;
   opacity: 0.6;
-  pointer-events: none;
 }
 
-.loading::after {
+/* Button state layer for ripple effect */
+.btn::before {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: var(--space-32);
-  height: var(--space-32);
-  margin: calc(var(--space-16) * -1) 0 0 calc(var(--space-16) * -1);
-  border: var(--space-2) solid var(--color-primary);
-  border-top-color: transparent;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity var(--duration-normal) var(--ease-standard);
+}
+
+.btn:hover::before {
+  opacity: 0.08;
+}
+
+.btn:active::before {
+  opacity: 0.16;
+}
+
+/* Primary Button (Filled) */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-btn-primary-text);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:active {
+  background-color: var(--color-primary-active);
+}
+
+/* Secondary Button (Outlined) */
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-secondary);
+  border-color: var(--color-primary);
+}
+
+.btn-secondary:active {
+  background-color: var(--color-secondary-active);
+}
+
+/* Tertiary Button (Text) */
+.btn-tertiary {
+  background-color: transparent;
+  color: var(--color-primary);
+  padding: var(--space-8) var(--space-16);
+}
+
+.btn-tertiary:hover {
+  background-color: var(--color-secondary);
+}
+
+.btn-tertiary:active {
+  background-color: var(--color-secondary-active);
+}
+
+/* Button Sizes */
+.btn-small {
+  min-height: 2rem;
+  padding: var(--space-4) var(--space-16);
+  font-size: var(--font-size-sm);
+}
+
+.btn-large {
+  min-height: 3rem;
+  padding: var(--space-12) var(--space-32);
+  font-size: var(--font-size-lg);
+}
+
+/* Icon Buttons */
+.btn-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  min-height: auto;
+  padding: 0;
   border-radius: var(--radius-full);
-  animation: spin 1s linear infinite;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+.btn-icon-large {
+  width: 3.5rem;
+  height: 3.5rem;
 }
 
 /* ========================================
- * ANIMATIONS
+ * CARD COMPONENTS
  * ======================================== */
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(var(--space-16));
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition:
+    box-shadow var(--duration-normal) var(--ease-standard),
+    transform var(--duration-normal) var(--ease-standard);
 }
 
-@keyframes slideIn {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0);
-  }
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
 }
 
-.fade-in {
-  animation: fadeIn var(--duration-normal) var(--ease-standard);
+.card-interactive {
+  cursor: pointer;
 }
 
-.slide-in {
-  animation: slideIn var(--duration-normal) var(--ease-standard);
+.card-interactive:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
 }
 
-/* Mobile responsive animation adjustments */
+.card-interactive:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-md);
+}
+
+.card-outlined {
+  box-shadow: none;
+  border: 1px solid var(--color-card-border);
+}
+
+.card-filled {
+  background: var(--color-secondary);
+  box-shadow: none;
+}
+
+/* Card Layout */
+.card-header {
+  padding: var(--space-24);
+  border-bottom: 1px solid var(--color-card-border-inner);
+}
+
+.card-content {
+  padding: var(--space-24);
+}
+
+.card-actions {
+  padding: var(--space-16) var(--space-24);
+  display: flex;
+  gap: var(--space-8);
+  justify-content: flex-end;
+  border-top: 1px solid var(--color-card-border-inner);
+}
+
+.card-media {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ========================================
+ * CHIP COMPONENTS
+ * ======================================== */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+
+  /* Typography */
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+
+  /* Layout */
+  height: 2rem;
+  padding: 0 var(--space-16);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+
+  /* Colors */
+  background-color: transparent;
+  color: var(--color-text-secondary);
+
+  /* Interaction */
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color var(--duration-normal) var(--ease-standard),
+    border-color var(--duration-normal) var(--ease-standard);
+}
+
+.chip:hover {
+  background-color: var(--color-secondary);
+}
+
+.chip:active {
+  background-color: var(--color-secondary-active);
+}
+
+.chip-selected {
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-color: var(--color-primary);
+}
+
+.chip-elevated {
+  border: none;
+  box-shadow: var(--shadow-sm);
+  background-color: var(--color-surface);
+}
+
+/* ========================================
+ * BADGE COMPONENTS
+ * ======================================== */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  /* Typography */
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+  text-transform: uppercase;
+
+  /* Layout */
+  height: 1.5rem;
+  padding: 0 var(--space-8);
+  border-radius: var(--radius-sm);
+
+  /* Default style */
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+}
+
+.badge-primary {
+  background-color: var(--color-primary);
+  color: var(--color-btn-primary-text);
+}
+
+.badge-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+}
+
+.badge-success {
+  background-color: var(--color-success);
+  color: var(--color-btn-primary-text);
+}
+
+.badge-warning {
+  background-color: var(--color-warning);
+  color: var(--color-btn-primary-text);
+}
+
+.badge-error {
+  background-color: var(--color-error);
+  color: var(--color-btn-primary-text);
+}
+
+/* ========================================
+ * RESPONSIVE STYLES - Mobile Portrait (480px)
+ * ======================================== */
+
 @media (max-width: 480px) {
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(var(--space-12));
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .fade-in {
-    animation: fadeIn var(--duration-fast) var(--ease-standard);
-  }
-
-  .slide-in {
-    animation: slideIn var(--duration-fast) var(--ease-standard);
-  }
-}
-
-/* ========================================
- * PRINT STYLES
- * ======================================== */
-
-@media print {
-  *,
-  *::before,
-  *::after {
-    background: transparent !important;
-    color: var(--color-black) !important;
-    box-shadow: none !important;
-    text-shadow: none !important;
-  }
-
-  a,
-  a:visited {
-    text-decoration: underline;
-  }
-
-  a[href^='http']::after {
-    content: ' (' attr(href) ')';
-  }
-
-  .no-print {
-    display: none !important;
-  }
-
-  body {
+  .btn {
+    min-height: 2.25rem;
+    padding: var(--space-6) var(--space-20);
     font-size: var(--font-size-sm);
-    line-height: var(--line-height-normal);
   }
 
-  .section,
-  .section-sm,
-  .section-lg {
-    padding: var(--space-12) 0;
+  .btn-small {
+    min-height: 1.75rem;
+    padding: var(--space-2) var(--space-12);
+    font-size: var(--font-size-xs);
+  }
+
+  .btn-large {
+    min-height: 2.75rem;
+    padding: var(--space-10) var(--space-24);
+    font-size: var(--font-size-base);
+  }
+
+  .btn-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .btn-icon-large {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .card-header,
+  .card-content {
+    padding: var(--space-16);
+  }
+
+  .card-actions {
+    padding: var(--space-12) var(--space-16);
+    gap: var(--space-6);
+  }
+
+  .chip {
+    height: 1.75rem;
+    padding: 0 var(--space-12);
+    font-size: var(--font-size-sm);
+    gap: var(--space-6);
+  }
+
+  .badge {
+    height: 1.25rem;
+    padding: 0 var(--space-6);
+    font-size: var(--font-size-xs);
   }
 }

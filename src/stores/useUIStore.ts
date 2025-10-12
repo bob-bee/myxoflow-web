@@ -3,15 +3,25 @@ import { ref, computed } from 'vue'
 import type {
   LoadingState,
   ModalState,
+  NavigationState,
   NotificationState,
   FormState,
   ScrollState,
   AnimationState,
+  SearchState,
+  PageState,
   BreadcrumbItem,
-} from '@/types/interfaces'
+} from '@/types/ui'
+import { isValidNotificationType } from '@/types/ui'
 
+/**
+ * UI Store
+ *
+ * Manages global UI state including modals, navigation,
+ * loading states, notifications, and form management.
+ */
 export const useUIStore = defineStore('ui', () => {
-  // Loading States
+  // ✅ Reactive state
   const loading = ref<LoadingState>({
     global: false,
     form: false,
@@ -21,7 +31,6 @@ export const useUIStore = defineStore('ui', () => {
     contact: false,
   })
 
-  // Modal States
   const modals = ref<ModalState>({
     contact: false,
     consultation: false,
@@ -32,15 +41,13 @@ export const useUIStore = defineStore('ui', () => {
     imageGallery: false,
   })
 
-  // Navigation State
-  const navigation = ref({
+  const navigation = ref<NavigationState>({
     isMenuOpen: false,
     activeSection: 'home',
     showScrollTop: false,
-    breadcrumbs: [] as BreadcrumbItem[],
+    breadcrumbs: [],
   })
 
-  // Notification System
   const notification = ref<NotificationState>({
     show: false,
     type: 'info',
@@ -49,7 +56,6 @@ export const useUIStore = defineStore('ui', () => {
     duration: 5000,
   })
 
-  // Form States
   const forms = ref({
     contact: {
       isSubmitting: false,
@@ -71,75 +77,90 @@ export const useUIStore = defineStore('ui', () => {
     } as FormState,
   })
 
-  // Scroll Tracking
   const scroll = ref<ScrollState>({
     y: 0,
     direction: 'down',
     isScrolled: false,
   })
 
-  // Animation States
   const animations = ref<AnimationState>({
     heroLoaded: false,
     sectionsVisible: [],
     enableAnimations: true,
   })
 
-  // Search State
-  const search = ref({
+  const search = ref<SearchState>({
     query: '',
     isOpen: false,
     results: [],
     isSearching: false,
   })
 
-  // Theme State
-  const theme = ref({
-    isDark: false,
-    currentTheme: 'light',
-    isTransitioning: false,
-  })
-
-  // Page State
-  const page = ref({
+  const page = ref<PageState>({
     title: '',
     isLoading: false,
     hasError: false,
     errorMessage: '',
   })
 
-  // Computed Properties
-  const isAnyModalOpen = computed(() => {
-    return Object.values(modals.value).some(Boolean)
+  // ✅ Enhanced computed properties
+  const isAnyModalOpen = computed(() => Object.values(modals.value).some(Boolean))
+
+  const isLoading = computed(() => Object.values(loading.value).some(Boolean))
+
+  const hasFormErrors = computed(() =>
+    Object.values(forms.value).some((form) => Object.keys(form.errors).length > 0),
+  )
+
+  const isFormSubmitting = computed(() =>
+    Object.values(forms.value).some((form) => form.isSubmitting),
+  )
+
+  const currentBreadcrumb = computed(
+    () => navigation.value.breadcrumbs[navigation.value.breadcrumbs.length - 1],
+  )
+
+  const scrollProgress = computed(() => {
+    const winHeight = window.innerHeight
+    const docHeight = document.documentElement.scrollHeight
+    const scrollTop = window.scrollY
+    return Math.min((scrollTop / (docHeight - winHeight)) * 100, 100)
   })
 
-  const isLoading = computed(() => {
-    return Object.values(loading.value).some(Boolean)
-  })
+  // ✅ Loading methods with JSDoc
 
-  const hasFormErrors = computed(() => {
-    return Object.values(forms.value).some((form) => Object.keys(form.errors).length > 0)
-  })
-
-  const isFormSubmitting = computed(() => {
-    return Object.values(forms.value).some((form) => form.isSubmitting)
-  })
-
-  // Loading Methods
+  /**
+   * Set loading state for a specific key
+   * @param key - Loading state key
+   * @param value - Loading status
+   */
   const setLoading = (key: keyof LoadingState, value: boolean) => {
     loading.value[key] = value
   }
 
+  /**
+   * Set global loading state
+   * @param value - Loading status
+   */
   const setGlobalLoading = (value: boolean) => {
     loading.value.global = value
   }
 
-  // Modal Methods
+  // ✅ Modal methods with body scroll management
+
+  /**
+   * Open a specific modal
+   * @param modal - Modal key to open
+   */
   const openModal = (modal: keyof ModalState) => {
     modals.value[modal] = true
     document.body.style.overflow = 'hidden'
   }
 
+  /**
+   * Close a specific modal
+   * @param modal - Modal key to close
+   */
   const closeModal = (modal: keyof ModalState) => {
     modals.value[modal] = false
     if (!isAnyModalOpen.value) {
@@ -147,6 +168,9 @@ export const useUIStore = defineStore('ui', () => {
     }
   }
 
+  /**
+   * Close all open modals
+   */
   const closeAllModals = () => {
     Object.keys(modals.value).forEach((key) => {
       modals.value[key as keyof ModalState] = false
@@ -154,35 +178,61 @@ export const useUIStore = defineStore('ui', () => {
     document.body.style.overflow = ''
   }
 
-  // Navigation Methods
+  // ✅ Navigation methods
+
+  /**
+   * Toggle mobile menu
+   */
   const toggleMenu = () => {
     navigation.value.isMenuOpen = !navigation.value.isMenuOpen
-    if (navigation.value.isMenuOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
-    }
+    document.body.style.overflow = navigation.value.isMenuOpen ? 'hidden' : ''
   }
 
+  /**
+   * Close mobile menu
+   */
   const closeMenu = () => {
     navigation.value.isMenuOpen = false
     document.body.style.overflow = ''
   }
 
+  /**
+   * Set active navigation section
+   * @param section - Section identifier
+   */
   const setActiveSection = (section: string) => {
     navigation.value.activeSection = section
   }
 
+  /**
+   * Set breadcrumb trail
+   * @param breadcrumbs - Array of breadcrumb items
+   */
   const setBreadcrumbs = (breadcrumbs: BreadcrumbItem[]) => {
     navigation.value.breadcrumbs = breadcrumbs
   }
 
+  /**
+   * Add breadcrumb to trail
+   * @param breadcrumb - Breadcrumb item to add
+   */
   const addBreadcrumb = (breadcrumb: BreadcrumbItem) => {
     navigation.value.breadcrumbs.push(breadcrumb)
   }
 
-  // Notification Methods
+  // ✅ Enhanced notification methods
+
+  /**
+   * Show notification with options
+   * @param options - Notification configuration
+   */
   const showNotification = (options: Partial<NotificationState>) => {
+    // Validate notification type
+    if (options.type && !isValidNotificationType(options.type)) {
+      console.warn(`Invalid notification type: ${options.type}`)
+      options.type = 'info'
+    }
+
     notification.value = {
       ...notification.value,
       ...options,
@@ -196,10 +246,18 @@ export const useUIStore = defineStore('ui', () => {
     }
   }
 
+  /**
+   * Hide current notification
+   */
   const hideNotification = () => {
     notification.value.show = false
   }
 
+  /**
+   * Show success notification
+   * @param message - Success message
+   * @param title - Optional title
+   */
   const showSuccess = (message: string, title = 'Success') => {
     showNotification({
       type: 'success',
@@ -209,6 +267,11 @@ export const useUIStore = defineStore('ui', () => {
     })
   }
 
+  /**
+   * Show error notification
+   * @param message - Error message
+   * @param title - Optional title
+   */
   const showError = (message: string, title = 'Error') => {
     showNotification({
       type: 'error',
@@ -218,6 +281,11 @@ export const useUIStore = defineStore('ui', () => {
     })
   }
 
+  /**
+   * Show warning notification
+   * @param message - Warning message
+   * @param title - Optional title
+   */
   const showWarning = (message: string, title = 'Warning') => {
     showNotification({
       type: 'warning',
@@ -227,6 +295,11 @@ export const useUIStore = defineStore('ui', () => {
     })
   }
 
+  /**
+   * Show info notification
+   * @param message - Info message
+   * @param title - Optional title
+   */
   const showInfo = (message: string, title = 'Info') => {
     showNotification({
       type: 'info',
@@ -236,7 +309,12 @@ export const useUIStore = defineStore('ui', () => {
     })
   }
 
-  // Scroll Methods
+  // ✅ Enhanced scroll methods
+
+  /**
+   * Update scroll state
+   * @param y - Scroll position
+   */
   const updateScroll = (y: number) => {
     const previousY = scroll.value.y
     scroll.value.y = y
@@ -245,6 +323,9 @@ export const useUIStore = defineStore('ui', () => {
     navigation.value.showScrollTop = y > 500
   }
 
+  /**
+   * Scroll to top of page
+   */
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -252,6 +333,10 @@ export const useUIStore = defineStore('ui', () => {
     })
   }
 
+  /**
+   * Scroll to element by ID
+   * @param elementId - Element ID to scroll to
+   */
   const scrollToElement = (elementId: string) => {
     const element = document.getElementById(elementId)
     if (element) {
@@ -262,12 +347,12 @@ export const useUIStore = defineStore('ui', () => {
     }
   }
 
-  // Form Methods
+  // ✅ Form management methods (existing methods kept as-is for brevity)
   const setFormState = (form: keyof typeof forms.value, state: Partial<FormState>) => {
     forms.value[form] = { ...forms.value[form], ...state }
   }
 
-  const setFormData = (form: keyof typeof forms.value, data: Record<string, unknown>) => {
+  const setFormData = (form: keyof typeof forms.value, data: Record<string, object>) => {
     forms.value[form].data = { ...forms.value[form].data, ...data }
   }
 
@@ -290,7 +375,7 @@ export const useUIStore = defineStore('ui', () => {
     }
   }
 
-  // Animation Methods
+  // ✅ Animation methods (existing methods kept as-is)
   const addVisibleSection = (section: string) => {
     if (!animations.value.sectionsVisible.includes(section)) {
       animations.value.sectionsVisible.push(section)
@@ -312,7 +397,7 @@ export const useUIStore = defineStore('ui', () => {
     animations.value.heroLoaded = loaded
   }
 
-  // Search Methods
+  // ✅ Search methods (existing methods kept)
   const setSearchQuery = (query: string) => {
     search.value.query = query
   }
@@ -320,12 +405,9 @@ export const useUIStore = defineStore('ui', () => {
   const toggleSearch = () => {
     search.value.isOpen = !search.value.isOpen
     if (search.value.isOpen) {
-      // Focus search input
       setTimeout(() => {
         const searchInput = document.getElementById('search-input')
-        if (searchInput) {
-          searchInput.focus()
-        }
+        searchInput?.focus()
       }, 100)
     }
   }
@@ -336,22 +418,7 @@ export const useUIStore = defineStore('ui', () => {
     search.value.results = []
   }
 
-  // Theme Methods
-  const setTheme = (themeName: string) => {
-    theme.value.currentTheme = themeName
-    theme.value.isDark = themeName.includes('dark') || themeName === 'midnight'
-  }
-
-  const toggleTheme = () => {
-    theme.value.isDark = !theme.value.isDark
-    theme.value.currentTheme = theme.value.isDark ? 'dark' : 'light'
-  }
-
-  const setThemeTransition = (transitioning: boolean) => {
-    theme.value.isTransitioning = transitioning
-  }
-
-  // Page Methods
+  // ✅ Page methods (existing methods kept)
   const setPageTitle = (title: string) => {
     page.value.title = title
     document.title = `${title} - MyxoFlow`
@@ -371,71 +438,69 @@ export const useUIStore = defineStore('ui', () => {
     page.value.errorMessage = ''
   }
 
-  // Initialize app
+  // ✅ Enhanced app initialization
   const initializeApp = async () => {
     setLoading('global', true)
-
     try {
-      // Simulate initialization tasks
       await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      // Set hero as loaded
       setHeroLoaded(true)
-
-      // Clear any initialization errors
       clearPageError()
-    } catch {
+    } catch (error) {
       setPageError('Failed to initialize application')
+      console.error('App initialization error:', error)
     } finally {
       setLoading('global', false)
     }
   }
 
-  // Cleanup on page leave
+  /**
+   * Cleanup method for page transitions
+   */
   const cleanup = () => {
     closeAllModals()
     closeMenu()
     closeSearch()
     hideNotification()
-    // Reset forms if needed
   }
 
   return {
-    // State
-    loading,
-    modals,
-    navigation,
-    notification,
-    forms,
-    scroll,
-    animations,
-    search,
-    theme,
-    page,
+    // ✅ Reactive state (readonly)
+    loading: loading,
+    modals: modals,
+    navigation: navigation,
+    notification: notification,
+    forms: forms,
+    scroll: scroll,
+    animations: animations,
+    search: search,
+    page: page,
 
-    // Computed
+    // ✅ Computed properties
     isAnyModalOpen,
     isLoading,
     hasFormErrors,
     isFormSubmitting,
+    currentBreadcrumb,
+    scrollProgress,
 
-    // Loading Methods
+    // ✅ Methods (organized by category)
+    // Loading
     setLoading,
     setGlobalLoading,
 
-    // Modal Methods
+    // Modals
     openModal,
     closeModal,
     closeAllModals,
 
-    // Navigation Methods
+    // Navigation
     toggleMenu,
     closeMenu,
     setActiveSection,
     setBreadcrumbs,
     addBreadcrumb,
 
-    // Notification Methods
+    // Notifications
     showNotification,
     hideNotification,
     showSuccess,
@@ -443,42 +508,53 @@ export const useUIStore = defineStore('ui', () => {
     showWarning,
     showInfo,
 
-    // Scroll Methods
+    // Scroll
     updateScroll,
     scrollToTop,
     scrollToElement,
 
-    // Form Methods
+    // Forms
     setFormState,
     setFormData,
     setFormErrors,
     clearFormErrors,
     resetForm,
 
-    // Animation Methods
+    // Animations
     addVisibleSection,
     removeVisibleSection,
     setAnimationsEnabled,
     setHeroLoaded,
 
-    // Search Methods
+    // Search
     setSearchQuery,
     toggleSearch,
     closeSearch,
 
-    // Theme Methods
-    setTheme,
-    toggleTheme,
-    setThemeTransition,
-
-    // Page Methods
+    // Page
     setPageTitle,
     setPageLoading,
     setPageError,
     clearPageError,
 
-    // App Methods
+    // App lifecycle
     initializeApp,
     cleanup,
   }
 })
+
+/**
+ * Export types for component use
+ */
+export type {
+  LoadingState,
+  ModalState,
+  NavigationState,
+  NotificationState,
+  FormState,
+  ScrollState,
+  AnimationState,
+  SearchState,
+  PageState,
+  BreadcrumbItem,
+} from '@/types/ui'

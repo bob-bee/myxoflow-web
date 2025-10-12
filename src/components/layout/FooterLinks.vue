@@ -12,7 +12,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue'
 import type { NavigationItem } from '@/stores/useContentStore'
 
 const props = defineProps<{
