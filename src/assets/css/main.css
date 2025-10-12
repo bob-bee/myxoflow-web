@@ -1,3 +1,15 @@
+/* ========================================
+ * COMPONENT STYLES IMPORT
+ * ======================================== */
+
+/* Import Material Design 3 components and utilities */
+@import 'tokens.css';
+
+/* src/assets/main.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   /* Primitive Color Tokens */
   --color-white: rgba(255, 255, 255, 1);
@@ -763,13 +775,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-/* ========================================
- * COMPONENT STYLES IMPORT
- * ======================================== */
-
-/* Import Material Design 3 components and utilities */
-@import 'tokens.css';
 
 /* ========================================
  * GLOBAL APPLICATION STYLES

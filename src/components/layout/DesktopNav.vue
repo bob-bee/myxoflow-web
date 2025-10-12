@@ -46,5 +46,106 @@ function onLeave() {
 </script>
 
 <style scoped>
-/* copy desktop nav styles */
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  color: #111; /* primary text color */
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.nav-link.router-link-active {
+  color: #0d6efd; /* primary accent for active link */
+  font-weight: 600;
+}
+
+.nav-link:hover {
+  background-color: rgba(13, 110, 253, 0.1);
+  color: #0d6efd;
+}
+
+.nav-arrow {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+  transition: transform 0.2s ease;
+}
+
+.nav-item:hover .nav-arrow {
+  transform: rotate(180deg);
+}
+
+.nav-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 160px;
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 8px 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s;
+  z-index: 50;
+}
+
+.nav-dropdown.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-link {
+  display: block;
+  padding: 8px 16px;
+  text-decoration: none;
+  color: #111;
+  font-weight: 400;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.dropdown-link:hover {
+  background-color: rgba(13, 110, 253, 0.05);
+  color: #0d6efd;
+  font-weight: 500;
+}
+
+/* Responsive tweaks for smaller screens */
+@media (max-width: 1024px) {
+  .desktop-nav {
+    gap: 16px;
+  }
+
+  .nav-link {
+    padding: 6px 10px;
+  }
+
+  .dropdown-link {
+    padding: 6px 12px;
+  }
+}
 </style>
