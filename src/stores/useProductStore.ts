@@ -2,39 +2,16 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type { Ref } from 'vue'
-import productsData from '../data/products.json'
+import productsData from '../data/products/products.json'
+import type { Product , ProductDetails} from '../types/index'
 
-export interface PricingTier {
-  name: string
-  description: string
-  price: string
-  billingPeriod: string
-  features: string[]
-  cta: string
-  popular?: boolean
-}
-
-export interface Product {
-  key: string
-  name: string
-  tagline: string
-  description: string
-  overview: string
-  features: string[]
-  useCases: string[]
-  pricing: {
-    model: string
-    tiers: PricingTier[]
-  }
-  tags: string[]
-  featured: boolean
-  geography?: string
-}
 
 export const useProductStore = defineStore('product', () => {
   // State
   const products :Ref<Product[]> = ref<Product[]>(productsData.products)
   const currentProduct :Ref<Product | null> = ref(null)
+  const currentDetails = ref<ProductDetails | null>(null)
+
   const isLoading: Ref<boolean> = ref(false)
   const error = ref<string | null>(null)
 
@@ -53,6 +30,25 @@ export const useProductStore = defineStore('product', () => {
     }
     return product
   }
+  const loadProductDetails = async (key: string): Promise<ProductDetails | null> => {
+    isLoading.value = true
+    error.value = null
+
+    try {
+      // Dynamic import of detail JSON
+      const detailModule = await import(`../data/products/${key}.json`)
+      currentDetails.value = detailModule.default as ProductDetails
+      return currentDetails.value
+    } catch (err) {
+      error.value = `Failed to load detailed information for ${key}`
+      console.error('Product details load error:', err)
+      currentDetails.value = null
+      return null
+    } finally {
+      isLoading.value = false
+    }
+  }
+
 
   const getRelatedProducts = (currentKey: string, limit = 3): Product[] => {
     const current = products.value.find(p => p.key === currentKey)
@@ -88,6 +84,7 @@ export const useProductStore = defineStore('product', () => {
     // State
     products,
     currentProduct,
+    currentDetails,
     isLoading,
     error,
     
@@ -97,6 +94,7 @@ export const useProductStore = defineStore('product', () => {
     
     // Actions
     getProductByKey,
+    loadProductDetails,
     getRelatedProducts,
     setCurrentProduct,
     getProductsByTag,

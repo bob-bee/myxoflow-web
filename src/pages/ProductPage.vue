@@ -1,24 +1,47 @@
 <template>
-  <div v-if="product" class="product-page">
-    <!-- Hero Section -->
-    <section class="product-hero">
-      <div class="container">
-        <div class="hero-content">
+  <div class="product-page">
+    <!-- Loading State -->
+    <div v-if="isLoading" class="loading-container">
+      <q-spinner color="primary" size="64px" />
+      <p class="loading-text">Loading product details...</p>
+    </div>
+
+    <!-- Error State -->
+    <div v-else-if="error || !product" class="error-container">
+      <div class="error-content">
+        <q-icon name="error_outline" size="80px" color="negative" />
+        <h2>Product Not Found</h2>
+        <p>{{ error || 'The product you are looking for does not exist.' }}</p>
+        <q-btn
+          label="Back to Home"
+          color="primary"
+          size="lg"
+          unelevated
+          rounded
+          @click="navigateHome"
+        />
+      </div>
+    </div>
+
+    <!-- Product Content -->
+    <template v-else>
+      <!-- Hero Section -->
+      <section class="product-hero">
+        <div class="container">
           <div class="breadcrumb">
-            <router-link to="/">Home</router-link>
-            <q-icon name="chevron_right" size="16px" />
-            <router-link to="/products">Products</router-link>
-            <q-icon name="chevron_right" size="16px" />
-            <span>{{ product.name }}</span>
+            <router-link to="/" class="breadcrumb-link">Home</router-link>
+            <q-icon name="chevron_right" size="16px" class="breadcrumb-separator" />
+            <router-link to="/products" class="breadcrumb-link">Products</router-link>
+            <q-icon name="chevron_right" size="16px" class="breadcrumb-separator" />
+            <span class="breadcrumb-current">{{ product.name }}</span>
           </div>
 
-          <div class="product-header">
-            <div class="header-text">
-              <h1>{{ product.name }}</h1>
-              <p class="tagline">{{ product.tagline }}</p>
-              <p class="description">{{ product.description }}</p>
-              
-              <div v-if="product.geography" class="geography">
+          <div class="hero-content">
+            <div class="hero-text">
+              <h1 class="hero-title">{{ details?.title || product.name }}</h1>
+              <p class="hero-tagline">{{ details?.tagline || product.tagline }}</p>
+
+              <div v-if="product.geography" class="geography-badge">
                 <q-icon name="public" size="20px" />
                 <span>{{ product.geography }}</span>
               </div>
@@ -38,270 +61,368 @@
                   size="lg"
                   outline
                   rounded
-                  @click="navigateToProduct(product.key)"
+                  @click="scrollToSection('solution')"
                 />
               </div>
             </div>
 
-            <div class="header-visual">
+            <div class="hero-visual">
               <div class="product-icon">
-                <q-icon name="apps" size="120px" color="primary" />
+                <q-icon name="apps" size="120px" color="white" />
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Overview Section -->
-    <section id="overview" class="overview-section">
-      <div class="container">
-        <div class="overview-content">
+      <!-- Background Section -->
+      <section v-if="details?.background" id="background" class="background-section">
+        <div class="container">
           <div class="section-header">
-            <h2>Overview</h2>
+            <h2>{{ details.background.headline }}</h2>
           </div>
-          <p class="overview-text">{{ product.overview }}</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="features-section">
-      <div class="container">
-        <div class="section-header">
-          <h2>Key Features</h2>
-          <p>Everything you need to optimize your operations</p>
-        </div>
-
-        <div class="features-grid">
-          <div 
-            v-for="(feature, index) in product.features" 
-            :key="index"
-            class="feature-card"
-          >
-            <div class="feature-icon">
-              <q-icon name="check_circle" size="32px" color="primary" />
-            </div>
-            <h3>{{ feature }}</h3>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Use Cases Section -->
-    <section id="use-cases" class="use-cases-section">
-      <div class="container">
-        <div class="section-header">
-          <h2>Use Cases</h2>
-          <p>Perfect for these scenarios</p>
-        </div>
-
-        <div class="use-cases-grid">
-          <div 
-            v-for="(useCase, index) in product.useCases" 
-            :key="index"
-            class="use-case-card"
-          >
-            <q-icon name="arrow_right" size="24px" color="primary" />
-            <span>{{ useCase }}</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section id="pricing" class="pricing-section">
-      <div class="container">
-        <div class="section-header">
-          <h2>Pricing</h2>
-          <p class="pricing-model">{{ product.pricing.model }}</p>
-        </div>
-
-        <div class="pricing-grid">
-          <div 
-            v-for="tier in product.pricing.tiers" 
-            :key="tier.name"
-            class="pricing-card"
-            :class="{ 'popular': tier.popular }"
-          >
-            <div v-if="tier.popular" class="popular-badge">
-              Most Popular
-            </div>
-
-            <h3>{{ tier.name }}</h3>
-            <p class="tier-description">{{ tier.description }}</p>
-
-            <div class="price-display">
-              <span class="price">{{ tier.price }}</span>
-              <span class="period">{{ tier.billingPeriod }}</span>
-            </div>
-
-            <div class="tier-features">
-              <h4>Includes:</h4>
-              <ul>
-                <li v-for="feature in tier.features" :key="feature">
-                  <q-icon name="check" size="18px" color="positive" />
-                  <span>{{ feature }}</span>
-                </li>
-              </ul>
-            </div>
-
-            <q-btn
-              :label="tier.cta"
-              :color="tier.popular ? 'primary' : 'secondary'"
-              size="lg"
-              unelevated
-              rounded
-              class="tier-cta"
-              @click="handleCTA(tier.name)"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Related Products Section -->
-    <section v-if="relatedProducts.length > 0" class="related-section">
-      <div class="container">
-        <div class="section-header">
-          <h2>Related Products</h2>
-          <p>You might also be interested in</p>
-        </div>
-
-        <div class="related-grid">
-          <div 
-            v-for="related in relatedProducts" 
-            :key="related.key"
-            class="related-card"
-            @click="navigateToProduct(related.key)"
-          >
-            <h3>{{ related.name }}</h3>
-            <p class="related-tagline">{{ related.tagline }}</p>
-            <p class="related-description">{{ related.description }}</p>
-            
-            <div class="related-footer">
-              <span class="related-price">{{ related.pricing.tiers[0]?.price }}</span>
-              <q-icon name="arrow_forward" size="24px" color="primary" />
+          <div class="background-content">
+            <p class="summary-text">{{ details.background.summary }}</p>
+            <div class="insight-box">
+              <q-icon name="lightbulb" size="32px" color="amber" />
+              <p>{{ details.background.insight }}</p>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- CTA Section -->
-    <section class="product-cta-section">
-      <div class="container">
-        <div class="cta-content">
-          <h2>Ready to Get Started?</h2>
-          <p>Join hundreds of companies optimizing with {{ product.name }}</p>
-          
-          <div class="cta-actions">
-            <q-btn
-              :label="product.pricing.tiers[0]?.cta"
-              color="white"
-              text-color="primary"
-              size="xl"
-              unelevated
-              rounded
-              @click="scrollToSection('pricing')"
-            />
-            <q-btn
-              label="Contact Sales"
-              color="transparent"
-              text-color="white"
-              size="xl"
-              outline
-              rounded
-              @click="navigateToContact"
-            />
+      <!-- Problem Section -->
+      <section v-if="details?.problem" id="problem" class="problem-section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Structural Challenges</h2>
+            <p>The broken ecosystem we're fixing</p>
+          </div>
+          <div class="challenges-grid">
+            <div
+              v-for="(challenge, index) in details.problem.structuralChallenges"
+              :key="index"
+              class="challenge-card"
+            >
+              <div class="challenge-icon">
+                <q-icon name="close" size="24px" color="negative" />
+              </div>
+              <p>{{ challenge }}</p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-  </div>
+      </section>
 
-  <!-- Loading State -->
-  <div v-else-if="isLoading" class="loading-state">
-    <q-spinner color="primary" size="64px" />
-  </div>
+      <!-- Market Opportunity Section -->
+      <section v-if="details?.marketOpportunity" id="market" class="market-section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Market Opportunity</h2>
+          </div>
+          <div class="market-content">
+            <p class="insight-text">{{ details.marketOpportunity.insight }}</p>
+            <div class="data-points">
+              <div
+                v-for="(point, index) in details.marketOpportunity.dataPoints"
+                :key="index"
+                class="data-point"
+              >
+                <q-icon name="trending_up" size="24px" color="positive" />
+                <span>{{ point }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-  <!-- Error State -->
-  <div v-else class="error-state">
-    <div class="container">
-      <div class="error-content">
-        <q-icon name="error_outline" size="80px" color="negative" />
-        <h2>Product Not Found</h2>
-        <p>The product you're looking for doesn't exist.</p>
-        <q-btn
-          label="Back to Home"
-          color="primary"
-          size="lg"
-          unelevated
-          rounded
-          @click="navigateToHome"
-        />
-      </div>
-    </div>
+      <!-- Solution Section -->
+      <section v-if="details?.solution" id="solution" class="solution-section">
+        <div class="container">
+          <div class="section-header">
+            <h2>{{ details.solution.headline }}</h2>
+            <p>{{ details.solution.description }}</p>
+          </div>
+          <div class="features-grid">
+            <div
+              v-for="feature in details.solution.coreFeatures"
+              :key="feature.title"
+              class="feature-card"
+            >
+              <div class="feature-icon">
+                <q-icon name="check_circle" size="32px" color="primary" />
+              </div>
+              <h3>{{ feature.title }}</h3>
+              <p>{{ feature.text }}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Comparative Analysis Section -->
+      <section v-if="details?.comparative" id="comparison" class="comparative-section">
+        <div class="container">
+          <div class="section-header">
+            <h2>{{ details.comparative.title }}</h2>
+          </div>
+          <div class="comparison-table">
+            <div class="table-header">
+              <div class="header-cell aspect">Aspect</div>
+              <div class="header-cell traditional">Traditional Model</div>
+              <div class="header-cell myxofill">MyxoFill</div>
+            </div>
+            <div
+              v-for="item in details.comparative.items"
+              :key="item.aspect"
+              class="table-row"
+            >
+              <div class="table-cell aspect">
+                <strong>{{ item.aspect }}</strong>
+              </div>
+              <div class="table-cell traditional">
+                <q-icon name="close" size="20px" color="negative" />
+                <span>{{ item.traditional }}</span>
+              </div>
+              <div class="table-cell myxofill">
+                <q-icon name="check" size="20px" color="positive" />
+                <span>{{ item.myxofill }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Vision Section -->
+      <section v-if="details?.vision" id="vision" class="vision-section">
+        <div class="container">
+          <div class="section-header">
+            <h2>{{ details.vision.title }}</h2>
+          </div>
+          <div class="principles-grid">
+            <div
+              v-for="principle in details.vision.principles"
+              :key="principle.title"
+              class="principle-card"
+            >
+              <h3>{{ principle.title }}</h3>
+              <p>{{ principle.description }}</p>
+            </div>
+          </div>
+          <div class="vision-summary">
+            <p>{{ details.vision.summary }}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Metrics Section -->
+      <section v-if="details?.metrics" id="metrics" class="metrics-section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Expected Impact</h2>
+          </div>
+          <div class="metrics-grid">
+            <div
+              v-for="(impact, index) in details.metrics.expectedImpact"
+              :key="index"
+              class="metric-card"
+            >
+              <q-icon name="insights" size="40px" color="primary" />
+              <p>{{ impact }}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Why Now Section -->
+      <section v-if="details?.whyNow" id="timing" class="timing-section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Why Now?</h2>
+            <p>Market timing and trends favor this solution</p>
+          </div>
+          <div class="timing-grid">
+            <div v-for="(reason, index) in details.whyNow" :key="index" class="timing-card">
+              <q-icon name="schedule" size="32px" color="primary" />
+              <p>{{ reason }}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pricing Section -->
+      <section id="pricing" class="pricing-section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Pricing</h2>
+            <p class="pricing-model">{{ product.pricing.model }}</p>
+          </div>
+
+          <div class="pricing-grid">
+            <div
+              v-for="tier in product.pricing.tiers"
+              :key="tier.name"
+              class="pricing-card"
+              :class="{ popular: tier.popular }"
+            >
+              <div v-if="tier.popular" class="popular-badge">Most Popular</div>
+
+              <h3>{{ tier.name }}</h3>
+              <p class="tier-description">{{ tier.description }}</p>
+
+              <div class="price-display">
+                <span class="price">{{ tier.price }}</span>
+                <span class="period">{{ tier.billingPeriod }}</span>
+              </div>
+
+              <div class="tier-features">
+                <h4>Includes:</h4>
+                <ul>
+                  <li v-for="feature in tier.features" :key="feature">
+                    <q-icon name="check" size="18px" color="positive" />
+                    <span>{{ feature }}</span>
+                  </li>
+                </ul>
+              </div>
+
+              <q-btn
+                :label="tier.cta"
+                :color="tier.popular ? 'primary' : 'secondary'"
+                size="lg"
+                unelevated
+                rounded
+                class="tier-cta"
+                @click="handleCTA(tier.name)"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Related Products Section -->
+      <section v-if="relatedProducts.length > 0" class="related-section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Related Products</h2>
+            <p>You might also be interested in</p>
+          </div>
+
+          <div class="related-grid">
+            <div
+              v-for="related in relatedProducts"
+              :key="related.key"
+              class="related-card"
+              @click="navigateToProduct(related.key)"
+            >
+              <h3>{{ related.name }}</h3>
+              <p class="related-tagline">{{ related.tagline }}</p>
+              <p class="related-description">{{ related.description }}</p>
+
+              <div class="related-footer">
+                <span class="related-price">{{ related.pricing.tiers[0]?.price }}</span>
+                <q-icon name="arrow_forward" size="24px" color="primary" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="product-cta-section">
+        <div class="container">
+          <div class="cta-content">
+            <h2>Ready to Get Started?</h2>
+            <p>Join the transparent, merit-based marketplace</p>
+
+            <div class="cta-actions">
+              <q-btn
+                :label="product.pricing.tiers[0]?.cta"
+                color="white"
+                text-color="primary"
+                size="xl"
+                unelevated
+                rounded
+                @click="scrollToSection('pricing')"
+              />
+              <q-btn
+                label="Contact Sales"
+                color="transparent"
+                text-color="white"
+                size="xl"
+                outline
+                rounded
+                @click="navigateToContact"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+    </template>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useProductStore,   } from '../stores/useProductStore'
+import { useProductStore } from '../stores/useProductStore'
 import { updatePageTitle, updateMetaDescription } from '../utils'
-import type { Product } from '../types/index'
+
 const route = useRoute()
 const router = useRouter()
 const productStore = useProductStore()
 
-// Strict typing for product key
-const productKey = computed<string>(() => {
-  const key = route.params.key
-  if (typeof key !== 'string') throw new Error('Invalid product key in route params')
-  return key
-})
-
-// Strict typing for product
-const product = computed<Product | null>(() => productStore.currentProduct)
-const isLoading = computed<boolean>(() => productStore.isLoading)
-
-const relatedProducts = computed<Product[]>(() => {
-  return product.value ? productStore.getRelatedProducts(product.value.key) : []
-})
+// Computed
+const productKey = computed(() => route.params.key as string)
+const product = computed(() => productStore.currentProduct)
+const details = computed(() => productStore.currentDetails)
+const isLoading = computed(() => productStore.isLoading)
+const error = computed(() => productStore.error)
+const relatedProducts = computed(() =>
+  product.value ? productStore.getRelatedProducts(product.value.key) : []
+)
 
 // Load product data
-const loadProduct = (): void => {
+const loadProduct = async (): Promise<void> => {
   const key = productKey.value
+  if (!key) return
+
+  // Load basic product info
   const foundProduct = productStore.getProductByKey(key)
-  if (foundProduct) {
-    productStore.setCurrentProduct(foundProduct)
-    updatePageTitle(foundProduct.name)
-    updateMetaDescription(foundProduct.description)
+  if (!foundProduct) {
+    return
   }
+
+  // Load detailed product info
+  await productStore.loadProductDetails(key)
+
+  // Update meta tags
+  updatePageTitle(foundProduct.name)
+  updateMetaDescription(foundProduct.description)
 }
 
 // Watch for route changes
-watch(() => route.params.key, () => {
-  loadProduct()
-  window.scrollTo(0, 0)
+watch(
+  () => route.params.key,
+  async() => {
+    await loadProduct()
+    window.scrollTo(0, 0)
+  }
+)
+
+onMounted(async () => {
+  await loadProduct()
 })
 
-// On component mount
-onMounted(() => {
-  loadProduct()
-})
-
-// Scroll to section
+// Methods
 const scrollToSection = (sectionId: string, offset = 80): void => {
   const element = document.getElementById(sectionId)
   if (element) {
     const top = element.offsetTop - offset
-    window.scrollTo({ top, behavior: 'smooth' })
+    window.scrollTo({
+      top,
+      behavior: 'smooth',
+    })
   }
 }
 
-// Navigate functions
 const navigateToProduct = async (key: string): Promise<void> => {
   await router.push({ name: 'product', params: { key } })
 }
@@ -310,14 +431,12 @@ const navigateToContact = async (): Promise<void> => {
   await router.push({ name: 'contact' })
 }
 
-const navigateToHome = async (): Promise<void> => {
+const navigateHome = async (): Promise<void> => {
   await router.push({ name: 'home' })
 }
 
-// CTA handler
 const handleCTA = async (tierName: string): Promise<void> => {
   console.log(`CTA clicked for tier: ${tierName}`)
-  // Implement your CTA logic here
   await navigateToContact()
 }
 </script>
@@ -333,78 +452,111 @@ const handleCTA = async (tierName: string): Promise<void> => {
   padding: 0 24px;
 }
 
-// Product Hero
+// Loading & Error States
+.loading-container,
+.error-container {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+}
+
+.loading-text {
+  margin-top: 24px;
+  font-size: 18px;
+  color: var(--q-dark);
+  opacity: 0.7;
+}
+
+.error-content {
+  text-align: center;
+  max-width: 600px;
+
+  h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin: 24px 0 16px;
+    color: var(--q-dark);
+  }
+
+  p {
+    font-size: 18px;
+    margin-bottom: 32px;
+    opacity: 0.7;
+  }
+}
+
+// Hero Section
 .product-hero {
   padding: 140px 0 100px;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  color: white;
 }
 
 .breadcrumb {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 32px;
+  margin-bottom: 40px;
   font-size: 14px;
 
-  a {
-    color: var(--q-primary);
+  .breadcrumb-link {
+    color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
-    transition: opacity 0.3s ease;
+    transition: color 0.3s ease;
 
     &:hover {
-      opacity: 0.7;
+      color: white;
     }
   }
 
-  span {
-    color: var(--q-dark);
+  .breadcrumb-separator {
+    opacity: 0.5;
+  }
+
+  .breadcrumb-current {
+    color: white;
     font-weight: 600;
   }
 }
 
-.product-header {
+.hero-content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.2fr 1fr;
   gap: 80px;
   align-items: center;
 }
 
-.header-text {
-  h1 {
+.hero-text {
+  .hero-title {
     font-size: 56px;
     font-weight: 800;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     line-height: 1.1;
-    color: var(--q-dark);
   }
 
-  .tagline {
+  .hero-tagline {
     font-size: 24px;
-    color: var(--q-primary);
-    font-weight: 700;
-    margin-bottom: 24px;
-  }
-
-  .description {
-    font-size: 20px;
-    line-height: 1.7;
+    font-weight: 600;
     margin-bottom: 32px;
-    opacity: 0.8;
+    opacity: 0.95;
+    line-height: 1.4;
   }
 }
 
-.geography {
+.geography-badge {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   padding: 12px 24px;
-  background: white;
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 24px;
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 40px;
-  color: var(--q-secondary);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
 }
 
 .hero-actions {
@@ -413,7 +565,7 @@ const handleCTA = async (tierName: string): Promise<void> => {
   flex-wrap: wrap;
 }
 
-.header-visual {
+.hero-visual {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -425,9 +577,11 @@ const handleCTA = async (tierName: string): Promise<void> => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--q-primary) 0%, var(--q-secondary) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
   border-radius: 32px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   transform: rotate(-5deg);
   transition: transform 0.3s ease;
 
@@ -460,39 +614,130 @@ section {
   }
 }
 
-// Overview Section
-.overview-section {
+// Background Section
+.background-section {
   background: white;
 }
 
-.overview-content {
+.background-content {
   max-width: 900px;
   margin: 0 auto;
 }
 
-.overview-text {
-  font-size: 22px;
+.summary-text {
+  font-size: 20px;
   line-height: 1.8;
   text-align: center;
+  margin-bottom: 40px;
   opacity: 0.85;
 }
 
-// Features Section
-.features-section {
+.insight-box {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 32px 40px;
+  background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+  border-radius: 16px;
+  border-left: 4px solid #ffa726;
+
+  p {
+    font-size: 18px;
+    line-height: 1.7;
+    margin: 0;
+    font-weight: 600;
+  }
+}
+
+// Problem Section
+.problem-section {
+  background: #f8f9fa;
+}
+
+.challenges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.challenge-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 28px;
+  background: white;
+  border-radius: 12px;
+  border-left: 4px solid var(--q-negative);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateX(8px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  .challenge-icon {
+    flex-shrink: 0;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+// Market Section
+.market-section {
+  background: white;
+}
+
+.market-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.insight-text {
+  font-size: 20px;
+  line-height: 1.8;
+  text-align: center;
+  margin-bottom: 48px;
+  opacity: 0.85;
+}
+
+.data-points {
+  display: grid;
+  gap: 20px;
+}
+
+.data-point {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px 32px;
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border-radius: 12px;
+  border-left: 4px solid var(--q-positive);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+// Solution Section
+.solution-section {
   background: #f8f9fa;
 }
 
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 32px;
 }
 
 .feature-card {
-  padding: 40px 32px;
+  padding: 40px;
   background: white;
   border-radius: 16px;
-  text-align: center;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
 
@@ -502,42 +747,195 @@ section {
   }
 
   .feature-icon {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
   }
 
   h3 {
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 700;
-    line-height: 1.5;
+    margin-bottom: 16px;
     color: var(--q-dark);
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.7;
+    opacity: 0.8;
   }
 }
 
-// Use Cases Section
-.use-cases-section {
+// Comparative Section
+.comparative-section {
   background: white;
 }
 
-.use-cases-grid {
+.comparison-table {
+  max-width: 1100px;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.table-header,
+.table-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: 1fr 1.5fr 1.5fr;
+  gap: 2px;
+  background: #e9ecef;
+}
+
+.table-header {
+  background: var(--q-dark);
+  color: white;
+
+  .header-cell {
+    padding: 20px 24px;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+}
+
+.table-row {
+  background: white;
+
+  &:hover {
+    background: #f8f9fa;
+  }
+}
+
+.table-cell {
+  padding: 24px;
+  background: white;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  &.aspect {
+    font-weight: 700;
+  }
+
+  &.traditional {
+    background: #ffebee;
+  }
+
+  &.myxofill {
+    background: #e8f5e9;
+  }
+
+  span {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+}
+
+// Vision Section
+.vision-section {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: white;
+}
+
+.principles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  margin-bottom: 48px;
+}
+
+.principle-card {
+  padding: 40px 32px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.7;
+    opacity: 0.9;
+  }
+}
+
+.vision-summary {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+
+  p {
+    font-size: 20px;
+    line-height: 1.8;
+    font-weight: 600;
+    opacity: 0.95;
+  }
+}
+
+// Metrics Section
+.metrics-section {
+  background: #f8f9fa;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+}
+
+.metric-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 32px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+  p {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.6;
+    margin-top: 20px;
+  }
+}
+
+// Timing Section
+.timing-section {
+  background: white;
+}
+
+.timing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 24px;
 }
 
-.use-case-card {
+.timing-card {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 24px 32px;
+  gap: 20px;
+  padding: 28px 32px;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   border-radius: 12px;
-  font-size: 18px;
-  font-weight: 600;
   transition: all 0.3s ease;
 
   &:hover {
     transform: translateX(8px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  p {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.6;
+    margin: 0;
   }
 }
 
@@ -581,6 +979,19 @@ section {
     transform: translateY(-8px);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
   }
+
+  h3 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--q-dark);
+  }
+
+  .tier-description {
+    font-size: 16px;
+    margin-bottom: 32px;
+    opacity: 0.7;
+  }
 }
 
 .popular-badge {
@@ -596,21 +1007,6 @@ section {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-}
-
-.pricing-card {
-  h3 {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: var(--q-dark);
-  }
-
-  .tier-description {
-    font-size: 16px;
-    margin-bottom: 32px;
-    opacity: 0.7;
-  }
 }
 
 .price-display {
@@ -760,41 +1156,26 @@ section {
   flex-wrap: wrap;
 }
 
-// Loading & Error States
-.loading-state,
-.error-state {
-  min-height: 60vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.error-content {
-  text-align: center;
-  padding: 60px 24px;
-
-  h2 {
-    font-size: 36px;
-    font-weight: 700;
-    margin: 24px 0 16px;
-  }
-
-  p {
-    font-size: 18px;
-    margin-bottom: 32px;
-    opacity: 0.7;
-  }
-}
-
 // Responsive Design
 @media (max-width: 1024px) {
-  .product-header {
+  .hero-content {
     grid-template-columns: 1fr;
     gap: 48px;
   }
 
-  .header-visual {
+  .hero-visual {
     order: -1;
+  }
+
+  .table-header,
+  .table-row {
+    grid-template-columns: 1fr;
+  }
+
+  .table-cell.aspect {
+    background: var(--q-dark) !important;
+    color: white;
+    font-weight: 700;
   }
 }
 
@@ -803,35 +1184,34 @@ section {
     padding: 100px 0 60px;
   }
 
-  .header-text h1 {
+  .hero-text .hero-title {
     font-size: 40px;
   }
 
-  .header-text .tagline {
+  .hero-text .hero-tagline {
     font-size: 20px;
-  }
-
-  .header-text .description {
-    font-size: 18px;
   }
 
   .section-header h2 {
     font-size: 36px;
   }
 
-  .pricing-grid,
-  .features-grid,
-  .use-cases-grid,
-  .related-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .pricing-card.popular {
+ .pricing-card.popular {
     transform: scale(1);
   }
 
   .cta-content h2 {
     font-size: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-text .hero-title {
+    font-size: 32px;
+  }
+
+  section {
+    padding: 60px 0;
   }
 }
 </style>

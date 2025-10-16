@@ -5,11 +5,11 @@
       "questions": [
         {
           "question": "What is MyxoFlow and how does it work?",
-          "answer": "MyxoFlow is a unified dashboard technology platform that enables businesses to rapidly expand and optimize operations across different market verticals. Our platform provides consistent interfaces and shared optimization benefits.",
+          "answer": "MyxoFlow is a Dashboard technology platform that enables businesses to rapidly expand and optimize operations across different market verticals. Our platform provides consistent interfaces and shared optimization benefits.",
           "tags": ["general", "platform"]
         },
         {
-          "question": "How does the unified dashboard approach benefit my business?",
+          "question": "How does the dashboard approach benefit my business?",
           "answer": "Our platform provides consistent interface and shared optimization benefits across all market solutions. Improvements in one area automatically benefit all your operations, reducing training time and maximizing efficiency.",
           "tags": ["benefits", "dashboard"]
         },
@@ -45,7 +45,7 @@
         },
         {
           "question": "Do you offer a free trial?",
-          "answer": "Yes, we offer a 30-day free trial with full access to platform features, dedicated setup assistance, and direct developer support to ensure success.",
+          "answer": "Yes, we do not offer any free trial. If you buy, you get full access to platform features, dedicated setup assistance, and direct developer support to ensure success.",
           "tags": ["trial", "free"]
         }
       ]

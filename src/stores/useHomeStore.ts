@@ -2,53 +2,11 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import contentData from '../data/content.json'
-import productsData from '../data/products.json'
+import productsData from '../data/products/products.json'
 
-export interface Product {
-  key: string
-  name: string
-  tagline: string
-  description: string
-  overview: string
-  features: string[]
-  useCases: string[]
-  pricing: {
-    model: string
-    tiers: Array<{
-      name: string
-      price: string
-      billingPeriod: string
-      description: string
-      features: string[]
-      cta: string
-      popular?: boolean
-    }>
-  }
-  tags: string[]
-  featured: boolean
-  geography?: string
-}
+import type { Product } from '../types/index'
 
-export interface TeamMember {
-  name: string
-  role: string
-  avatar: string
-  responsibilities: string[]
-  bio: string
-}
 
-export interface Principle {
-  icon: string
-  title: string
-  description: string
-}
-
-export interface OperationalStep {
-  number: string
-  title: string
-  description: string
-  icon: string
-}
 
 export const useHomeStore = defineStore('home', () => {
   // State

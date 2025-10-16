@@ -449,3 +449,104 @@ export type {
   CompanyStat as StatType,
   NavItem as NavigationItem,
 }
+export interface PricingTier {
+  name: string
+  description: string
+  price: string
+  billingPeriod: string
+  features: string[]
+  cta: string
+  popular?: boolean
+}
+
+export interface Product {
+  key: string
+  name: string
+  tagline: string
+  description: string
+  overview: string
+  features: string[]
+  useCases: string[]
+  pricing: {
+    model: string
+    tiers: PricingTier[]
+  }
+  tags: string[]
+  featured: boolean
+  geography?: string
+}
+
+
+// src/types/product-details.ts
+
+export interface ProductBackground {
+  headline: string
+  summary: string
+  insight: string
+}
+
+export interface ProductProblem {
+  structuralChallenges: string[]
+}
+
+export interface MarketDataPoint {
+  text: string
+}
+
+export interface ProductMarketOpportunity {
+  insight: string
+  dataPoints: string[]
+}
+
+export interface CoreFeature {
+  title: string
+  text: string
+}
+
+export interface ProductSolution {
+  headline: string
+  description: string
+  coreFeatures: CoreFeature[]
+}
+
+export interface ComparativeItem {
+  aspect: string
+  traditional: string
+  myxofill: string
+}
+
+export interface ProductComparative {
+  title: string
+  items: ComparativeItem[]
+}
+
+export interface VisionPrinciple {
+  title: string
+  description: string
+}
+
+export interface ProductVision {
+  title: string
+  principles: VisionPrinciple[]
+  summary: string
+}
+
+export interface ProductMetrics {
+  expectedImpact: string[]
+}
+
+export interface ProductDetails {
+  key: string
+  name: string
+  title: string
+  tagline: string
+  background: ProductBackground
+  problem: ProductProblem
+  marketOpportunity: ProductMarketOpportunity
+  solution: ProductSolution
+  comparative: ProductComparative
+  vision: ProductVision
+  metrics: ProductMetrics
+  whyNow: string[]
+  sources: string[]
+}
