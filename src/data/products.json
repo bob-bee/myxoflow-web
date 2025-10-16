@@ -1,0 +1,375 @@
+{
+  "products": [
+    {
+      "key": "myxofill",
+      "name": "MyxoFill",
+      "tagline": "Skilled Workforce Backfill",
+      "description": "Europe-wide deployment of electricians, network/system engineers, and skilled professionals. Freelancers compete for tasks with guaranteed fair pay.",
+      "overview": "MyxoFill provides on-demand skilled workforce across Europe. Our freelancer competition model ensures quality service while maintaining fair compensation and full insurance coverage.",
+      "features": [
+        "Electricians & system engineers",
+        "Europe-wide deployment",
+        "Freelancer competition model",
+        "€150/day minimum pay guarantee",
+        "Full insurance coverage",
+        "Direct team execution if needed"
+      ],
+      "useCases": [
+        "Emergency electrical repairs",
+        "Network infrastructure setup",
+        "System installations",
+        "Temporary skilled labor coverage",
+        "Project-based deployments"
+      ],
+      "pricing": {
+        "model": "Service fees per backfill task",
+        "tiers": [
+          {
+            "name": "Single Task",
+            "price": "From €180/day",
+            "billingPeriod": "per task",
+            "description": "Service fee per deployment",
+            "features": [
+              "€150/day freelancer minimum",
+              "Full insurance included",
+              "Quality guarantee",
+              "Europe-wide coverage"
+            ],
+            "cta": "Request Backfill"
+          },
+          {
+            "name": "Monthly Contract",
+            "price": "Custom pricing",
+            "billingPeriod": "per month",
+            "description": "Ongoing workforce needs",
+            "features": [
+              "Priority deployment",
+              "Dedicated freelancer pool",
+              "Volume discounts",
+              "Account management"
+            ],
+            "cta": "Get Quote",
+            "popular": true
+          }
+        ]
+      },
+      "tags": ["backfill", "workforce", "europe"],
+      "featured": true,
+      "geography": "Europe-wide deployment"
+    },
+    {
+      "key": "myxomake",
+      "name": "MyxoMake",
+      "tagline": "Custom Product Production",
+      "description": "Branded merchandise and promotional items via global suppliers. Flexible quality optimization for cost efficiency.",
+      "overview": "MyxoMake leverages our global supplier network to produce custom products with optimal cost-quality balance. No unnecessary quality checks — just efficient production at fair prices.",
+      "features": [
+        "Global supplier network",
+        "Branded merchandise production",
+        "Promotional items",
+        "Flexible quality tiers",
+        "Cost optimization",
+        "Fast turnaround times"
+      ],
+      "useCases": [
+        "Company merchandise",
+        "Event promotional items",
+        "Custom branded products",
+        "Marketing materials",
+        "Bulk product orders"
+      ],
+      "pricing": {
+        "model": "Micro-margins per product",
+        "tiers": [
+          {
+            "name": "Standard Production",
+            "price": "Quote-based",
+            "billingPeriod": "per order",
+            "description": "Custom pricing per product",
+            "features": [
+              "Global supplier access",
+              "Flexible quality options",
+              "Transparent pricing",
+              "Bulk discounts"
+            ],
+            "cta": "Get Quote"
+          }
+        ]
+      },
+      "tags": ["manufacturing", "merchandise", "global"],
+      "featured": false,
+      "geography": "Global production, Europe delivery"
+    },
+    {
+      "key": "stitchflow",
+      "name": "StitchFlow",
+      "tagline": "Garment Manufacturing",
+      "description": "Apparel manufacturing via global supplier network. Design, production, and delivery pipeline optimization.",
+      "overview": "StitchFlow integrates design, production, and delivery for garment manufacturing. Our global network ensures competitive pricing without compromising on essential quality standards.",
+      "features": [
+        "Full garment production pipeline",
+        "Design integration",
+        "Global manufacturing network",
+        "Quality-cost optimization",
+        "Delivery coordination",
+        "Neo4j supply chain tracking"
+      ],
+      "useCases": [
+        "Custom apparel lines",
+        "Corporate uniforms",
+        "Fashion brand production",
+        "Promotional clothing",
+        "Bulk garment orders"
+      ],
+      "pricing": {
+        "model": "Service fees + micro-margins",
+        "tiers": [
+          {
+            "name": "Garment Production",
+            "price": "Quote-based",
+            "billingPeriod": "per order",
+            "description": "Custom garment manufacturing",
+            "features": [
+              "Design support",
+              "Global production",
+              "Supply chain optimization",
+              "Quality assurance"
+            ],
+            "cta": "Get Quote"
+          }
+        ]
+      },
+      "tags": ["garments", "manufacturing", "fashion"],
+      "featured": true,
+      "geography": "Global production"
+    },
+    {
+      "key": "myxodate",
+      "name": "MyxoDate",
+      "tagline": "Intelligent Scheduling & Matching",
+      "description": "Match resources, teams, and projects using intelligent algorithms. Optimize allocation and coordination.",
+      "overview": "MyxoDate uses intelligent matching algorithms to connect resources, teams, and projects efficiently. Like a slime mold finding optimal paths, we match the right people to the right tasks.",
+      "features": [
+        "Intelligent matching algorithms",
+        "Resource optimization",
+        "Team coordination",
+        "Project allocation",
+        "Real-time availability tracking",
+        "Automated scheduling"
+      ],
+      "useCases": [
+        "Freelancer-task matching",
+        "Team resource allocation",
+        "Project scheduling",
+        "Workforce optimization",
+        "Capacity planning"
+      ],
+      "pricing": {
+        "model": "Subscription or task-based fees",
+        "tiers": [
+          {
+            "name": "Basic",
+            "price": "€99",
+            "billingPeriod": "per month",
+            "description": "Essential matching features",
+            "features": [
+              "Up to 50 matches/month",
+              "Basic algorithms",
+              "Email support",
+              "Dashboard access"
+            ],
+            "cta": "Start Free Trial"
+          },
+          {
+            "name": "Professional",
+            "price": "€299",
+            "billingPeriod": "per month",
+            "description": "Advanced matching & analytics",
+            "features": [
+              "Unlimited matches",
+              "Advanced AI algorithms",
+              "Priority support",
+              "Analytics dashboard",
+              "API access"
+            ],
+            "cta": "Get Started",
+            "popular": true
+          }
+        ]
+      },
+      "tags": ["scheduling", "matching", "ai"],
+      "featured": false
+    },
+    {
+      "key": "kitchenos",
+      "name": "KitchenOS",
+      "tagline": "Restaurant & Kitchen Optimization",
+      "description": "Automate kitchen workflows, orders, and staff allocation. Integrates with MyxoFill for temporary staffing needs.",
+      "overview": "KitchenOS optimizes restaurant operations from order intake to kitchen workflow and staff management. Complete automation with optional MyxoFill integration for flexible staffing.",
+      "features": [
+        "Kitchen workflow automation",
+        "Order management system",
+        "Staff allocation optimization",
+        "MyxoFill staffing integration",
+        "Inventory tracking",
+        "Real-time analytics"
+      ],
+      "useCases": [
+        "Restaurant operations",
+        "Cloud kitchen management",
+        "Multi-location chains",
+        "Catering services",
+        "Food delivery optimization"
+      ],
+      "pricing": {
+        "model": "Deployment fees + cloud subscriptions",
+        "tiers": [
+          {
+            "name": "Single Location",
+            "price": "€499",
+            "billingPeriod": "one-time + €99/mo",
+            "description": "Complete kitchen system",
+            "features": [
+              "Full deployment",
+              "Staff training",
+              "Cloud hosting",
+              "Monthly updates",
+              "Email support"
+            ],
+            "cta": "Deploy Now"
+          },
+          {
+            "name": "Multi-Location",
+            "price": "Custom",
+            "billingPeriod": "per location",
+            "description": "Enterprise restaurant chains",
+            "features": [
+              "Centralized management",
+              "Multi-location sync",
+              "Advanced analytics",
+              "Priority support",
+              "Custom integrations"
+            ],
+            "cta": "Contact Sales",
+            "popular": true
+          }
+        ]
+      },
+      "tags": ["restaurant", "automation", "hospitality"],
+      "featured": true
+    },
+    {
+      "key": "timid",
+      "name": "Timid",
+      "tagline": "Privacy-First Browser",
+      "description": "Open-source fork of Brave, stripped of ad/revenue distractions. Pure privacy and user control.",
+      "overview": "Timid is a minimalist, privacy-focused browser based on Brave but without ad systems or revenue tracking. Complete user control, open-source transparency, and zero distractions.",
+      "features": [
+        "Open-source (Brave fork)",
+        "No ads or tracking",
+        "Complete privacy focus",
+        "Minimal design",
+        "GitHub-managed updates",
+        "Full user control"
+      ],
+      "useCases": [
+        "Privacy-conscious browsing",
+        "Corporate deployments",
+        "Security-focused organizations",
+        "Educational institutions",
+        "Personal use"
+      ],
+      "pricing": {
+        "model": "Free + optional support fees",
+        "tiers": [
+          {
+            "name": "Free Download",
+            "price": "€0",
+            "billingPeriod": "forever",
+            "description": "Open-source browser",
+            "features": [
+              "Full privacy features",
+              "Regular updates",
+              "Community support",
+              "GitHub access"
+            ],
+            "cta": "Download Free"
+          },
+          {
+            "name": "Enterprise Support",
+            "price": "€50",
+            "billingPeriod": "per user/year",
+            "description": "For organizations",
+            "features": [
+              "Installation support",
+              "Custom configurations",
+              "Priority updates",
+              "Technical support"
+            ],
+            "cta": "Contact Us"
+          }
+        ]
+      },
+      "tags": ["browser", "privacy", "open-source"],
+      "featured": false
+    },
+    {
+      "key": "deployment",
+      "name": "Software & System Deployment",
+      "tagline": "Custom Solutions in 30 Days",
+      "description": "Custom dashboards, automation tools, and software deployed within 30 days. Cloud or on-premise with optional recurring support.",
+      "overview": "We deploy custom software solutions, dashboards, and automation systems within 30 days. Cloud or GitHub pipelines for software; hardware handled by freelancers or our team. Optional IaaS support.",
+      "features": [
+        "30-day deployment guarantee",
+        "Custom dashboards (Neo4j-based)",
+        "Automation tools",
+        "Cloud or on-premise",
+        "Hardware installation via freelancers",
+        "Optional IaaS/cloud support"
+      ],
+      "useCases": [
+        "Custom business dashboards",
+        "Automation implementations",
+        "System integrations",
+        "Infrastructure deployments",
+        "Legacy system modernization"
+      ],
+      "pricing": {
+        "model": "Deployment fees + optional cloud support",
+        "tiers": [
+          {
+            "name": "Software Deployment",
+            "price": "From €2,500",
+            "billingPeriod": "per project",
+            "description": "Complete system deployment",
+            "features": [
+              "30-day delivery",
+              "Custom development",
+              "Testing & deployment",
+              "Documentation",
+              "Training included"
+            ],
+            "cta": "Get Quote",
+            "popular": true
+          },
+          {
+            "name": "Cloud Support",
+            "price": "From €199",
+            "billingPeriod": "per month",
+            "description": "Ongoing IaaS support",
+            "features": [
+              "Cloud hosting",
+              "Monitoring & updates",
+              "Security patches",
+              "Technical support",
+              "Backup & recovery"
+            ],
+            "cta": "Add Support"
+          }
+        ]
+      },
+      "tags": ["deployment", "software", "custom"],
+      "featured": true
+    }
+  ]
+}

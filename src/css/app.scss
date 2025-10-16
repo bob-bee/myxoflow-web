@@ -1,0 +1,43 @@
+// app global css in SCSS form
+@import 'quasar.variables';
+body {
+  background-color: var(--q-bg-color);
+  color: var(--q-text-color);
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.q-toolbar,
+.q-header,
+.q-footer {
+  background-color: var(--q-surface-color) !important;
+  color: var(--q-text-color) !important;
+  border-color: var(--q-border-color);
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.q-card,
+.q-page,
+.q-drawer {
+  background-color: var(--q-surface-color) !important;
+  color: var(--q-text-color) !important;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.q-btn {
+  background-color: var(--q-primary-color) !important;
+  color: #fff !important;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.q-btn:hover {
+  background-color: var(--q-secondary-color) !important;
+}
+
+a {
+  color: var(--q-accent-color);
+}
+
+hr {
+  border-color: var(--q-border-color);
+}
