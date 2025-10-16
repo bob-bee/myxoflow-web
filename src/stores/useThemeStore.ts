@@ -1,237 +1,128 @@
+// src/stores/useThemeStore.ts
 import { defineStore } from 'pinia'
 import { ref, computed, watch } from 'vue'
 
-/**
- * Valid theme names
- */
-export type ThemeName = 'light' | 'dark' | 'sunrise' | 'midnight' | 'forest' | 'outdoor'
+// Import icons so Vite can bundle them
+import lightIcon from '@/assets/icons/sunLogo/light.svg'
+import darkIcon from '@/assets/icons/sunLogo/dark.svg'
+import sunriseIcon from '@/assets/icons/sunLogo/sunrise.svg'
+import midnightIcon from '@/assets/icons/sunLogo/midnight.svg'
+import forestIcon from '@/assets/icons/sunLogo/forest.svg'
+import energyIcon from '@/assets/icons/sunLogo/energy.svg'
 
-/**
- * Theme interface
- */
+export type ThemeName = 'light' | 'dark' | 'sunrise' | 'midnight' | 'forest' | 'energy'
+
 export interface Theme {
   name: ThemeName
   label: string
-  icon: string
+  src: string
   description: string
 }
 
-/**
- * Theme list with enhanced metadata
- */
+// Theme definitions
 export const themes: readonly Theme[] = [
-  {
-    name: 'light',
-    label: 'Light',
-    icon: '/assets/sunLogo/light.svg',
-    description: 'Clean and bright interface',
-  },
+  { name: 'light', label: 'Light', src: lightIcon, description: 'Clean and bright interface' },
   {
     name: 'dark',
     label: 'Dark',
-    icon: '/assets/sunLogo/dark.svg',
+    src: darkIcon,
     description: 'Easy on the eyes, perfect for night work',
   },
   {
     name: 'sunrise',
     label: 'Sunrise',
-    icon: '/assets/sunLogo/sunrise.svg',
+    src: sunriseIcon,
     description: 'Warm orange and yellow tones',
   },
   {
     name: 'midnight',
     label: 'Midnight',
-    icon: '/assets/sunLogo/midnight.svg',
+    src: midnightIcon,
     description: 'Deep blue midnight vibes',
   },
+  { name: 'forest', label: 'Forest', src: forestIcon, description: 'Nature-inspired green theme' },
   {
-    name: 'forest',
-    label: 'Forest',
-    icon: '/assets/sunLogo/forest.svg',
-    description: 'Nature-inspired green theme',
-  },
-  {
-    name: 'outdoor',
-    label: 'Outdoor',
-    icon: '/assets/sunLogo/outdoor.svg',
-    description: 'Fresh air and adventure theme',
+    name: 'energy',
+    label: 'Energy',
+    src: energyIcon,
+    description: 'Vibrant and lively theme',
   },
 ]
 
 export const useThemeStore = defineStore('theme', () => {
   const STORAGE_KEY = 'myxoflow-theme'
 
-  // Internal state
   const themeIndex = ref(0)
   const isTransitioning = ref(false)
+  const currentTheme = computed<Theme>(() => {
+    // Clamp the index to valid range
+    const index = Math.min(Math.max(themeIndex.value, 0), themes.length - 1)
+    const theme = themes[index]
 
-  // Computed properties
-  const currentTheme = computed(() => {
-    const safeIndex = Math.min(Math.max(themeIndex.value, 0), themes.length - 1)
-    return themes[safeIndex]!
+    // Assert non-null with `!` because we know index is in range
+    return theme!
   })
 
-  const isDarkTheme = computed(() => ['dark', 'midnight'].includes(currentTheme.value.name))
-
-  const themeByName = computed(() => {
-    const map = new Map<ThemeName, Theme>()
-    themes.forEach((theme) => map.set(theme.name, theme))
-    return map
-  })
-
-  /**
-   * Apply the CSS class for the current theme
-   */
-  const applyTheme = (): void => {
+  // Apply theme to document and meta
+  const applyTheme = () => {
     const classes = themes.map((t) => `theme-${t.name}`)
     document.documentElement.classList.remove(...classes)
     document.documentElement.classList.add(`theme-${currentTheme.value.name}`)
 
-    // Update meta theme-color for mobile browsers
-    const metaThemeColor = document.querySelector('meta[name="theme-color"]')
-    if (metaThemeColor) {
-      const themeColors = {
+    const metaTheme = document.querySelector('meta[name="theme-color"]')
+    if (metaTheme) {
+      const themeColors: Record<ThemeName, string> = {
         light: '#ffffff',
         dark: '#1a1a1a',
         sunrise: '#ff6b35',
         midnight: '#2c3e50',
         forest: '#27ae60',
-        outdoor: '#3498db',
+        energy: '#3498db',
       }
-      metaThemeColor.setAttribute('content', themeColors[currentTheme.value.name])
+      metaTheme.setAttribute('content', themeColors[currentTheme.value.name])
     }
   }
 
-  // Watch for changes, but DO NOT run immediately, to ensure initialization order
-  watch(
-    currentTheme,
-    (theme) => {
+  // Watch for theme changes
+  watch(currentTheme, (theme?) => {
+    if (theme) {
       localStorage.setItem(STORAGE_KEY, theme.name)
       applyTheme()
-    },
-    // No { immediate: true }
-  )
+    }
+  })
 
-  /**
-   * Initialize theme from storage or system preference
-   */
-  const initTheme = (): void => {
+  // Initialize theme
+  const initTheme = () => {
     const saved = localStorage.getItem(STORAGE_KEY) as ThemeName | null
     const savedIndex = saved ? themes.findIndex((t) => t.name === saved) : -1
-    if (savedIndex >= 0) {
-      themeIndex.value = savedIndex
-    } else {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-      themeIndex.value = themes.findIndex((t) => t.name === (prefersDark ? 'dark' : 'light'))
-    }
+    themeIndex.value =
+      savedIndex >= 0
+        ? savedIndex
+        : window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? themes.findIndex((t) => t.name === 'dark')
+          : 0
     applyTheme()
   }
 
-  /**
-   * Set theme by name with validation
-   * @param name - Theme name to set
-   * @returns Success status
-   */
-  const setTheme = (name: ThemeName): boolean => {
-    const themeObj = themeByName.value.get(name)
-    if (!themeObj) return false
-
+  // Set theme by name
+  const setTheme = (name: ThemeName) => {
     const index = themes.findIndex((t) => t.name === name)
-    if (index >= 0) {
-      isTransitioning.value = true
-      themeIndex.value = index
-
-      setTimeout(() => {
-        isTransitioning.value = false
-      }, 300)
-
-      return true
-    }
-    return false
+    if (index >= 0) themeIndex.value = index
   }
 
-  /**
-   * Cycle to the next theme
-   */
-  const cycleTheme = (): void => {
-    isTransitioning.value = true
+  // Cycle to next theme
+  const cycleTheme = () => {
     themeIndex.value = (themeIndex.value + 1) % themes.length
-
-    setTimeout(() => {
-      isTransitioning.value = false
-    }, 300)
   }
 
-  /**
-   * Toggle between light and dark themes
-   */
-  const toggleLightDark = (): void => {
-    const targetTheme = isDarkTheme.value ? 'light' : 'dark'
-    setTheme(targetTheme)
-  }
-
-  /**
-   * Get theme by name
-   * @param name - Theme name
-   * @returns Theme object or null
-   */
-  const getTheme = (name: ThemeName): Theme | null => {
-    return themeByName.value.get(name) ?? null
-  }
-
-  /**
-   * Check if theme exists
-   * @param name - Theme name to check
-   * @returns True if theme exists
-   */
-  const hasTheme = (name: string): boolean => {
-    return themes.some((t) => t.name === name)
-  }
-
-  /**
-   * Get all available theme names
-   * @returns Array of theme names
-   */
-  const getThemeNames = (): ThemeName[] => {
-    return themes.map((t) => t.name)
-  }
-
-  /**
-   * Reset theme to system preference
-   */
-  const resetToSystemTheme = (): void => {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    setTheme(prefersDark ? 'dark' : 'light')
-  }
-
-  /**
-   * Listen for system theme changes
-   */
-  const setupSystemThemeListener = (): void => {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    mediaQuery.addEventListener('change', (e) => {
-      const savedTheme = localStorage.getItem(STORAGE_KEY)
-      if (!savedTheme) {
-        setTheme(e.matches ? 'dark' : 'light')
-      }
-    })
-  }
-
-  // Store API
   return {
     currentTheme,
+    themeIndex,
     isTransitioning,
-    isDarkTheme,
-    themeByName,
+
     initTheme,
-    applyTheme,
     setTheme,
     cycleTheme,
-    toggleLightDark,
-    getTheme,
-    hasTheme,
-    getThemeNames,
-    resetToSystemTheme,
-    setupSystemThemeListener,
+    applyTheme,
   }
 })

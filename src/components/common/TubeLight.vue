@@ -1,17 +1,22 @@
-<template>
-  <button class="tubelight-toggle" @click="cycleTheme" aria-label="Toggle theme">
-    <img class="theme-icon" :src="themeIcon" :alt="themeName + ' theme'" />
-  </button>
-</template>
-
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useThemeStore } from '@/stores/useThemeStore'
-// Compute icon and name directly
-const themeIcon = computed(() => useThemeStore().currentTheme.icon)
-const themeName = computed(() => useThemeStore().currentTheme.name)
-const cycleTheme = () => useThemeStore().cycleTheme()
+
+const themeStore = useThemeStore()
+
+const themeIcon = computed(() => themeStore.currentTheme.src)
+const themeName = computed(() => themeStore.currentTheme.name)
+const cycleTheme = () => themeStore.cycleTheme()
+
+// Optional: initialize theme if not already done
+themeStore.initTheme()
 </script>
+
+<template>
+  <button class="tubelight-toggle" @click="cycleTheme" aria-label="Toggle theme">
+    <img v-if="themeIcon" class="theme-icon" :src="themeIcon" :alt="themeName + ' theme'" />
+  </button>
+</template>
 
 <style scoped>
 .tubelight-toggle {

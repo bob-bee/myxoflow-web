@@ -61,6 +61,10 @@ import { useThemeStore } from '@/stores/useThemeStore'
 // Loading & scroll state
 const isLoading = ref(true)
 const showScrollTop = ref(false)
+const themeStore = useThemeStore()
+onMounted(() => {
+  themeStore.initTheme()
+})
 
 // Scroll handler
 const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })

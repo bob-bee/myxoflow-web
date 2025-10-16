@@ -8,8 +8,8 @@ const content = useContentStore()
 <template>
   <section class="intro">
     <div class="container">
-      <h2>{{ content.intro.title }}</h2>
-      <p class="intro-text">{{ content.intro.body }}</p>
+      <h2>{{ content.hero.title }}</h2>
+      <p class="intro-text">{{ content.hero.body }}</p>
     </div>
   </section>
 </template>
