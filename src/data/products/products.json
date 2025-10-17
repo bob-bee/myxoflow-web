@@ -149,63 +149,61 @@
       "featured": true,
       "geography": "Global production"
     },
+
     {
-      "key": "myxodate",
-      "name": "MyxoDate",
-      "tagline": "Intelligent Scheduling & Matching",
-      "description": "Match resources, teams, and projects using intelligent algorithms. Optimize allocation and coordination.",
-      "overview": "MyxoDate uses intelligent matching algorithms to connect resources, teams, and projects efficiently. Like a slime mold finding optimal paths, we match the right people to the right tasks.",
+      "key": "cheddar",
+      "name": "Cheddar",
+      "tagline": "Verified Connections. Real Results.",
+      "description": "A members-only dating platform that uses dynamic capacity management and rigorous verification to ensure quality connections without hidden algorithms or data selling.",
+      "overview": "Cheddar maintains optimal platform balance through proprietary dynamic capacity management and ID + live-photo verification. No black-box matching—just transparent discovery tools, verified profiles, and a results-oriented experience.",
       "features": [
-        "Intelligent matching algorithms",
-        "Resource optimization",
-        "Team coordination",
-        "Project allocation",
-        "Real-time availability tracking",
-        "Automated scheduling"
+        "Dynamic capacity management for balanced gender ratios",
+        "ID verification via Stripe Identity or Onfido",
+        "Camera-only photo capture with liveness detection",
+        "Transparent filters and proximity sorting (no hidden algorithms)",
+        "Non-recurring 30-day memberships with manual renewal",
+        "Automated pause & pro-rated refunds when capacity triggers"
       ],
       "useCases": [
-        "Freelancer-task matching",
-        "Team resource allocation",
-        "Project scheduling",
-        "Workforce optimization",
-        "Capacity planning"
+        "Serious daters seeking verified, high-quality matches",
+        "Users valuing privacy and no data-selling business model",
+        "Members wanting a streamlined experience without time-wasters",
+        "People preferring transparent discovery tools over opaque algorithms",
+        "Referral-driven community growth and quality control"
       ],
       "pricing": {
-        "model": "Subscription or task-based fees",
+        "model": "Dynamic membership pricing with capacity-based adjustments",
         "tiers": [
           {
-            "name": "Basic",
-            "price": "€99",
-            "billingPeriod": "per month",
-            "description": "Essential matching features",
+            "name": "Founding Member (Women)",
+            "price": "Free",
+            "billingPeriod": "90-day complimentary membership, auto-renewable",
+            "description": "Complimentary access, subject to capacity management",
             "features": [
-              "Up to 50 matches/month",
-              "Basic algorithms",
-              "Email support",
-              "Dashboard access"
+              "Full verification & discovery tools",
+              "Auto-renewable every 90 days",
+              "Voluntary pause options"
             ],
-            "cta": "Start Free Trial"
+            "cta": "Join as Founding Member"
           },
           {
-            "name": "Professional",
-            "price": "€299",
-            "billingPeriod": "per month",
-            "description": "Advanced matching & analytics",
+            "name": "Standard Membership (Men)",
+            "price": "€100",
+            "billingPeriod": "30 days, non-recurring by default",
+            "description": "30-day membership with manual renewal option",
             "features": [
-              "Unlimited matches",
-              "Advanced AI algorithms",
-              "Priority support",
-              "Analytics dashboard",
-              "API access"
+              "Full verification & discovery tools",
+              "Priority waitlist with pro-rated refunds if paused",
+              "Referral credits & re-entry price lock"
             ],
-            "cta": "Get Started",
-            "popular": true
+            "cta": "Apply for Membership"
           }
         ]
       },
-      "tags": ["scheduling", "matching", "ai"],
-      "featured": false
+      "tags": ["dating", "verification", "capacity-management", "privacy"],
+      "featured": true
     },
+
     {
       "key": "kitchenos",
       "name": "KitchenOS",
